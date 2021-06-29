@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>冷蔵庫マスター</title>
+    </head>
+    <body>
+        <h1>ログイン</h1>
+        <form action="login" method="post">
+            <input type="hidden" name="names" value="user,pass">
+            ユーザー名:<input type="text" name="user" id="text"><br>
+            パスワード:<input type="password" name="pass" id="text">
+            <input type="submit" value="ログイン"><br>
+            {{.errmessage}}
+        </form>
+        <a href="registUser">ユーザー登録はこちら</a>
+    </body>
+</html>

@@ -1,11 +1,7 @@
-FROM centos:centos8.3.2011
+FROM ubuntu:20.04
 LABEL maintainer="ikura-zzz <chukicamata_kbmc@yahoo.co.jp"
 
-RUN yum install -y openssh-server; yum clean all; systemctl enable sshd.service
-RUN yum install -y passwd
-
-COPY sshd_config /etc/ssh/sshd_config
-
-RUN useradd app -m -G apache
-RUN chgrp -R apache /var/www
-RUN chmod -R g+rwx /var/www
+RUN mkdir /var/goserv /var/goserv/bin /var/goserv/bin/htmls /var/goserv/bin/static
+COPY bin/websrv /var/goserv/bin/.
+COPY bin/htmls/* /var/goserv/bin/htmls/.
+COPY bin/static/* /var/goserv/bin/static/.

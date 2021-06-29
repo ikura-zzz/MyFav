@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>ユーザー登録</title>
+    </head>
+    <body>
+        <h1>ユーザーを登録</h1>
+        <form action="useradd" method="post">
+            <input type="hidden" name="names" value="user,pass1,pass2">
+            ユーザー名:<input type="text" name="user" id="text"><br>
+            パスワード:<input type="password" name="pass1" id="text">
+            パスワード再入力:<input type="password" name="pass2" id="text">
+            <input type="submit" value="登録"><br>
+            {{.message}}<br>
+            <a href="/">トップへ戻る</a>
+        </form>
+    </body>
+</html>

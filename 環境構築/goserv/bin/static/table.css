@@ -1,0 +1,10 @@
+table.shokuzai_shokai{
+    border:solid 0.2em;
+    table-layout: fixed;
+}
+th{
+    border:solid 0.1em
+}
+td{
+    border:solid 0.1em
+}
