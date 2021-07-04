@@ -1,0 +1,10 @@
+[Unit]
+Description = appsrv daemon
+
+[Service]
+ExecStart = /var/goserv/bin/appsrv
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target
