@@ -17,8 +17,8 @@ func main() {
 
 // 各リクエストのハンドラを一斉起動
 func setPages(engine *gin.Engine) {
+	Signin(engine)
 	Index(engine)
-	Login(engine)
 	Shokuzaiadd(engine)
 	SelectShokuzai(engine)
 	RegistShokuzai(engine)
