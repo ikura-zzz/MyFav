@@ -8,7 +8,7 @@ import (
 
 // ログイン要求
 func Signin(engine *gin.Engine) {
-	engine.GET("/signin", func(c *gin.Context) {
+	engine.POST("/signin", func(c *gin.Context) {
 		/*inputs := GetInputPOST(c)
 		if err := selectdb.ChkIdentifier(inputs[0], inputs[1]); err != nil {
 			c.HTML(http.StatusOK, "index.html", gin.H{
