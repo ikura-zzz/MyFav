@@ -1,0 +1,39 @@
+/*タブ切り替え全体のスタイル*/
+
+.tabs {
+    flex-wrap: wrap;
+}
+
+.tab_item:hover {
+    opacity: 0.75;
+}
+
+/*ラジオボタンを全て消す*/
+
+input[name="tab_item"] {
+    display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+
+.tab_content {
+    display: none;
+    padding: 0px 40px 0;
+    clear: both;
+    overflow: hidden;
+}
+
+/*選択されているタブのコンテンツのみを表示*/
+
+#all:checked~#all_content, #recent:checked~#recent_content, #assign:checked~#assign_content, #pending:checked~#pending_content {
+    display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+
+.tabs input:checked+.tab_item {
+    border-color: #000;
+    border-bottom-width: 2px;
+    margin-bottom: -1rem;
+    color: #000;
+}
