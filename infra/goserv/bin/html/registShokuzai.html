@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <script src="static/registShokuzai.js"></script>
+        <title>初めての食材管理簿</title>
+    </head>
+    <body>
+        <h1>冷蔵庫に食材を登録する</h1>
+        <form id="registForm" action="registShokuzai" method="get" onsubmit="return validchkshokuzaidata()">
+            <input type="hidden" name="names" value="name,category,quantity,foodsweight,uselimit,comment">
+            食品の名前：<input type="text" name="name" id="name"><br>
+            カテゴリ：
+            <input type="radio" name="category" id="category" value="food" checked="checked">食材
+            <input type="radio" name="category" id="category" value="seas">調味料
+            <input type="radio" name="category" id="category" value="powd">粉類<br>
+            <input type="radio" name="category" id="category" value="swet">お菓子・デザート
+            <input type="radio" name="category" id="category" value="froz">冷凍食品
+            <input type="radio" name="category" id="category" value="frut">くだもの
+            <br>
+            個数：<input type="number" step="0.1" name="quantity" id="quantity"><br>
+            グラム数：<input type="number" step="1" name="foodsweight" id="foodsweight"><br>
+            賞味（消費）期限：<input type="date" name="uselimit" id="uselimit"><br>
+            コメント（用途など）：<input type="text" name="comment" id="comment"><br>
+            <input type=submit value="ok"><br>
+            <div id="err"></div>
+            {{.message}}
+        </form>
+    </body>    
+</html>
