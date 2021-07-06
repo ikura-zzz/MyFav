@@ -21,8 +21,13 @@
                 </button></a>
         </ul>
     </nav>
+    <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 pt-6 mb-4 appearance-none label-floating font-bold">
+        新しいFavを登録</div>
     <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/crtfav">
-        <div class="relative rounded mb-4 appearance-none label-floating font-bold">新しいFavを登録</div>
+        <div class="relative rounded mb-4 appearance-none label-floating">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
             <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル">
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
@@ -51,8 +56,20 @@
             <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想"></textarea>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre"></label>
         </div>
+        <div class="border shadow flex items-center mb-4 justify-between">
+            満足度<input class="py-2 px-3" type="radio" id="one" name="stars">1
+            <input class="py-2 px-3" type="radio" id="two" name="stars">2
+            <input class="py-2 px-3" type="radio" id="three" name="stars" checked>3
+            <input class="py-2 px-3" type="radio" id="four" name="stars">4
+            <input class="py-2 px-3" type="radio" id="five" name="stars">5
+        </div>
+        <div class="border shadow flex items-center mb-4 justify-between">
+            公開/非公開<input class="py-2 px-3" type="radio" id="open" name="openclose">公開
+            <input class="py-2 px-3" type="radio" id="close" name="openclose" checked>非公開
+        </div>
         <div class="flex items-center justify-between">
-            <input type="submit" class="bg-black hover:bg-black text-white py-2 px-4" value="Sign In">
+            <input type="submit" class="bg-black hover:bg-black text-white py-2 px-4" value="登録">
+            <input type="submit" formaction="#" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除">
         </div>
     </form>
 </body>
