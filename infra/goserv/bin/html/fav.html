@@ -21,39 +21,36 @@
                 </button></a>
         </ul>
     </nav>
-    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/signin">
+    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/crtfav">
         <div class="relative rounded mb-4 appearance-none label-floating font-bold">新しいFavを登録</div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" id="title" type="text" placeholder="タイトル">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル">
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
                 タイトル
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" id="category" type="text" placeholder="カテゴリ">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="category" id="category" type="text" placeholder="カテゴリ">
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="category">
                 カテゴリ
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" id="publisher" type="text" placeholder="パブリッシャ">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="publisher" id="publisher" type="text" placeholder="パブリッシャ">
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="publisher">
                 パブリッシャ
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" id="overview" type="text" placeholder="概要">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="overview" id="overview" type="text" placeholder="概要">
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="overview">
                 概要
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" id="impre" type="textarea" placeholder="感想">
-            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre">
-                感想
-            </label>
+            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想"></textarea>
+            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre"></label>
         </div>
-
         <div class="flex items-center justify-between">
             <input type="submit" class="bg-black hover:bg-black text-white py-2 px-4" value="Sign In">
         </div>
