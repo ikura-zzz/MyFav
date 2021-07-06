@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func Signin(engine *gin.Engine) {
 			})
 		} else {*/
 		c.HTML(http.StatusOK, "listall.html", gin.H{
+			"list": template.HTML(genlistall()),
 			/*"food": template.HTML(selectdb.GetShokuzaiTD_Food()),
 			"seas": template.HTML(selectdb.GetShokuzaiTD_Seas()),
 			"powd": template.HTML(selectdb.GetShokuzaiTD_Powd()),
