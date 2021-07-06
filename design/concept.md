@@ -46,7 +46,7 @@
 
 - ユーザーホーム
     - Favリスト all appsrv/(username)/listall
-    - Favリスト past appsrv/(username)/listpast
+    - Favリスト already appsrv/(username)/listalready
     - Favリスト now appsrv/(username)/listnow
     - Favリスト wish appsrv/(username)/listwish
 
