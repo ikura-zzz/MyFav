@@ -15,7 +15,7 @@ func Signin(engine *gin.Engine) {
 				"errmessage": "ログインID,パスワードが一致しません",
 			})
 		} else {*/
-		c.HTML(http.StatusOK, "list.html", gin.H{
+		c.HTML(http.StatusOK, "listall.html", gin.H{
 			/*"food": template.HTML(selectdb.GetShokuzaiTD_Food()),
 			"seas": template.HTML(selectdb.GetShokuzaiTD_Seas()),
 			"powd": template.HTML(selectdb.GetShokuzaiTD_Powd()),
