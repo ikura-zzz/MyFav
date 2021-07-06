@@ -28,3 +28,36 @@
     - サムネイル画像（任意の画像を設定）
     - 感想
     - リピート可能性（お店であれば再度行きたいか、小説やゲームなどであれば同パブリッシャをリピートしたいかなど）
+
+## 個別画面
+- サインインフォーム　index.html
+    - username
+    - password
+
+- サインアップ newuser.html appsrv/signup
+    - mailadress
+    - username
+    - password
+
+- パスワード忘れ forgotpass.html
+    -mailadress or username
+
+- MyFavとは、の画面 readme.html
+
+- ユーザーホーム
+    - Favリスト all appsrv/(username)/listall
+    - Favリスト past appsrv/(username)/listpast
+    - Favリスト now appsrv/(username)/listnow
+    - Favリスト wish appsrv/(username)/listwish
+
+- Favフォーム appsrv/(username)/newfav appsrv/(username)/favname
+    - タイトル
+    - サムネイル画像
+    - カテゴリ
+    - パブリッシャ
+    - 概要
+    - 感想
+    - 公開・非公開
+    - 共有
+    - 星の数
+    - 削除
