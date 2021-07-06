@@ -1,5 +1,5 @@
 docker rm -f $(docker ps -q -a)
-docker rmi $(docker  images -q)
+docker rmi $(docker images -q)
 
 docker build -t mynginx nginx/
 docker build -t goserv goserv/
