@@ -3,7 +3,7 @@ package main
 func genlistall() string {
 	html := ""
 	for i := 0; i < 5; i++ {
-		link := "/"
+		link := "/fav"
 		icon := "http://localhost/img/icon.png"
 		title := "タイトル"
 		category := "カテゴリ"

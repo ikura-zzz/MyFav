@@ -18,6 +18,11 @@ func main() {
 // 各リクエストのハンドラを一斉起動
 func setPages(engine *gin.Engine) {
 	Signin(engine)
+	Fav(engine)
+	Listall(engine)
+	Listalready(engine)
+	Listnow(engine)
+	Listwish(engine)
 	Index(engine)
 	Shokuzaiadd(engine)
 	SelectShokuzai(engine)
