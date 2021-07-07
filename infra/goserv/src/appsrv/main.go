@@ -23,6 +23,7 @@ func setPages(engine *gin.Engine) {
 	Listalready(engine)
 	Listnow(engine)
 	Listwish(engine)
+	Crtfav(engine)
 	Index(engine)
 	Shokuzaiadd(engine)
 	SelectShokuzai(engine)

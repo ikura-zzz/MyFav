@@ -44,3 +44,17 @@ func switchlistall(c *gin.Context) {
 		"list": template.HTML(genlistall()),
 	})
 }
+func Crtfav(engine *gin.Engine) {
+	engine.POST("/crtfav", func(c *gin.Context) {
+		inputs := GetInputPOST(c)
+		c.HTML(http.StatusOK, "test.html", gin.H{
+			"a": template.HTML(inputs[0]),
+			"b": template.HTML(inputs[1]),
+			"c": template.HTML(inputs[2]),
+			"d": template.HTML(inputs[3]),
+			"e": template.HTML(inputs[4]),
+			"f": template.HTML(inputs[5]),
+			"g": template.HTML(inputs[6]),
+		})
+	})
+}

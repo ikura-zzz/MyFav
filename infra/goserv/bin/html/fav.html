@@ -22,18 +22,20 @@
                 </button></a>
         </ul>
     </nav>
-    <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold">
+    <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
         新しいFavを登録</div>
-    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/crtfav">
-        <div class="relative rounded mb-4 appearance-none label-floating">
+    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" enctype="multipart/form-data" action="/crtfav">
+        <div class="relative rounded mb-4 appearance-none">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
-        <input class="bg-black hover:bg-black text-white py-2 px-4" type="file" accept='image/*' onchange="previewImage(this);">
-        <p>
-            Preview:<br>
-            <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:200px;">
-        </p>
+        <div class="relative border shadow rounded mb-4 appearance-none">
+            アイコン <input type="file" name="icon" id="icon" accept='image/*' onchange="previewImage(this);">
+            <p>
+                Preview:<br>
+                <img id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:200px;">
+            </p>
+        </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
             <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル">
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
