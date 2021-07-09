@@ -24,12 +24,8 @@ func setPages(engine *gin.Engine) {
 	Listnow(engine)
 	Listwish(engine)
 	Crtfav(engine)
-	Index(engine)
-	Shokuzaiadd(engine)
-	SelectShokuzai(engine)
-	RegistShokuzai(engine)
-	RegistUser(engine)
-	Useradd(engine)
+	Signout(engine)
+	Signup(engine)
 }
 
 // GETリクエストのパラメータを全取得して返す。

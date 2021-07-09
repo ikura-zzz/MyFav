@@ -105,7 +105,7 @@ UsePAM yes
 #GatewayPorts no
 X11Forwarding yes
 #X11DisplayOffset 10
-#X11UseLocalhost yes
+#X11Uselocalhost yes
 #PermitTTY yes
 
 # It is recommended to use pam_motd in /etc/pam.d/sshd instead of PrintMotd,

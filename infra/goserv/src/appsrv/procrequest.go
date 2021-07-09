@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
+	"myfav/crtusr"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +18,31 @@ func Signin(engine *gin.Engine) {
 				"errmessage": "ログインID,パスワードが一致しません",
 			})
 		} else {*/
+		username := c.Query("username")
+		password := c.Query("password")
+		fmt.Println(username + password)
 		switchlistall(c)
+	})
+}
+func Signout(engine *gin.Engine) {
+	engine.GET("/signout", func(c *gin.Context) {
+		c.Redirect(303, "/")
+	})
+}
+func Signup(engine *gin.Engine) {
+	engine.POST("/signup", func(c *gin.Context) {
+		username := c.PostForm("username")
+		password := c.PostForm("password")
+		retype := c.PostForm("retypepassword")
+		fmt.Println(username)
+		fmt.Println(password)
+		fmt.Println(retype)
+		if err := crtusr.Useradd(username, password, retype); err != nil {
+			c.HTML(http.StatusOK, "index.html", gin.H{
+				"errmsg": err.Error(),
+			})
+		}
+		c.Redirect(303, "/")
 	})
 }
 func Listall(engine *gin.Engine) {
@@ -46,15 +72,6 @@ func switchlistall(c *gin.Context) {
 }
 func Crtfav(engine *gin.Engine) {
 	engine.POST("/crtfav", func(c *gin.Context) {
-		inputs := GetInputPOST(c)
-		c.HTML(http.StatusOK, "test.html", gin.H{
-			"a": template.HTML(inputs[0]),
-			"b": template.HTML(inputs[1]),
-			"c": template.HTML(inputs[2]),
-			"d": template.HTML(inputs[3]),
-			"e": template.HTML(inputs[4]),
-			"f": template.HTML(inputs[5]),
-			"g": template.HTML(inputs[6]),
-		})
+		switchlistall(c)
 	})
 }
