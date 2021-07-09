@@ -1,10 +1,10 @@
-package selectdb
+package identifychk
 
 import (
 	"testing"
 )
 
-func TestmainSuccess(t *testing.T) {
+func TestMainSuccess(t *testing.T) {
 
 }
 

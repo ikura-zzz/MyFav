@@ -12,15 +12,9 @@ import (
 // ログイン要求
 func Signin(engine *gin.Engine) {
 	engine.POST("/signin", func(c *gin.Context) {
-		/*inputs := GetInputPOST(c)
-		if err := selectdb.ChkIdentifier(inputs[0], inputs[1]); err != nil {
-			c.HTML(http.StatusOK, "index.html", gin.H{
-				"errmessage": "ログインID,パスワードが一致しません",
-			})
-		} else {*/
-		username := c.Query("username")
-		password := c.Query("password")
-		fmt.Println(username + password)
+		username := c.PostForm("username")
+		password := c.PostForm("password")
+
 		switchlistall(c)
 	})
 }
