@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"myfav/crtusr"
+	"myfav/identifychk"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,8 +15,13 @@ func Signin(engine *gin.Engine) {
 	engine.POST("/signin", func(c *gin.Context) {
 		username := c.PostForm("username")
 		password := c.PostForm("password")
-
-		switchlistall(c)
+		if err := identifychk.Invalidchk(username, password); err != nil {
+			c.HTML(http.StatusOK, "index.html", gin.H{
+				"errmsg": err.Error(),
+			})
+		} else {
+			switchlistall(c)
+		}
 	})
 }
 func Signout(engine *gin.Engine) {
@@ -32,11 +38,13 @@ func Signup(engine *gin.Engine) {
 		fmt.Println(password)
 		fmt.Println(retype)
 		if err := crtusr.Useradd(username, password, retype); err != nil {
-			c.HTML(http.StatusOK, "index.html", gin.H{
+			c.HTML(http.StatusOK, "newuser.html", gin.H{
 				"errmsg": err.Error(),
 			})
+			return
+		} else {
+			c.Redirect(303, "/")
 		}
-		c.Redirect(303, "/")
 	})
 }
 func Listall(engine *gin.Engine) {

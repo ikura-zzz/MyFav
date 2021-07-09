@@ -1,27 +1,31 @@
-package selectdb
+package identifychk
 
 import (
+	"crypto/sha256"
 	"database/sql"
 	"errors"
 	"myfav/utils"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
-func Invalidchk(username string, inputpasshash [32]byte) error {
+func Invalidchk(username string, password string) error {
+	hashpass := sha256.Sum256([]byte(password))
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
-		return err
+		return errors.New(utils.CmnErrmsg)
 	}
 	defer db.Close()
 
 	stmtInsert, err := db.Prepare(utils.SelectUserPass)
 	if err != nil {
-		return err
+		return errors.New(utils.CmnErrmsg)
 	}
 	defer stmtInsert.Close()
 
 	rows, err := stmtInsert.Query(username)
 	if err != nil {
-		return err
+		return errors.New(utils.CmnErrmsg)
 	}
 	defer rows.Close()
 
@@ -29,13 +33,13 @@ func Invalidchk(username string, inputpasshash [32]byte) error {
 	var dbpasshashstr string
 	err = rows.Scan(&dbpasshashstr)
 	if err != nil {
-		return err
+		return errors.New(utils.CmnErrmsg)
 	}
 	dbpasshash := []byte(dbpasshashstr)
 
 	for i := 0; i < len(dbpasshash); i++ {
-		if inputpasshash[i] != dbpasshash[i] {
-			return errors.New("パスワード不一致")
+		if hashpass[i] != dbpasshash[i] {
+			return errors.New("ユーザーIDかパスワードが一致しません。")
 		}
 	}
 	return nil
