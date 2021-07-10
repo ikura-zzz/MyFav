@@ -1,6 +1,7 @@
 package main
 
 import (
+	"myfav/sessionmanager"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -8,8 +9,10 @@ import (
 
 func main() {
 	engine := gin.Default()
+	sessionmanager.CreateNewSessionStore(engine)
+
 	engine.Static("/static", "./static")
-	engine.LoadHTMLGlob("/var/goserv/bin/html/*")
+	engine.LoadHTMLGlob("/var/goserv/bin/html/*.html")
 	setPages(engine)
 
 	engine.Run(":8080")

@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"myfav/crtusr"
 	"myfav/identifychk"
+	"myfav/sessionmanager"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,6 +21,7 @@ func Signin(engine *gin.Engine) {
 				"errmsg": err.Error(),
 			})
 		} else {
+			sessionmanager.CreateNewSession(c, username)
 			switchlistall(c)
 		}
 	})

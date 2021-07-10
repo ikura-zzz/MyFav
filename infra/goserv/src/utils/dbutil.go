@@ -9,4 +9,5 @@ const SelectUsernameCnt string = "SELECT count(*) from appusers where username=?
 // UserInsertSQL ユーザーを追加するときのSQL
 const UserInsertSQL string = "INSERT INTO appusers (username, passhash,upddate) values(?,?,?)"
 
+// CmnErrmsg DBアクセス系の共通エラー
 const CmnErrmsg string = "予期せぬエラーが発生しました。"

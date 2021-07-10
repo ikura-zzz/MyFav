@@ -1,6 +1,6 @@
-cd .\goserv\src\appsrv\
+Set-Location .\goserv\
 .\gomake.ps1
-cd ..\..\..\
+Set-Location ..\
 
 docker rm -f $(docker ps -q -a)
 docker rmi $(docker images -q)
