@@ -4,7 +4,7 @@ func genlistall() string {
 	html := ""
 	for i := 0; i < 5; i++ {
 		link := "/fav"
-		icon := "http://localhost/img/icon.png"
+		icon := "http://192.168.10.113/img/icon.png"
 		title := "タイトル"
 		category := "カテゴリ"
 		overview := "概要"
