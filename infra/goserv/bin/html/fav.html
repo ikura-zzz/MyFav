@@ -24,16 +24,17 @@
     </nav>
     <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
         新しいFavを登録</div>
-    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" enctype="multipart/form-data" action="/crtfav">
+    <form id="newfav" class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" enctype="multipart/form-data">
         <div class="relative rounded mb-4 appearance-none">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         <div class="relative border shadow rounded mb-4 appearance-none">
-            アイコン <input type="file" name="icon" id="icon" accept='image/*'>
+            アイコン <input type="file" name="file" id="file" accept='image/*'>
             <p>
                 <canvas id="canvas" width="0" height="0"></canvas>
             </p>
+            <input type="hidden" id="icon" name="icon" value="">
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
             <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル">
@@ -65,122 +66,39 @@
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
             時系列
-            <input type="radio" id="already" name="timing">
+            <input type="radio" id="already" name="timing" value="already">
             <label class="tab_item text-base tracking-wide px-6" for="already">already</label>
-            <input type="radio" id="now" name="timing" checked>
+            <input type="radio" id="now" name="timing" value="now" checked>
             <label class="tab_item text-base tracking-wide px-6" for="now">now</label>
-            <input type="radio" id="wish" name="timing">
+            <input type="radio" id="wish" name="timing" value="wish">
             <label class="tab_item text-base tracking-wide px-6" for="wish">wish</label>
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
             満足度
-            <input type="radio" id="one" name="stars">
+            <input type="radio" id="one" name="stars" value="1">
             <label class="tab_item text-base tracking-wide px-6" for="one">1</label>
-            <input type="radio" id="two" name="stars">
+            <input type="radio" id="two" name="stars" value="2">
             <label class="tab_item text-base tracking-wide px-6" for="two">2</label>
-            <input type="radio" id="three" name="stars" checked>
+            <input type="radio" id="three" name="stars" value="3" checked>
             <label class="tab_item text-base tracking-wide px-6" for="three">3</label>
-            <input type="radio" id="four" name="stars">
+            <input type="radio" id="four" name="stars" value="4">
             <label class="tab_item text-base tracking-wide px-6" for="four">4</label>
-            <input type="radio" id="five" name="stars">
+            <input type="radio" id="five" name="stars" value="5">
             <label class="tab_item text-base tracking-wide px-6" for="five">5</label>
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
             公開/非公開
-            <input type="radio" id="open" name="openclose">
+            <input type="radio" id="open" name="openclose" value="open">
             <label class="tab_item text-base tracking-wide px-6" for="open">公開</label>
-            <input type="radio" id="close" name="openclose" checked>
+            <input type="radio" id="close" name="openclose" value="close" checked>
             <label class="tab_item text-base tracking-wide px-6" for="close">非公開</label>
         </div>
         <div class="flex items-center justify-between">
-            <input type="submit" class="bg-black hover:bg-black text-white py-2 px-4" value="登録">
-            <input type="submit" formaction="#" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除">
+            <input type="submit" formaction="/crtfav" formmethod="POST" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="submit">
+            <input type="button" formaction="#" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete">
         </div>
     </form>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(function() {
-            var file = null;
-            var blob = null;
-            const THUMBNAIL_MAX_WIDTH = 300;
-            const THUMBNAIL_MAX_HEIGHT = 300;
-
-            // ファイルが選択されたら実行される関数
-            $('input[type=file]').change(function() {
-
-                // ファイルを取得する
-                file = $(this).prop('files')[0];
-
-                // 選択されたファイルが画像かどうか判定する
-                // ここでは、jpeg形式とpng形式のみを画像をみなす
-                if (file.type != 'image/jpeg' && file.type != 'image/png') {
-                    // 画像でない場合は何もせず終了する
-                    file = null;
-                    blob = null;
-                    return;
-                }
-
-                // 画像をリサイズする
-                var image = new Image();
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    image.onload = function() {
-
-                        // 縮小後のサイズを計算する
-                        var width, height;
-                        if (image.width > image.height) {
-                            // ヨコ長の画像は横サイズを定数にあわせる
-                            var ratio = image.height / image.width;
-                            width = THUMBNAIL_MAX_WIDTH;
-                            height = THUMBNAIL_MAX_WIDTH * ratio;
-                        } else {
-                            // タテ長の画像は縦のサイズを定数にあわせる
-                            var ratio = image.width / image.height;
-                            width = THUMBNAIL_MAX_HEIGHT * ratio;
-                            height = THUMBNAIL_MAX_HEIGHT;
-                        }
-
-                        // 縮小画像を描画するcanvasのサイズを上で算出した値に変更する
-                        var canvas = $('#canvas')
-                            .attr('width', width)
-                            .attr('height', height);
-
-                        var ctx = canvas[0].getContext('2d');
-
-                        // canvasに既に描画されている画像があればそれを消す
-                        ctx.clearRect(0, 0, width, height);
-
-                        // canvasに縮小画像を描画する
-                        ctx.drawImage(image,
-                            0, 0, image.width, image.height,
-                            0, 0, width, height
-                        );
-
-                        // canvasから画像をbase64として取得する
-                        var base64 = canvas.get(0).toDataURL('image/jpeg');
-
-                        // base64から画像データを作成する
-                        var barr, bin, i, len;
-                        bin = atob(base64.split('base64,')[1]);
-                        len = bin.length;
-                        barr = new Uint8Array(len);
-                        i = 0;
-                        while (i < len) {
-                            barr[i] = bin.charCodeAt(i);
-                            i++;
-                        }
-                        blob = new Blob([barr], {
-                            type: 'image/jpeg'
-                        });
-
-                    }
-                    image.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            });
-
-        })
-    </script>
+    <script src="http://192.168.10.113/js/fav.js"></script>
 </body>
 
 </html>

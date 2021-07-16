@@ -80,6 +80,10 @@ func Listwish(engine *gin.Engine) {
 func Crtfav(engine *gin.Engine) {
 	engine.POST("/crtfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
+			icon := c.PostForm("icon")
+			title := c.PostForm("title")
+			fmt.Println(icon)
+			fmt.Println(title)
 			switchlistall(c)
 		})
 	})
