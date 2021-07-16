@@ -64,6 +64,7 @@ script.addEventListener('load', function() {
             }
             reader.readAsDataURL(file);
         });
+        // submitが押されたらfile属性は空にしておく。
         $('input[type=submit]').click(function() {
             $('input[type=file]').val('');
         });

@@ -23,14 +23,14 @@ func Signin(engine *gin.Engine) {
 			})
 		} else {
 			sessionmanager.CreateNewSession(c, username)
-			switchlistall(c)
+			redirectHome(c)
 		}
 	})
 }
 func Signout(engine *gin.Engine) {
 	engine.GET("/signout", func(c *gin.Context) {
 		sessionmanager.RemoveSession(c)
-		redirectHome(c)
+		redirectTop(c)
 	})
 }
 func Signup(engine *gin.Engine) {
@@ -47,7 +47,7 @@ func Signup(engine *gin.Engine) {
 			})
 			return
 		} else {
-			redirectHome(c)
+			redirectTop(c)
 		}
 	})
 }
@@ -84,7 +84,7 @@ func Crtfav(engine *gin.Engine) {
 			title := c.PostForm("title")
 			fmt.Println(icon)
 			fmt.Println(title)
-			switchlistall(c)
+			redirectHome(c)
 		})
 	})
 }
@@ -101,13 +101,17 @@ func switchlistall(c *gin.Context) {
 	})
 }
 
-func redirectHome(c *gin.Context) {
+func redirectTop(c *gin.Context) {
 	c.Redirect(303, "/")
+}
+
+func redirectHome(c *gin.Context) {
+	c.Redirect(303, "/listall")
 }
 
 func transPage(c *gin.Context, fn func(*gin.Context)) {
 	if !sessionmanager.InqSessionValid(c, utils.SessionKeyUser) {
-		redirectHome(c)
+		redirectTop(c)
 		c.Abort()
 	} else {
 		fn(c)
