@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -35,7 +36,11 @@ func Listwish(engine *gin.Engine) {
 }
 
 func switchlistall(c *gin.Context) {
+	favs, err := genlistall(c)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 	c.HTML(http.StatusOK, "listall.html", gin.H{
-		"list": template.HTML(genlistall()),
+		"list": template.HTML(favs),
 	})
 }

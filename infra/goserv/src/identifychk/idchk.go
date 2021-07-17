@@ -95,12 +95,13 @@ func GetUsrId(username string) (int, error) {
 	}
 	defer rows.Close()
 
-	rows.Next()
+	if !rows.Next() {
+		return 0, errors.New("not exist user")
+	}
 	var id int
 	err = rows.Scan(&id)
 	if err != nil {
-		//return 0, err
-		return 0, errors.New("usrid4")
+		return 0, errors.New("row.Scan " + err.Error())
 	}
 	return id, nil
 }

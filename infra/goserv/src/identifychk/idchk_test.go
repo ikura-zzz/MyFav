@@ -2,6 +2,7 @@ package identifychk
 
 import (
 	"database/sql"
+	"errors"
 	"myfav/utils"
 	"testing"
 )
@@ -45,4 +46,7 @@ func TestExecQuery(t *testing.T) {
 		t.Fatalf("failed test%#v", err.Error())
 	}
 	defer rows.Close()
+	if !rows.Next() {
+		t.Fatalf("failed test%#v", errors.New("not record"))
+	}
 }

@@ -9,11 +9,17 @@ const SelectUserID string = "SELECT userid from appusers where username=?"
 // SelectUsernameCnt ユーザー名で、同一ユーザー名のレコード数を取得するときのSQL
 const SelectUsernameCnt string = "SELECT count(*) from appusers where username=?"
 
+// SelectFavsByUserid FavをユーザーIDで抽出する
+const SelectFavsByUserid string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image from favs AS f JOIN images AS i ON f.favid = i.favid where f.userid=?"
+
 // UserInsertSQL ユーザーを追加するときのSQL
 const UserInsertSQL string = "INSERT INTO appusers (username, passhash,upddate) values(?,?,?)"
 
 // FavInsertSQL Favを追加するときのSQL
 const FavInsertSQL string = "INSERT INTO favs (userid, title, category, publisher, overview, impression, timing, stars, openclose, upddate) values(?,?,?,?,?,?,?,?,?,?)"
+
+// ImageInsertSQL iconを追加するときのSQL
+const ImageInsertSQL string = "INSERT INTO images (favid,image) value(?,?)"
 
 // CmnErrmsg DBアクセス系の共通エラー
 const CmnErrmsg string = "予期せぬエラーが発生しました。"

@@ -11,10 +11,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ユーザー追加の実行
+// Favadd Favの新規登録
 func Favadd(c *gin.Context, fav Fav) error {
 	var err error
-	fav.Userid, err = getusrid(c)
+	fav.Userid, err = Getusrid(c)
 	if err != nil {
 		return err
 	}
@@ -40,26 +40,27 @@ func timingconv(timing string) string {
 		return "3"
 	}
 
-	return "0"
+	return "2"
 }
+
 func starsconv(stars string) string {
-	if stars == "one" {
+	if stars == "1" {
 		return "1"
 	}
-	if stars == "two" {
+	if stars == "2" {
 		return "2"
 	}
-	if stars == "three" {
+	if stars == "3" {
 		return "3"
 	}
-	if stars == "four" {
+	if stars == "4" {
 		return "4"
 	}
-	if stars == "five" {
+	if stars == "5" {
 		return "5"
 	}
 
-	return "0"
+	return "3"
 }
 func opclconv(opcl string) string {
 	if opcl == "open" {
@@ -71,7 +72,7 @@ func opclconv(opcl string) string {
 
 	return "0"
 }
-func getusrid(c *gin.Context) (int, error) {
+func Getusrid(c *gin.Context) (int, error) {
 
 	username, ok := sessionmanager.GetSession(c, "username")
 	if !ok {
@@ -87,19 +88,37 @@ func getusrid(c *gin.Context) (int, error) {
 func resistFav(fav Fav) error {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
-		//return err
-		return errors.New("resistfav1" + err.Error())
+		return errors.New("resistfav:sqlopen " + err.Error())
 	}
 	defer db.Close()
 
+	if rs, err := resistFavs_favs(db, fav); err != nil {
+		return err
+	} else {
+		return resistFavs_image(db, fav, rs)
+	}
+}
+
+func resistFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
 	stmtInsert, err := db.Prepare(utils.FavInsertSQL)
 	if err != nil {
-		//return err
-		return errors.New("resistfav2" + err.Error())
+		return nil, errors.New("resistFavs_favs " + err.Error())
 	}
 	defer stmtInsert.Close()
 
-	_, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtusr.GetTimeString())
-	return err
+	var rs sql.Result
+	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtusr.GetTimeString())
+	return rs, err
+}
 
+func resistFavs_image(db *sql.DB, fav Fav, rs sql.Result) error {
+	stmtInsert, err := db.Prepare(utils.ImageInsertSQL)
+	if err != nil {
+		return errors.New("resistFavs_image " + err.Error())
+	}
+	defer stmtInsert.Close()
+
+	favid, _ := rs.LastInsertId()
+	_, err = stmtInsert.Exec(favid, fav.Icon)
+	return err
 }

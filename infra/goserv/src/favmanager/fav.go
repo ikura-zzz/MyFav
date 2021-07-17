@@ -2,6 +2,7 @@ package favmanager
 
 type Fav struct {
 	Userid    int
+	Favid     int
 	Icon      string
 	Title     string
 	Category  string
