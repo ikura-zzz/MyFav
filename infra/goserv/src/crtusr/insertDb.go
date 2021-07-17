@@ -27,11 +27,11 @@ func registUser(username string, password string) error {
 	}
 	defer stmtInsert.Close()
 
-	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), getTimeString())
+	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), GetTimeString())
 	return err
 }
 
-func getTimeString() string {
+func GetTimeString() string {
 	layout := "2006-01-02 15:04:05"
 	now := time.Now()
 	return now.Format(layout)

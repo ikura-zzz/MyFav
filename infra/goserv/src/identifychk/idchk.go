@@ -72,3 +72,35 @@ func GetUsrCnt(username string) (int, error) {
 	}
 	return cnt, nil
 }
+
+func GetUsrId(username string) (int, error) {
+	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	if err != nil {
+		//return 0, err
+		return 0, errors.New("sql.open " + err.Error())
+	}
+	defer db.Close()
+
+	stmtInsert, err := db.Prepare(utils.SelectUserID)
+	if err != nil {
+		//return 0, err
+		return 0, errors.New("db.Prepare " + err.Error())
+	}
+	defer stmtInsert.Close()
+
+	rows, err := stmtInsert.Query(username)
+	if err != nil {
+		//return 0, err
+		return 0, errors.New("stmt.Query " + err.Error())
+	}
+	defer rows.Close()
+
+	rows.Next()
+	var id int
+	err = rows.Scan(&id)
+	if err != nil {
+		//return 0, err
+		return 0, errors.New("usrid4")
+	}
+	return id, nil
+}
