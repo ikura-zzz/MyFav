@@ -1,9 +1,12 @@
 package favmanager
 
-import "testing"
+import (
+	"myfav/utils"
+	"testing"
+)
 
 func TestSelectFavsByUserid(t *testing.T) {
-	favs, err := SelectfavsByUserid(1)
+	favs, err := SelectfavsByUserid(1, utils.SelectFavsByUserid)
 	if err != nil {
 		t.Fatalf("failed test%#v", err.Error())
 	}

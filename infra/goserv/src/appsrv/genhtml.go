@@ -4,17 +4,32 @@ import (
 	"errors"
 	"fmt"
 	"myfav/favmanager"
+	"myfav/utils"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 func genlistall(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUserid)
+}
+
+func genlistalready(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUseridAlready)
+}
+func genlistnow(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUseridNow)
+}
+
+func genlistwish(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUseridWish)
+}
+func genlist(c *gin.Context, sql string) (string, error) {
 	userid, err := favmanager.Getusrid(c)
 	if err != nil {
 		return "", errors.New("selectfav_getusrid " + err.Error())
 	}
-	favs, err := favmanager.SelectfavsByUserid(userid)
+	favs, err := favmanager.SelectfavsByUserid(userid, sql)
 	if err != nil {
 		return "", errors.New("genlistall_selectfavs:" + err.Error())
 	}

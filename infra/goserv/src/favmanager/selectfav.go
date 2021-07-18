@@ -6,14 +6,14 @@ import (
 	"myfav/utils"
 )
 
-func SelectfavsByUserid(userid int) ([]Fav, error) {
+func SelectfavsByUserid(userid int, selectSql string) ([]Fav, error) {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
 		return nil, errors.New("sql.open " + err.Error())
 	}
 	defer db.Close()
 
-	stmtInsert, err := db.Prepare(utils.SelectFavsByUserid)
+	stmtInsert, err := db.Prepare(selectSql)
 	if err != nil {
 		return nil, errors.New("db.Prepare " + err.Error())
 	}
