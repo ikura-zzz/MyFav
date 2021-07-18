@@ -1,13 +1,11 @@
 var head = document.getElementsByTagName('head')
 var script = document.createElement('script')
-    //ここで任意のjQueryを読み込ませる
 script.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
 script.setAttribute('type', 'text/javascript')
 script.addEventListener('load', function() {
     $(function() {
         const THUMBNAIL_MAX_WIDTH = 300;
         const THUMBNAIL_MAX_HEIGHT = 300;
-
         $('input[type=file]').change(function() {
             var file = null;
             var blob = null;

@@ -11,7 +11,7 @@
     <title>MyFav</title>
 </head>
 
-<body>
+<body onload="imgdraw()">
     <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
         <a href="/listall" class="block text-left">
             <img src="http://127.0.0.1/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
@@ -32,9 +32,9 @@
         <div class="relative border shadow rounded mb-4 appearance-none">
             アイコン <input type="file" name="file" id="file" accept='image/*'>
             <p>
-                <canvas id="canvas" width="0" height="0"></canvas>
+                <canvas id="canvas" class="rounded" width="0" height="0"></canvas>
             </p>
-            <input type="hidden" id="icon" name="icon" value="">
+            <input type="hidden" id="icon" name="icon" value="{{.icon}}">
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
             <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value={{.title}} required>
@@ -61,7 +61,7 @@
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想" value=>{{.impression}}</textarea>
+            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想">{{.impression}}</textarea>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre"></label>
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
@@ -75,7 +75,7 @@
         </div>
         <input type="hidden" id="favid" name="favid" value={{.favid}}>
         <div class="flex items-center justify-between">
-            <input type="submit" formaction="/crtfav" formmethod="POST" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="submit">
+            <input type="submit" formaction="/modfav" formmethod="POST" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="submit">
             <input type="submit" formaction="/favdel" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete">
         </div>
     </form>

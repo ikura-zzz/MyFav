@@ -46,25 +46,23 @@ func updateFav(fav Fav) error {
 }
 
 func updateFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
-	stmtUpdate, err := db.Prepare(utils.FavInsertSQL)
+	stmtUpdate, err := db.Prepare(utils.FavUpdateSQL)
 	if err != nil {
 		return nil, errors.New("updateFavs_favs " + err.Error())
 	}
 	defer stmtUpdate.Close()
 
 	var rs sql.Result
-	rs, err = stmtUpdate.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtusr.GetTimeString())
+	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtusr.GetTimeString(), fav.Favid)
 	return rs, err
 }
 
 func updateFavs_image(db *sql.DB, fav Fav, rs sql.Result) error {
-	stmtInsert, err := db.Prepare(utils.ImageInsertSQL)
+	stmtInsert, err := db.Prepare(utils.ImageUpdateSQL)
 	if err != nil {
 		return errors.New("updateFavs_image " + err.Error())
 	}
 	defer stmtInsert.Close()
-
-	favid, _ := rs.LastInsertId()
-	_, err = stmtInsert.Exec(favid, fav.Icon)
+	_, err = stmtInsert.Exec(fav.Icon, fav.Favid)
 	return err
 }

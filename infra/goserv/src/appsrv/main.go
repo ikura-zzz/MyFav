@@ -27,6 +27,7 @@ func setPages(engine *gin.Engine) {
 	Listnow(engine)
 	Listwish(engine)
 	Crtfav(engine)
+	Modfav(engine)
 	Signout(engine)
 	Signup(engine)
 }
