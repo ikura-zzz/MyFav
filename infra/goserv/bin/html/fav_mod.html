@@ -23,7 +23,7 @@
         </ul>
     </nav>
     <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
-        Favをつくる</div>
+        Favを編集する</div>
     <form id="newfav" class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" enctype="multipart/form-data">
         <div class="relative rounded mb-4 appearance-none">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
@@ -37,65 +37,46 @@
             <input type="hidden" id="icon" name="icon" value="">
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" required>
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value={{.title}} required>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
                 タイトル
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="category" id="category" type="text" placeholder="カテゴリ">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="category" id="category" type="text" placeholder="カテゴリ" value={{.category}}>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="category">
                 カテゴリ
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="publisher" id="publisher" type="text" placeholder="パブリッシャ">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="publisher" id="publisher" type="text" placeholder="パブリッシャ" value={{.publisher}}>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="publisher">
                 パブリッシャ
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="overview" id="overview" type="text" placeholder="概要">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="overview" id="overview" type="text" placeholder="概要" value={{.overview}}>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="overview">
                 概要
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想"></textarea>
+            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想" value=>{{.impression}}</textarea>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre"></label>
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
-            いつから
-            <input type="radio" id="already" name="timing" value="already">
-            <label class="tab_item text-base tracking-wide px-6" for="already">前から好き</label>
-            <input type="radio" id="now" name="timing" value="now" checked>
-            <label class="tab_item text-base tracking-wide px-6" for="now">いま好き</label>
-            <input type="radio" id="wish" name="timing" value="wish">
-            <label class="tab_item text-base tracking-wide px-6" for="wish">好きになりたい</label>
+            いつから {{.timing}}
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
-            好き度
-            <input type="radio" id="one" name="stars" value="1">
-            <label class="tab_item text-base tracking-wide px-6" for="one">1</label>
-            <input type="radio" id="two" name="stars" value="2">
-            <label class="tab_item text-base tracking-wide px-6" for="two">2</label>
-            <input type="radio" id="three" name="stars" value="3" checked>
-            <label class="tab_item text-base tracking-wide px-6" for="three">3</label>
-            <input type="radio" id="four" name="stars" value="4">
-            <label class="tab_item text-base tracking-wide px-6" for="four">4</label>
-            <input type="radio" id="five" name="stars" value="5">
-            <label class="tab_item text-base tracking-wide px-6" for="five">5</label>
+            好き度 {{.stars}}
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
-            公開/非公開
-            <input type="radio" id="open" name="openclose" value="open">
-            <label class="tab_item text-base tracking-wide px-6" for="open">公開</label>
-            <input type="radio" id="close" name="openclose" value="close" checked>
-            <label class="tab_item text-base tracking-wide px-6" for="close">非公開</label>
+            公開/非公開 {{.openclose}}
         </div>
+        <input type="hidden" id="favid" name="favid" value={{.favid}}>
         <div class="flex items-center justify-between">
             <input type="submit" formaction="/crtfav" formmethod="POST" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="submit">
-            <a href="/listall"><input type="button" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="キャンセル" id="delete"></a>
+            <input type="submit" formaction="/favdel" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete">
         </div>
     </form>
     <script src="http://127.0.0.1/js/fav.js"></script>

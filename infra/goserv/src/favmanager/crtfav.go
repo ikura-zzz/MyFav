@@ -16,16 +16,19 @@ func Favadd(c *gin.Context, fav Fav) error {
 	var err error
 	fav.Userid, err = Getusrid(c)
 	if err != nil {
-		return err
+		return errors.New("favadd getuserid:" + err.Error())
 	}
 
 	fav.Timing = timingconv(fav.Timing)
 	fav.Stars = starsconv(fav.Stars)
 	fav.Openclose = opclconv(fav.Openclose)
 
+	if fav.Title == "" {
+		return errors.New("favadd:title is empty")
+	}
+
 	if err := resistFav(fav); err != nil {
-		//return err
-		return errors.New("favadd2" + err.Error())
+		return errors.New("favadd resistFav:" + err.Error())
 	}
 	return nil
 }

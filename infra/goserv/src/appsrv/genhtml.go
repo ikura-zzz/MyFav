@@ -40,7 +40,7 @@ func genhtml(favs []favmanager.Fav) (string, error) {
 	html := ""
 	for i := 0; i < len(favs); i++ {
 		fav := favs[i]
-		link := "#"
+		link := fmt.Sprintf("/fav?favid=%d", favs[i].Favid)
 
 		fav.Stars = starsconv(fav.Stars)
 
