@@ -6,7 +6,6 @@ import (
 	"myfav/favmanager"
 	"myfav/utils"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,16 +21,26 @@ func Crtfav(engine *gin.Engine) {
 		})
 	})
 }
+
+func Modfav(engine *gin.Engine) {
+	engine.POST("/modfav", func(c *gin.Context) {
+		transPage(c, func(c *gin.Context) {
+			fav := getPostElem(c)
+			if err := favmanager.Favmod(c, fav); err != nil {
+				fmt.Println(err)
+			}
+			redirectHome(c)
+		})
+	})
+}
 func Fav(engine *gin.Engine) {
 	engine.GET("/fav", func(c *gin.Context) {
-		favid, err := strconv.Atoi(c.Query("favid"))
+		favid := c.Query("favid")
+		userid, err := favmanager.Getusrid(c)
 		if err != nil {
-			transPage(c, func(c *gin.Context) {
-				c.HTML(http.StatusOK, "fav.html", gin.H{})
-			})
-			c.Abort()
+			fmt.Println("switchFav_getusrid:" + err.Error())
 		}
-		favs, err := favmanager.SelectfavsByUserid(favid, utils.SelectFavsByUserid)
+		favs, err := favmanager.SelectfavsByUserid(userid, utils.SelectFavsByUserid)
 		if err != nil {
 			fmt.Println("switchFav:" + err.Error())
 		}
@@ -47,7 +56,7 @@ func Fav(engine *gin.Engine) {
 						"timing":     template.HTML(gentimingHTML(f.Timing)),
 						"stars":      template.HTML(genstarsHTML(f.Stars)),
 						"openclose":  template.HTML(genopencloseHTML(f.Openclose)),
-						"favid":      template.HTML(fmt.Sprintf("%d", favid)),
+						"favid":      template.HTML(f.Favid),
 					})
 				})
 				c.Abort()
@@ -111,6 +120,7 @@ func genopencloseHTML(oc string) string {
 
 func getPostElem(c *gin.Context) favmanager.Fav {
 	var fav favmanager.Fav
+	fav.Favid = c.PostForm("favid")
 	fav.Icon = c.PostForm("icon")
 	fav.Title = c.PostForm("title")
 	fav.Category = c.PostForm("category")
