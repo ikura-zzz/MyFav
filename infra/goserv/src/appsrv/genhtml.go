@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"myfav/favmanager"
+	"myfav/sessionmanager"
 	"myfav/utils"
 	"strconv"
 
@@ -27,9 +28,9 @@ func genlistwish(c *gin.Context) (string, error) {
 	return genlist(c, utils.SelectFavsByUseridWish)
 }
 func genlist(c *gin.Context, sql string) (string, error) {
-	userid, err := favmanager.Getusrid(c)
+	userid, err := sessionmanager.GetUserId(c)
 	if err != nil {
-		return "", errors.New("selectfav_getusrid " + err.Error())
+		return "", errors.New("selectfav_getuserid " + err.Error())
 	}
 	favs, err := favmanager.SelectfavsByUserid(userid, sql)
 	if err != nil {

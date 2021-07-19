@@ -1,6 +1,7 @@
 package sessionmanager
 
 import (
+	"errors"
 	"myfav/identifychk"
 	"myfav/utils"
 
@@ -34,7 +35,7 @@ func InqSessionValid(c *gin.Context, key string) bool {
 	if !ok {
 		return false
 	}
-	if cnt, err := identifychk.GetUsrCnt(value); err != nil {
+	if cnt, err := identifychk.GetUserCnt(value); err != nil {
 		return false
 	} else {
 		return cnt > 0
@@ -45,4 +46,16 @@ func RemoveSession(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Clear()
 	session.Save()
+}
+func GetUserId(c *gin.Context) (int, error) {
+
+	username, ok := GetSession(c, "username")
+	if !ok {
+		return 0, errors.New("DBアクセス不可")
+	}
+	id, err := identifychk.GetUserId(username)
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
 }

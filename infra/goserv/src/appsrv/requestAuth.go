@@ -1,7 +1,7 @@
 package main
 
 import (
-	"myfav/crtusr"
+	"myfav/crtuser"
 	"myfav/identifychk"
 	"myfav/sessionmanager"
 	"net/http"
@@ -34,7 +34,7 @@ func Signup(engine *gin.Engine) {
 		username := c.PostForm("username")
 		password := c.PostForm("password")
 		retype := c.PostForm("retypepassword")
-		if err := crtusr.Useradd(username, password, retype); err != nil {
+		if err := crtuser.Useradd(username, password, retype); err != nil {
 			c.HTML(http.StatusOK, "newuser.html", gin.H{
 				"errmsg": err.Error(),
 			})

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"myfav/favmanager"
+	"myfav/sessionmanager"
 	"myfav/utils"
 	"net/http"
 
@@ -36,7 +37,7 @@ func Modfav(engine *gin.Engine) {
 func Fav(engine *gin.Engine) {
 	engine.GET("/fav", func(c *gin.Context) {
 		favid := c.Query("favid")
-		userid, err := favmanager.Getusrid(c)
+		userid, err := sessionmanager.GetUserId(c)
 		if err != nil {
 			transPage(c, func(c *gin.Context) {
 				c.HTML(http.StatusOK, "fav.html", gin.H{})

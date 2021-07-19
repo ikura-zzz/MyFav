@@ -3,8 +3,7 @@ package favmanager
 import (
 	"database/sql"
 	"errors"
-	"myfav/crtusr"
-	"myfav/identifychk"
+	"myfav/crtuser"
 	"myfav/sessionmanager"
 	"myfav/utils"
 
@@ -14,7 +13,7 @@ import (
 // Favadd Favの新規登録
 func Favadd(c *gin.Context, fav Fav) error {
 	var err error
-	fav.Userid, err = Getusrid(c)
+	fav.Userid, err = sessionmanager.GetUserId(c)
 	if err != nil {
 		return errors.New("favadd getuserid:" + err.Error())
 	}
@@ -75,18 +74,6 @@ func opclconv(opcl string) string {
 
 	return "0"
 }
-func Getusrid(c *gin.Context) (int, error) {
-
-	username, ok := sessionmanager.GetSession(c, "username")
-	if !ok {
-		return 0, errors.New("DBアクセス不可")
-	}
-	id, err := identifychk.GetUsrId(username)
-	if err != nil {
-		return 0, err
-	}
-	return id, nil
-}
 
 func resistFav(fav Fav) error {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
@@ -110,7 +97,7 @@ func resistFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
 	defer stmtInsert.Close()
 
 	var rs sql.Result
-	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtusr.GetTimeString())
+	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtuser.GetTimeString())
 	return rs, err
 }
 

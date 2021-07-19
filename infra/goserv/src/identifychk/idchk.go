@@ -45,7 +45,7 @@ func Invalidchk(username string, password string) error {
 	return nil
 }
 
-func GetUsrCnt(username string) (int, error) {
+func GetUserCnt(username string) (int, error) {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
 		return 0, err
@@ -73,7 +73,7 @@ func GetUsrCnt(username string) (int, error) {
 	return cnt, nil
 }
 
-func GetUsrId(username string) (int, error) {
+func GetUserId(username string) (int, error) {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
 		//return 0, err

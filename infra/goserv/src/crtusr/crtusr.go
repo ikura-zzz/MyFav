@@ -1,4 +1,4 @@
-package crtusr
+package crtuser
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ func Useradd(username string, pass1 string, pass2 string) error {
 	if err := passwordValid(pass1, pass2); err != nil {
 		return err
 	}
-	if cnt, err := selectdb.GetUsrCnt(username); err != nil {
+	if cnt, err := selectdb.GetUserCnt(username); err != nil {
 		return errors.New(utils.CmnErrmsg)
 	} else if cnt != 0 {
 		return errors.New("このユーザー名は既に使用されています。")

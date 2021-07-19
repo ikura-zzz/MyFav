@@ -1,4 +1,4 @@
-package crtusr
+package crtuser
 
 import (
 	// mysql driver

@@ -31,10 +31,10 @@ const FavInsertSQL string = "INSERT INTO favs (userid, title, category, publishe
 const ImageInsertSQL string = "INSERT INTO images (favid,image) value(?,?)"
 
 // FavUpdateSQL Favを追加するときのSQL
-const FavUpdateSQL string = "UPDATE favs SET title=?, category=?, publisher=?, overview=?, impression=?, timing=?, stars=?, openclose=?, upddate=? where favid=?"
+const FavUpdateSQL string = "UPDATE favs SET title=?, category=?, publisher=?, overview=?, impression=?, timing=?, stars=?, openclose=?, upddate=? where userid=?, favid=?"
 
 // ImageUpdateSQL iconを追加するときのSQL
-const ImageUpdateSQL string = "UPDATE images SET image=? where favid=?"
+const ImageUpdateSQL string = "UPDATE images SET image=? where userid=?, favid=?"
 
 // CmnErrmsg DBアクセス系の共通エラー
 const CmnErrmsg string = "予期せぬエラーが発生しました。"

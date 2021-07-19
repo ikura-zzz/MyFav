@@ -3,7 +3,8 @@ package favmanager
 import (
 	"database/sql"
 	"errors"
-	"myfav/crtusr"
+	"myfav/crtuser"
+	"myfav/sessionmanager"
 	"myfav/utils"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,7 @@ import (
 // Favmod Favの新規登録
 func Favmod(c *gin.Context, fav Fav) error {
 	var err error
-	fav.Userid, err = Getusrid(c)
+	fav.Userid, err = sessionmanager.GetUserId(c)
 	if err != nil {
 		return errors.New("favadd getuserid:" + err.Error())
 	}
@@ -53,7 +54,7 @@ func updateFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
 	defer stmtUpdate.Close()
 
 	var rs sql.Result
-	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtusr.GetTimeString(), fav.Favid)
+	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtuser.GetTimeString(), fav.Favid)
 	return rs, err
 }
 
