@@ -48,6 +48,7 @@ script.addEventListener('load', function() {
                     // canvasに既に描画されている画像があればそれを消す
                     ctx.clearRect(0, 0, width, height);
 
+                    document.getElementById("iconimg").style.display = "none";
                     // canvasに縮小画像を描画する
                     ctx.drawImage(image,
                         0, 0, image.width, image.height,
