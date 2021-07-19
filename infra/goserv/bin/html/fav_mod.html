@@ -34,7 +34,8 @@
             <p>
                 <canvas id="canvas" class="rounded" width="0" height="0"></canvas>
             </p>
-            <input type="hidden" id="icon" name="icon" value="{{.icon}}">
+            <img id="iconimg" name="iconimg" src="{{.icon}}">
+            <input type="hidden" id="icon" name="icon">
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
             <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value={{.title}} required>
