@@ -41,7 +41,7 @@ func updateFav(fav Fav) error {
 
 	if rs, err := updateFavs_favs(db, fav); err != nil {
 		return err
-	} else if cnt, err := rs.RowsAffected(); cnt != 0 && err == nil {
+	} else if cnt, err := rs.RowsAffected(); cnt != 0 {
 		return updateFavs_image(db, fav, rs)
 	} else if cnt == 0 {
 		return errors.New("updateFav:更新レコードが0件です。")
@@ -58,7 +58,8 @@ func updateFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
 	defer stmtUpdate.Close()
 
 	var rs sql.Result
-	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtuser.GetTimeString(), fav.Userid, fav.Favid)
+	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview,
+		fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtuser.GetTimeString(), fav.Userid, fav.Favid)
 	return rs, err
 }
 

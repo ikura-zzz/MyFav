@@ -1,7 +1,7 @@
-var head = document.getElementsByTagName('head')
-var script = document.createElement('script')
-script.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-script.setAttribute('type', 'text/javascript')
+var head = document.getElementsByTagName('head');
+var script = document.createElement('script');
+script.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+script.setAttribute('type', 'text/javascript');
 script.addEventListener('load', function() {
     $(function() {
         const THUMBNAIL_MAX_WIDTH = 300;
@@ -57,7 +57,8 @@ script.addEventListener('load', function() {
 
                     // canvasから画像をbase64として取得してhidden属性に添付する
                     var base64 = canvas.get(0).toDataURL('image/jpeg');
-                    document.getElementById("icon").value = base64
+                    document.getElementById("iconimg").src = "";
+                    document.getElementById("icon").value = base64;
                 }
                 image.src = e.target.result;
             }
@@ -67,6 +68,6 @@ script.addEventListener('load', function() {
         $('#submit').click(function() {
             $('input[type=file]').val('');
         });
-    })
+    });
 })
 document.head.appendChild(script)

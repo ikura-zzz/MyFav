@@ -56,7 +56,7 @@ func Fav(engine *gin.Engine) {
 			if f.Favid == favid {
 				transPage(c, func(c *gin.Context) {
 					c.HTML(http.StatusOK, "fav_mod.html", gin.H{
-						"icon":       template.HTML(f.Icon),
+						"icon":       template.URL(f.Icon),
 						"title":      template.HTML(f.Title),
 						"category":   template.HTML(f.Category),
 						"publisher":  template.HTML(f.Publisher),

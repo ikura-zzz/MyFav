@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"myfav/favmanager"
 	"myfav/sessionmanager"
 	"myfav/utils"
@@ -55,7 +54,6 @@ func genhtml(favs []favmanager.Fav) (string, error) {
 			fav.Overview + "</p>		<label for=\"stars\" class=\"font-bold w-1/5 text-right\">" +
 			fav.Stars + "</label>	</li></a>\n"
 	}
-	fmt.Println("html:" + html)
 	return html, nil
 }
 

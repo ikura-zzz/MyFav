@@ -13,7 +13,7 @@
 <body>
     <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
         <a href="/" class="block text-left">
-            <img src="http://127.0.0.1/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
+            <img src="http://192.168.10.113/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
         </a>
         <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
             <a href="/newuser.html"><button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
@@ -23,13 +23,13 @@
     </nav>
     <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/signin">
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="username" id="username" type="text" placeholder="Username">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="username" id="username" type="text" placeholder="Username" required>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="username">
                 Username
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="password" id="password" type="password" placeholder="Password">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="password" id="password" type="password" placeholder="Password" required>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="password">
                 Password
             </label>
