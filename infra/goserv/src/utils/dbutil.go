@@ -1,25 +1,25 @@
 package utils
 
 // SelectUserPass ユーザー名でパスワードハッシュを取得するときのSQL
-const SelectUserPass string = "SELECT passhash from appusers where username=?"
+const SelectUserPass string = "SELECT passhash FROM appusers WHERE username=?"
 
 // SelectUserID ユーザーIDを取得するときのSQL
-const SelectUserID string = "SELECT userid from appusers where username=?"
+const SelectUserID string = "SELECT userid FROM appusers WHERE username=?"
 
 // SelectUsernameCnt ユーザー名で、同一ユーザー名のレコード数を取得するときのSQL
-const SelectUsernameCnt string = "SELECT count(*) from appusers where username=?"
+const SelectUsernameCnt string = "SELECT count(*) FROM appusers WHERE username=?"
 
 // SelectFavsByUserid FavをユーザーIDで抽出する
-const SelectFavsByUserid string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image from favs AS f JOIN images AS i ON f.favid = i.favid where f.userid=?"
+const SelectFavsByUserid string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.userid=?"
 
 // SelectFavsByUseridAlready FavをユーザーIDで抽出する
-const SelectFavsByUseridAlready string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image from favs AS f JOIN images AS i ON f.favid = i.favid where f.timing=1 AND f.userid=?"
+const SelectFavsByUseridAlready string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.timing=1 AND f.userid=?"
 
 // SelectFavsByUseridNow FavをユーザーIDで抽出する
-const SelectFavsByUseridNow string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image from favs AS f JOIN images AS i ON f.favid = i.favid where f.timing=2 AND f.userid=?"
+const SelectFavsByUseridNow string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.timing=2 AND f.userid=?"
 
 // SelectFavsByUseridWish FavをユーザーIDで抽出する
-const SelectFavsByUseridWish string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image from favs AS f JOIN images AS i ON f.favid = i.favid where f.timing=3 AND f.userid=?"
+const SelectFavsByUseridWish string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.timing=3 AND f.userid=?"
 
 // UserInsertSQL ユーザーを追加するときのSQL
 const UserInsertSQL string = "INSERT INTO appusers (username, passhash,upddate) values(?,?,?)"
@@ -31,10 +31,16 @@ const FavInsertSQL string = "INSERT INTO favs (userid, title, category, publishe
 const ImageInsertSQL string = "INSERT INTO images (favid,image) value(?,?)"
 
 // FavUpdateSQL Favを追加するときのSQL
-const FavUpdateSQL string = "UPDATE favs SET title=?, category=?, publisher=?, overview=?, impression=?, timing=?, stars=?, openclose=?, upddate=? where userid=? AND favid=?"
+const FavUpdateSQL string = "UPDATE favs SET title=?, category=?, publisher=?, overview=?, impression=?, timing=?, stars=?, openclose=?, upddate=? WHERE userid=? AND favid=?"
 
 // ImageUpdateSQL iconを追加するときのSQL
-const ImageUpdateSQL string = "UPDATE images SET image=? where favid=?"
+const ImageUpdateSQL string = "UPDATE images SET image=? WHERE favid=?"
+
+// FavDeleteSQL Favを追加するときのSQL
+const FavDeleteSQL string = "DELETE FROM favs WHERE userid=? AND favid=?"
+
+// ImageDeleteSQL iconを追加するときのSQL
+const ImageDeleteSQL string = "DELETE FROM images WHERE favid=?"
 
 // CmnErrmsg DBアクセス系の共通エラー
 const CmnErrmsg string = "予期せぬエラーが発生しました。"

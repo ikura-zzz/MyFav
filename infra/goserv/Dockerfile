@@ -6,4 +6,5 @@ COPY bin/appsrv /var/goserv/bin/
 COPY bin/html/* /var/goserv/bin/html/
 COPY conf/appsrv.service /etc/systemd/system/
 
+RUN chmod 755 /var/goserv/bin/appsrv
 RUN systemctl enable appsrv.service
