@@ -1,11 +1,11 @@
 .tabs {
     flex-wrap: wrap;
-    max-width: 800px;
+    max-width: min(100%,1344px);
 }
 
 .tab_item{
     max-width:26%;
-    font-size: 3vw;
+    font-size: clamp(10px,3vw,1.7em);
 }
 
 .tab_item:hover {
