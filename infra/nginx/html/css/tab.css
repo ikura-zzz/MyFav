@@ -1,5 +1,11 @@
 .tabs {
     flex-wrap: wrap;
+    max-width: 800px;
+}
+
+.tab_item{
+    max-width:26%;
+    font-size: 3vw;
 }
 
 .tab_item:hover {
@@ -13,11 +19,6 @@ input[name="tab_item"] {
 input[type="radio"] {
     display: none;
 }
-
-
-/*canvas {
-    display: none !important;
-}*/
 
 .tab_content {
     display: none;
