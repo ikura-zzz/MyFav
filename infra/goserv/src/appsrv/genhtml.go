@@ -82,7 +82,7 @@ func gentimingHTML(t string) string {
 		wish = checked
 	}
 	html := "<input type=\"radio\" id=\"already\" name=\"timing\" value=\"already\" " +
-		already + "><label class=\"tab_item text-base tracking-wide px-6\" for=\"already\">前から好き</label><input type=\"radio\" id=\"now\" name=\"timing\" value=\"now\" " +
+		already + "><label class=\"tab_item text-base tracking-wide px-6\" for=\"already\">前から</label><input type=\"radio\" id=\"now\" name=\"timing\" value=\"now\" " +
 		now + "><label class=\"tab_item text-base tracking-wide px-6\" for=\"now\">いま好き</label><input type=\"radio\" id=\"wish\" name=\"timing\" value=\"wish\" " +
 		wish + "><label class=\"tab_item text-base tracking-wide px-6\" for=\"wish\">興味ある</label>"
 	return html
