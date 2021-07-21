@@ -6,7 +6,7 @@ import (
 	"myfav/utils"
 )
 
-func SelectfavsByUserid(userid int, selectSql string) ([]Fav, error) {
+func Selectfavs(userid int, selectSql string) ([]Fav, error) {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
 		return nil, errors.New("sql.open " + err.Error())

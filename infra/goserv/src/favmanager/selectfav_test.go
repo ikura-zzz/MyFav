@@ -6,7 +6,7 @@ import (
 )
 
 func TestSelectFavsByUserid(t *testing.T) {
-	favs, err := SelectfavsByUserid(1, utils.SelectFavsByUserid)
+	favs, err := Selectfavs(1, utils.SelectFavsByUserid)
 	if err != nil {
 		t.Fatalf("failed test%#v", err.Error())
 	}

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
+	"myfav/logging"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -32,7 +32,7 @@ func Listwish(engine *gin.Engine) {
 func switchlistall(c *gin.Context) {
 	favs, err := genlistall(c)
 	if err != nil {
-		fmt.Println(err.Error())
+		logging.Log(err.Error(), logging.High)
 	}
 	c.HTML(http.StatusOK, "listall.html", gin.H{
 		"list": template.HTML(favs),
@@ -41,7 +41,7 @@ func switchlistall(c *gin.Context) {
 func switchlistalready(c *gin.Context) {
 	favs, err := genlistalready(c)
 	if err != nil {
-		fmt.Println(err.Error())
+		logging.Log(err.Error(), logging.High)
 	}
 	c.HTML(http.StatusOK, "listalready.html", gin.H{
 		"list": template.HTML(favs),
@@ -50,7 +50,7 @@ func switchlistalready(c *gin.Context) {
 func switchlistnow(c *gin.Context) {
 	favs, err := genlistnow(c)
 	if err != nil {
-		fmt.Println(err.Error())
+		logging.Log(err.Error(), logging.High)
 	}
 	c.HTML(http.StatusOK, "listnow.html", gin.H{
 		"list": template.HTML(favs),
@@ -60,7 +60,7 @@ func switchlistnow(c *gin.Context) {
 func switchlistwish(c *gin.Context) {
 	favs, err := genlistwish(c)
 	if err != nil {
-		fmt.Println(err.Error())
+		logging.Log(err.Error(), logging.High)
 	}
 	c.HTML(http.StatusOK, "listwish.html", gin.H{
 		"list": template.HTML(favs),

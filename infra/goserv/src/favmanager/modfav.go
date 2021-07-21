@@ -10,12 +10,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Favmod Favの新規登録
+// Favmod Favの編集
 func Favmod(c *gin.Context, fav Fav) error {
 	var err error
 	fav.Userid, err = sessionmanager.GetUserId(c)
 	if err != nil {
-		return errors.New("favadd getuserid:" + err.Error())
+		return errors.New("favmod getuserid:" + err.Error())
 	}
 
 	fav.Timing = timingconv(fav.Timing)
@@ -35,14 +35,14 @@ func Favmod(c *gin.Context, fav Fav) error {
 func updateFav(fav Fav) error {
 	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
 	if err != nil {
-		return errors.New("updatefav:sqlopen " + err.Error())
+		return errors.New("updatefav:sqlopen:" + err.Error())
 	}
 	defer db.Close()
 
-	if rs, err := updateFavs_favs(db, fav); err != nil {
+	if rs, err := updateFav_fav(db, fav); err != nil {
 		return err
 	} else if cnt, err := rs.RowsAffected(); cnt != 0 {
-		return updateFavs_image(db, fav, rs)
+		return updateFav_image(db, fav)
 	} else if cnt == 0 {
 		return errors.New("updateFav:更新レコードが0件です。")
 	} else {
@@ -50,10 +50,10 @@ func updateFav(fav Fav) error {
 	}
 }
 
-func updateFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
+func updateFav_fav(db *sql.DB, fav Fav) (sql.Result, error) {
 	stmtUpdate, err := db.Prepare(utils.FavUpdateSQL)
 	if err != nil {
-		return nil, errors.New("updateFavs_favs " + err.Error())
+		return nil, errors.New("updateFav_fav:" + err.Error())
 	}
 	defer stmtUpdate.Close()
 
@@ -63,12 +63,12 @@ func updateFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
 	return rs, err
 }
 
-func updateFavs_image(db *sql.DB, fav Fav, rs sql.Result) error {
-	stmtInsert, err := db.Prepare(utils.ImageUpdateSQL)
+func updateFav_image(db *sql.DB, fav Fav) error {
+	stmtUpdate, err := db.Prepare(utils.ImageUpdateSQL)
 	if err != nil {
-		return errors.New("updateFavs_image " + err.Error())
+		return errors.New("updateFav_image:" + err.Error())
 	}
-	defer stmtInsert.Close()
-	_, err = stmtInsert.Exec(fav.Icon, fav.Favid)
+	defer stmtUpdate.Close()
+	_, err = stmtUpdate.Exec(fav.Icon, fav.Favid)
 	return err
 }

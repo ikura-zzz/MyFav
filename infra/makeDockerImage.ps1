@@ -3,7 +3,9 @@ Set-Location .\goserv\
 Set-Location ..\
 
 docker rm -f $(docker ps -q -a)
-docker rmi $(docker images -q)
+docker rmi $(docker images goserv -q)
+docker rmi $(docker images mynginx -q)
+docker rmi $(docker images mysql -q)
 
 docker build -t mynginx nginx/
 docker build -t goserv goserv/

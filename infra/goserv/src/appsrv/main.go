@@ -28,6 +28,7 @@ func setPages(engine *gin.Engine) {
 	Listwish(engine)
 	Crtfav(engine)
 	Modfav(engine)
+	Delfav(engine)
 	Signout(engine)
 	Signup(engine)
 }

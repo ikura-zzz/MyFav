@@ -31,7 +31,7 @@ func genlist(c *gin.Context, sql string) (string, error) {
 	if err != nil {
 		return "", errors.New("selectfav_getuserid " + err.Error())
 	}
-	favs, err := favmanager.SelectfavsByUserid(userid, sql)
+	favs, err := favmanager.Selectfavs(userid, sql)
 	if err != nil {
 		return "", errors.New("genlistall_selectfavs:" + err.Error())
 	}

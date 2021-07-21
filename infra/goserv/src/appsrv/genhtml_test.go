@@ -7,7 +7,7 @@ import (
 )
 
 func TestGenhtml(t *testing.T) {
-	favs, err := favmanager.SelectfavsByUserid(1, utils.SelectFavsByUserid)
+	favs, err := favmanager.Selectfavs(1, utils.SelectFavsByUserid)
 	if err != nil {
 		t.Fatalf("failed test%#v", err.Error())
 	}

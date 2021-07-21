@@ -1,8 +1,8 @@
 [Unit]
-Description = appsrv daemon
+Description = myfav daemon
 
 [Service]
-ExecStart = /var/goserv/bin/appsrv
+ExecStart = /var/goserv/bin/myfav
 Restart = always
 Type = simple
 

@@ -1,7 +1,7 @@
-Remove-Item src\appsrv\appsrv 2> $null
+Remove-Item src\appsrv\myfav 2> $null
 $ENV:GOOS="linux"
 $ENV:GOARCH="amd64"
 Set-Location src\appsrv
-go build 
+go build -o myfav
 Set-Location ..\..\
-Move-Item -Force src\appsrv\appsrv bin\.
+Move-Item -Force src\appsrv\myfav bin\.
