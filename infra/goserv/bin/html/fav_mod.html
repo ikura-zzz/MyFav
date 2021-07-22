@@ -24,7 +24,7 @@
     </nav>
     <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
         Favを編集する</div>
-    <form id="newfav" class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" enctype="multipart/form-data">
+    <form id="modfav" name="modfav" class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" enctype="multipart/form-data" action="/modfav" method="POST">
         <div class="relative rounded mb-4 appearance-none">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -76,11 +76,22 @@
         </div>
         <input type="hidden" id="favid" name="favid" value={{.favid}}>
         <div class="flex items-center justify-between">
-            <input type="submit" formaction="/modfav" formmethod="POST" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="submit">
-            <input type="submit" formaction="/delfav" formmethod="POST" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete">
+            <input type="submit" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="create">
+            <input type="button" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete" onclick="delfav()">
         </div>
     </form>
     <script src="http://www.s-myfav.com/js/fav.js"></script>
+    <script>
+        function delfav() {
+            let check = window.confirm('削除しますか？');
+            if (!check) {
+                return;
+            }
+            document.modfav.action = "/delfav";
+            document.modfav.method = "POST";
+            document.modfav.submit();
+        };
+    </script>
 </body>
 
 </html>
