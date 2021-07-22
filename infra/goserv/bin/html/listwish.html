@@ -27,13 +27,13 @@
     <section class="bg-white py-4 font-sans">
         <div class="tabs container m-auto max-w-xl flex items-baseline justify-start border-gray-300 mb-10">
             <input id="all" onclick="location.href='/listall'" type="radio" name="tab_item">
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-6" for="all">すべて</label>
+            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="all">すべて</label>
             <input id="already" onclick="location.href='/listalready'" type="radio" name="tab_item">
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-6" for="already">前から</label>
+            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="already">前から</label>
             <input id="now" onclick="location.href='/listnow'" type="radio" name="tab_item">
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-6" for="now">いま好き</label>
+            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="now">いま好き</label>
             <input id="wish" onclick="location.href='/listwish'" type="radio" name="tab_item" checked>
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-6" for="wish">興味ある</label>
+            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="wish">興味ある</label>
         </div>
         <ul class="font-sans list-none p-0 container m-auto text-gray-900">
             {{.list}}
