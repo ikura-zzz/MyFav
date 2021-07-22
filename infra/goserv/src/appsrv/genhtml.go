@@ -26,6 +26,20 @@ func genlistnow(c *gin.Context) (string, error) {
 func genlistwish(c *gin.Context) (string, error) {
 	return genlist(c, utils.SelectFavsByUseridWish)
 }
+func genlistall_foreign(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUserid)
+}
+
+func genlistalready_foreign(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUseridAlready)
+}
+func genlistnow_foreign(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUseridNow)
+}
+
+func genlistwish_foreign(c *gin.Context) (string, error) {
+	return genlist(c, utils.SelectFavsByUseridWish)
+}
 func genlist(c *gin.Context, sql string) (string, error) {
 	userid, err := sessionmanager.GetUserId(c)
 	if err != nil {
