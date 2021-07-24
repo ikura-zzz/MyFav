@@ -52,7 +52,7 @@ func genhtml(favs []favmanager.Fav) (string, error) {
 			"<div class=\"flex overflow-hidden\">" +
 			"<p class=\"flex-1 text-gray-700 text-xs\">" + fav.Category + "</p>" +
 			"<p class=\"w-3/5\">" + fav.Overview + "</p>" +
-			"<label for=\"stars\" class=\"font-bold w-1/5 text-right\">" + fav.Stars + "</label>" +
+			"<label for=\"stars\" class=\"text-right\">" + fav.Stars + "</label>" +
 			"</div>" +
 			"</div></li></a>\n"
 	}
