@@ -41,20 +41,20 @@ func genhtml(favs []favmanager.Fav) (string, error) {
 
 		fav.Stars = starsconv(fav.Stars)
 
-		html += "<a class=\"fav\" id=\"fav" + fmt.Sprintf("%d", i) + "\" href=\"" + link + "\" style=\"display: none;\">" +
-			"<input type=\"hidden\" id=\"timing" + fmt.Sprintf("%d", i) + "\" value=\"" + fav.Timing + "\" style=\"display: none;\">" +
-			"<li class=\"inline-block border-b border-gray-300 flex justify-between items-center py-4\" style=\"display: none;\">" +
-			"<div class=\"flex items-start w-2/5\">" +
+		html += "<a id=\"fav" + fmt.Sprintf("%d", i) + "\" href=\"" + link + "\" style=\"display: none;\">" +
+			"<input type=\"hidden\" id=\"timing" + fmt.Sprintf("%d", i) + "\" value=\"" + fav.Timing + "\">" +
+			"<li class=\"inline-block border-b border-gray-300 flex justify-between items-center py-4\" >" +
 			"<div class=\"w-10 h-10 rounded mr-3\">" +
 			"<img src=\"" + fav.Icon + "\" class=\"rounded-full h-10 w-10 bg-gray-300 m-auto\">" +
 			"</div>" +
-			"<div class=\"flex-1 overflow-hidden\">" +
+			"<div class=\"flex-1 items-start\">" +
 			"<span class=\"font-bold \">" + fav.Title + "</span>" +
-			"<p class=\"text-gray-700 text-xs\">" + fav.Category + "</p>" +
-			"</div>" +
-			"</div>" +
+			"<div class=\"flex overflow-hidden\">" +
+			"<p class=\"flex-1 text-gray-700 text-xs\">" + fav.Category + "</p>" +
 			"<p class=\"w-2/5\">" + fav.Overview + "</p>" +
-			"<label for=\"stars\" class=\"font-bold w-1/5 text-right\">" + fav.Stars + "</label></li></a>\n"
+			"<label for=\"stars\" class=\"font-bold w-1/5 text-right\">" + fav.Stars + "</label></li></a>\n" +
+			"</div>" +
+			"</div>"
 	}
 	return html, nil
 }

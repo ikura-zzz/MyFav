@@ -1,0 +1,49 @@
+.tabs {
+    flex-wrap: wrap;
+}
+
+.radio_body {
+    max-width: 80%;
+    display: flex;
+}
+
+.tab_item:hover {
+    opacity: 0.75;
+}
+
+input[name="tab_item"] {
+    display: none;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.tab_content {
+    display: none;
+    padding: 0px 40px 0;
+    clear: both;
+    overflow: hidden;
+}
+
+.tabs input:checked+.tab_item {
+    border-color: #000;
+    border-bottom-width: 2px;
+    margin-bottom: -1rem;
+    color: #000;
+}
+
+.favradio input:checked+.tab_item {
+    background-color: rgb(52, 141, 214);
+    color: rgb(255, 255, 255);
+}
+
+.crtfav {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    right: 2em;
+    bottom: 2em;
+    background: #000000;
+    opacity: 0.6;
+}
