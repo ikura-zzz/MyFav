@@ -22,10 +22,7 @@ func main() {
 func setPages(engine *gin.Engine) {
 	Signin(engine)
 	Fav(engine)
-	Listall(engine)
-	Listalready(engine)
-	Listnow(engine)
-	Listwish(engine)
+	List(engine)
 	Crtfav(engine)
 	Modfav(engine)
 	Delfav(engine)

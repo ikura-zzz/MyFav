@@ -12,15 +12,6 @@ const SelectUsernameCnt string = "SELECT count(*) FROM appusers WHERE username=?
 // SelectFavsByUserid FavをユーザーIDで抽出する
 const SelectFavsByUserid string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.userid=?"
 
-// SelectFavsByUseridAlready FavをユーザーIDで抽出する
-const SelectFavsByUseridAlready string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.timing=1 AND f.userid=?"
-
-// SelectFavsByUseridNow FavをユーザーIDで抽出する
-const SelectFavsByUseridNow string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.timing=2 AND f.userid=?"
-
-// SelectFavsByUseridWish FavをユーザーIDで抽出する
-const SelectFavsByUseridWish string = "SELECT f.favid,f.title,f.category,f.publisher,f.overview,f.impression,f.timing,f.stars,f.openclose,i.image FROM favs AS f JOIN images AS i ON f.favid = i.favid WHERE f.timing=3 AND f.userid=?"
-
 // UserInsertSQL ユーザーを追加するときのSQL
 const UserInsertSQL string = "INSERT INTO appusers (username, passhash,upddate) values(?,?,?)"
 

@@ -45,7 +45,7 @@
 - MyFavとは、の画面 readme.html
 
 - ユーザーホーム
-    - Favリスト all appsrv/(username)/listall
+    - Favリスト all appsrv/(username)/list
     - Favリスト already appsrv/(username)/listalready
     - Favリスト now appsrv/(username)/listnow
     - Favリスト wish appsrv/(username)/listwish

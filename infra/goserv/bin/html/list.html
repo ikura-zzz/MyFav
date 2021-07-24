@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href=https://stitches.hyperyolo.com/output.css rel="stylesheet">
     <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.6.3/css/all.css integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/ crossorigin="anonymous">
-    <link rel="stylesheet" href=http://www.s-myfav.com/css/tab.css>
-    <title>listalready-MyFav</title>
+    <link rel="stylesheet" href=http://www.s-myfav.com/css/main.css>
+    <title>list-MyFav</title>
 </head>
 
-<body>
+<body onload="now()">
     <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
-        <a href="/listall" class="block text-left">
+        <a href="/list" class="block text-left">
             <img src="http://www.s-myfav.com/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
         </a>
         <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
@@ -22,17 +22,21 @@
                 </button></a>
         </ul>
     </nav>
-    <div class="fa-3x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold">
-        Favリスト</div>
+    <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold">
+        お気に入りリスト</div>
     <section class="bg-white py-4 font-sans">
+        <div class="relative rounded mb-4 appearance-none container m-auto">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
         <div class="tabs container m-auto max-w-xl flex items-baseline justify-start border-gray-300 mb-10">
-            <input id="all" onclick="location.href='/listall'" type="radio" name="tab_item">
+            <input id="all" onclick="allfav()" type="radio" name="tab_item">
             <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="all">すべて</label>
-            <input id="already" onclick="location.href='/listalready'" type="radio" name="tab_item" checked>
+            <input id="already" onclick="already()" type="radio" name="tab_item">
             <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="already">前から</label>
-            <input id="now" onclick="location.href='/listnow'" type="radio" name="tab_item">
+            <input id="now" onclick="now()" type="radio" name="tab_item" checked>
             <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="now">いま好き</label>
-            <input id="wish" onclick="location.href='/listwish'" type="radio" name="tab_item">
+            <input id="wish" onclick="wish()" type="radio" name="tab_item">
             <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="wish">興味ある</label>
         </div>
         <ul class="font-sans list-none p-0 container m-auto text-gray-900">
@@ -42,6 +46,7 @@
     <div class="crtfav rounded-full h-10 w-10 bg-black m-auto">
         <a href="/fav" class="rounded-full"><img src="http://www.s-myfav.com/img/plus.png" class="rounded-full m-auto"></a>
     </div>
+    <script src="http://www.s-myfav.com/js/list.js"></script>
 </body>
 
-</html>
+</html>　

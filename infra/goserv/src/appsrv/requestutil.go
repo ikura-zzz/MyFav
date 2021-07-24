@@ -12,7 +12,7 @@ func redirectTop(c *gin.Context) {
 }
 
 func redirectHome(c *gin.Context) {
-	c.Redirect(303, "/listall")
+	c.Redirect(303, "/list")
 }
 
 func transPage(c *gin.Context, fn func(*gin.Context)) {
