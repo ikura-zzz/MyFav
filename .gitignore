@@ -1,2 +1,4 @@
 infra/goserv/bin/appsrv
 infra/goserv/bin/myfav
+infra/nginx/html/css/all.css
+infra/nginx/html/css/output.css
