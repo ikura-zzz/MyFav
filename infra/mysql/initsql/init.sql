@@ -1,5 +1,11 @@
 SET @old_autocommit = @@autocommit;
 CREATE DATABASE `myfav` DEFAULT CHARACTER SET utf8mb4;
+CREATE USER 'myfav'@'172.18.0.2' identified by 'wYemyWoRcXti';
+GRANT all ON myfav.* TO 'myfav'@'172.18.0.2';
+CREATE USER 'myfav'@'172.18.0.3' identified by 'wYemyWoRcXti';
+GRANT all ON myfav.* TO 'myfav'@'172.18.0.3';
+CREATE USER 'myfav'@'172.18.0.4' identified by 'wYemyWoRcXti';
+GRANT all ON myfav.* TO 'myfav'@'172.18.0.4';
 USE `myfav`;
 DROP TABLE IF EXISTS `appusers`;
 CREATE TABLE `appusers` (
