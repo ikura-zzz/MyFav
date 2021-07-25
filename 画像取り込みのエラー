@@ -8,8 +8,8 @@ Accept-Language: ja,en-US;q=0.7,en;q=0.3
 Connection: close
 Content-Length: 83155
 Content-Type: multipart/form-data; boundary=---------------------------5896868359356584881912544218
-Origin: http://localhost
-Referer: http://localhost/fav
+Origin: http://192.168.10.113
+Referer: http://192.168.10.113/fav
 Upgrade-Insecure-Requests: 1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0
 
