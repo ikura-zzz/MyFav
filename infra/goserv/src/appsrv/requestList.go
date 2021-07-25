@@ -16,11 +16,7 @@ func List(engine *gin.Engine) {
 		if username == "" {
 			transPage(c, switchlist)
 		} else {
-			if sessionmanager.InqSessionValid(c, utils.SessionKeyUser) {
-				switchlist(c)
-			} else {
-				switchlist_foreign(c, username)
-			}
+			switchlist_foreign(c, username)
 		}
 	})
 }
