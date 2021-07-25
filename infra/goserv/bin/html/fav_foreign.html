@@ -16,52 +16,48 @@
 
 <body>
     <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
-        <a href="/list" class="block text-left">
+        <a href="/list?name={{.username}}" class="block text-left">
             <img src="http://192.168.10.113/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
         </a>
         <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
-            <a href="/signout"><button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
-                    サインアウト
+            <a href="/"><button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
+                    サインイン
                 </button></a>
         </ul>
     </nav>
     <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
-        お気に入りを編集</div>
-    <form id="modfav" name="modfav" class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" enctype="multipart/form-data" action="/modfav" method="POST">
+        {{.username}}のお気に入り</div>
+    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
         <div class="relative border shadow rounded mb-4 appearance-none">
-            アイコン <input type="file" name="file" id="file" accept='image/*'>
-            <p>
-                <canvas id="canvas" width="0" height="0"></canvas>
-            </p>
+            アイコン
             <img id="iconimg" name="iconimg" src="{{.icon}}">
-            <input type="hidden" id="icon" name="icon" value="{{.icon}}">
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value={{.title}} required>
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value="{{.title}}" readonly>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
                 タイトル
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="category" id="category" type="text" placeholder="カテゴリ" value={{.category}}>
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="category" id="category" type="text" placeholder="カテゴリ" value="{{.category}}" readonly>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="category">
                 カテゴリ
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="publisher" id="publisher" type="text" placeholder="パブリッシャ" value={{.publisher}}>
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="publisher" id="publisher" type="text" placeholder="パブリッシャ" value="{{.publisher}}" readonly>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="publisher">
                 パブリッシャ
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="overview" id="overview" type="text" placeholder="概要" value={{.overview}}>
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="overview" id="overview" type="text" placeholder="概要" value="{{.overview}}" readonly>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="overview">
                 概要
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想">{{.impression}}</textarea>
+            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="感想" readonly>{{.impression}}</textarea>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre"></label>
         </div>
         <div class="favradio border shadow flex items-center mb-4 justify-between">
@@ -72,28 +68,11 @@
             好きレベル
             <div> {{.stars}}</div>
         </div>
-        <div class="favradio border shadow flex items-center mb-4 justify-between">
-            公開/非公開
-            <div> {{.openclose}}</div>
-        </div>
         <input type="hidden" id="favid" name="favid" value={{.favid}}>
         <div class="flex items-center justify-between">
-            <input type="submit" class="bg-black hover:bg-black text-white py-2 px-4" value="登録" id="create">
-            <input type="button" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete" onclick="delfav()">
+            <a href="/list?name={{.username}}"><input type="button" class="bg-black hover:bg-black text-white py-2 px-4" value="戻る"></a>
         </div>
     </form>
-    <script src="http://192.168.10.113/js/fav.js"></script>
-    <script>
-        function delfav() {
-            let check = window.confirm('削除しますか？');
-            if (!check) {
-                return;
-            }
-            document.modfav.action = "/delfav";
-            document.modfav.method = "POST";
-            document.modfav.submit();
-        };
-    </script>
 </body>
 
 </html>

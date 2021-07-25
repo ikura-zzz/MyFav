@@ -24,14 +24,14 @@ func CreateNewSession(c *gin.Context, username string) {
 	session.Set(utils.SessionKeyUser, username)
 	session.Save()
 }
-func GetSession(c *gin.Context, key string) (string, bool) {
+func GetSessionValue(c *gin.Context, key string) (string, bool) {
 	session := sessions.Default(c)
 	session.Options(sessions.Options{MaxAge: sessionMaxAge})
 	value, ok := session.Get(key).(string)
 	return value, ok
 }
 func InqSessionValid(c *gin.Context, key string) bool {
-	value, ok := GetSession(c, key)
+	value, ok := GetSessionValue(c, key)
 	if !ok {
 		return false
 	}
@@ -49,7 +49,7 @@ func RemoveSession(c *gin.Context) {
 }
 func GetUserId(c *gin.Context) (int, error) {
 
-	username, ok := GetSession(c, "username")
+	username, ok := GetSessionValue(c, "username")
 	if !ok {
 		return 0, errors.New("DBアクセス不可")
 	}

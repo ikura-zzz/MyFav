@@ -17,18 +17,14 @@ func genlist(c *gin.Context) (string, error) {
 	return genlistbody(c, utils.SelectFavsByUserid)
 }
 
-func genlist_foreign(c *gin.Context) (string, error) {
-	return genlistbody(c, utils.SelectFavsByUserid)
-}
-
 func genlistbody(c *gin.Context, sql string) (string, error) {
 	userid, err := sessionmanager.GetUserId(c)
 	if err != nil {
-		return "", errors.New("selectfav_getuserid " + err.Error())
+		return "", errors.New("genlistbody:" + err.Error())
 	}
 	favs, err := favmanager.Selectfavs(userid, sql)
 	if err != nil {
-		return "", errors.New("genlist_selectfavs:" + err.Error())
+		return "", errors.New("genlistbody_selectfav:" + err.Error())
 	}
 	return genhtml(favs)
 }
@@ -85,7 +81,7 @@ func gentimingHTML(t string) string {
 	}
 	html := "<input type=\"radio\" id=\"already\" name=\"timing\" value=\"already\" " +
 		already + "><label class=\"tab_item text-base tracking-wide px-3\" for=\"already\">前から</label><input type=\"radio\" id=\"now\" name=\"timing\" value=\"now\" " +
-		now + "><label class=\"tab_item text-base tracking-wide px-3\" for=\"now\">いま好き</label><input type=\"radio\" id=\"wish\" name=\"timing\" value=\"wish\" " +
+		now + "><label class=\"tab_item text-base tracking-wide px-3\" for=\"now\">今好き</label><input type=\"radio\" id=\"wish\" name=\"timing\" value=\"wish\" " +
 		wish + "><label class=\"tab_item text-base tracking-wide px-3\" for=\"wish\">興味ある</label>"
 	return html
 }

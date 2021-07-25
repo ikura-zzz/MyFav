@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"myfav/favmanager"
-	"myfav/logging"
+	"myfav/identifychk"
 	"myfav/sessionmanager"
 	"myfav/utils"
 	"net/http"
@@ -17,7 +17,7 @@ func Crtfav(engine *gin.Engine) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
 			if err := favmanager.Favadd(c, fav); err != nil {
-				logging.Log(err.Error(), logging.High)
+				fmt.Println(err.Error())
 			}
 			redirectHome(c)
 		})
@@ -29,7 +29,7 @@ func Modfav(engine *gin.Engine) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
 			if err := favmanager.Favmod(c, fav); err != nil {
-				logging.Log(err.Error(), logging.High)
+				fmt.Println(err.Error())
 			}
 			redirectHome(c)
 		})
@@ -42,7 +42,6 @@ func Delfav(engine *gin.Engine) {
 			fav := getPostElem(c)
 			fmt.Println("favid:" + fav.Favid)
 			if err := favmanager.Favdel(c, fav); err != nil {
-				//logging.Log(err.Error(), logging.High)
 				fmt.Println((err.Error()))
 			}
 			redirectHome(c)
@@ -52,44 +51,85 @@ func Delfav(engine *gin.Engine) {
 func Fav(engine *gin.Engine) {
 	engine.GET("/fav", func(c *gin.Context) {
 		favid := c.Query("favid")
-		userid, err := sessionmanager.GetUserId(c)
-		if err != nil {
-			transPage(c, func(c *gin.Context) {
-				c.HTML(http.StatusOK, "fav.html", gin.H{})
-			})
-			return
-		}
-		favs, err := favmanager.Selectfavs(userid, utils.SelectFavsByUserid)
-		if err != nil {
-			logging.Log(err.Error(), logging.High)
-			transPage(c, func(c *gin.Context) {
-				c.HTML(http.StatusOK, "fav.html", gin.H{})
-			})
-			return
-		}
-		for _, f := range favs {
-			if f.Favid == favid {
+		username := c.Query("name")
+		var userid int
+		var err error
+		if username != "" {
+			userid, err = identifychk.GetUserId(username)
+			if err != nil {
 				transPage(c, func(c *gin.Context) {
-					c.HTML(http.StatusOK, "fav_mod.html", gin.H{
-						"icon":       template.URL(f.Icon),
-						"title":      template.HTML(f.Title),
-						"category":   template.HTML(f.Category),
-						"publisher":  template.HTML(f.Publisher),
-						"overview":   template.HTML(f.Overview),
-						"impression": template.HTML(f.Impre),
-						"timing":     template.HTML(gentimingHTML(f.Timing)),
-						"stars":      template.HTML(genstarsHTML(f.Stars)),
-						"openclose":  template.HTML(genopencloseHTML(f.Openclose)),
-						"favid":      template.HTML(f.Favid),
-					})
+					c.HTML(http.StatusOK, "fav.html", gin.H{})
+				})
+				return
+			}
+		} else {
+			userid, err = sessionmanager.GetUserId(c)
+			if err != nil {
+				transPage(c, func(c *gin.Context) {
+					c.HTML(http.StatusOK, "fav.html", gin.H{})
 				})
 				return
 			}
 		}
-		transPage(c, func(c *gin.Context) {
-			c.HTML(http.StatusOK, "fav.html", gin.H{})
-		})
+		favs, err := favmanager.Selectfavs(userid, utils.SelectFavsByUserid)
+		if err != nil {
+			fmt.Println(err.Error())
+			transPage(c, func(c *gin.Context) {
+				c.HTML(http.StatusOK, "fav.html", gin.H{})
+			})
+			return
+		}
+
+		if username != "" {
+			favforeigner(c, favs, favid, username)
+			return
+		} else {
+			myfavmod(c, favs, favid)
+			return
+		}
 	})
+}
+func favforeigner(c *gin.Context, favs []favmanager.Fav, favid string, username string) {
+
+	for _, f := range favs {
+		if f.Favid == favid {
+			c.HTML(http.StatusOK, "fav_foreign.html", gin.H{
+				"username":   template.HTML(username),
+				"icon":       template.URL(f.Icon),
+				"title":      template.HTML(f.Title),
+				"category":   template.HTML(f.Category),
+				"publisher":  template.HTML(f.Publisher),
+				"overview":   template.HTML(f.Overview),
+				"impression": template.HTML(f.Impre),
+				"timing":     template.HTML(gentimingHTML_foreign(f.Timing)),
+				"stars":      template.HTML(genstarsHTML_foreign(f.Stars)),
+				"favid":      template.HTML(f.Favid),
+			})
+			return
+		}
+	}
+}
+func myfavmod(c *gin.Context, favs []favmanager.Fav, favid string) {
+
+	for _, f := range favs {
+		if f.Favid == favid {
+			transPage(c, func(c *gin.Context) {
+				c.HTML(http.StatusOK, "fav_mod.html", gin.H{
+					"icon":       template.URL(f.Icon),
+					"title":      template.HTML(f.Title),
+					"category":   template.HTML(f.Category),
+					"publisher":  template.HTML(f.Publisher),
+					"overview":   template.HTML(f.Overview),
+					"impression": template.HTML(f.Impre),
+					"timing":     template.HTML(gentimingHTML(f.Timing)),
+					"stars":      template.HTML(genstarsHTML(f.Stars)),
+					"openclose":  template.HTML(genopencloseHTML(f.Openclose)),
+					"favid":      template.HTML(f.Favid),
+				})
+			})
+			return
+		}
+	}
 }
 
 func getPostElem(c *gin.Context) favmanager.Fav {
