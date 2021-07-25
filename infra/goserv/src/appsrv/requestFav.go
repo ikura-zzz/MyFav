@@ -83,8 +83,12 @@ func Fav(engine *gin.Engine) {
 		if username != "" {
 			favforeigner(c, favs, favid, username)
 			return
+		} else if favid == "" {
+			transPage(c, func(c *gin.Context) {
+				c.HTML(http.StatusOK, "fav.html", gin.H{})
+			})
 		} else {
-			myfavmod(c, favs, favid)
+			myfavsend(c, favs, favid)
 			return
 		}
 	})
@@ -109,7 +113,7 @@ func favforeigner(c *gin.Context, favs []favmanager.Fav, favid string, username 
 		}
 	}
 }
-func myfavmod(c *gin.Context, favs []favmanager.Fav, favid string) {
+func myfavsend(c *gin.Context, favs []favmanager.Fav, favid string) {
 
 	for _, f := range favs {
 		if f.Favid == favid {

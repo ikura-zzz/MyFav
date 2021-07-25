@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -19,6 +19,7 @@
             <img src="https://www.s-myfav.com/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
         </a>
         <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
+            <li class="pl-2 border-l"><a href="/readme.html" class="inline-block py-2 px-3 text-gray-900 hover:text-gray-700 no-underline">MyFavの使い方</a></li>
             <li class="pl-2 border-l"><a href="/" class="inline-block py-2 px-3 text-gray-900 hover:text-gray-700 no-underline">サインイン</a></li>
         </ul>
     </nav>
@@ -40,6 +41,9 @@
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="retypepassword">
                 Retype Password
             </label>
+        </div>
+        <div class="flex items-center justify-between">
+            ※Usernameは公開されますので、メールアドレス等を使用しないことをおすすめします。
         </div>
         <div class="flex items-center justify-between">
             {{.errmsg}}
