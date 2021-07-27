@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
+	"myfav/logmanager"
 	"myfav/sessionmanager"
 	"myfav/utils"
 	"net/http"
@@ -25,7 +25,7 @@ func List(engine *gin.Engine) {
 func switchlist(c *gin.Context) {
 	favs, err := genlist(c)
 	if err != nil {
-		fmt.Println(err.Error())
+		logmanager.Outlog(err.Error())
 	}
 	username, _ := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
 	c.HTML(http.StatusOK, "list.html", gin.H{
@@ -38,7 +38,7 @@ func switchlist(c *gin.Context) {
 func switchlist_foreign(c *gin.Context, username string) {
 	favs, err := genlist_foreign(c, username)
 	if err != nil {
-		fmt.Println(err.Error())
+		logmanager.Outlog(err.Error())
 	}
 	c.HTML(http.StatusOK, "list_foreign.html", gin.H{
 		"username": template.HTML(username),

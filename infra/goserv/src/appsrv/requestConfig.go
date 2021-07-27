@@ -9,7 +9,7 @@ import (
 )
 
 func Config(engine *gin.Engine) {
-	engine.POST("/signin", func(c *gin.Context) {
+	engine.POST("/config-username", func(c *gin.Context) {
 		username := c.PostForm("username")
 		password := c.PostForm("password")
 		if err := identifychk.Invalidchk(username, password); err != nil {
