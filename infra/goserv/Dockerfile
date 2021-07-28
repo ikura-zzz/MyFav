@@ -9,4 +9,5 @@ COPY bin/html/* /var/goserv/bin/html/
 COPY conf/myfav.service /etc/systemd/system/
 
 RUN chmod 755 /var/goserv/bin/myfav
+RUN timedatectl set-timezone Asia/Tokyo
 RUN systemctl enable myfav.service
