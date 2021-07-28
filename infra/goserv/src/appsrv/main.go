@@ -28,7 +28,12 @@ func setPages(engine *gin.Engine) {
 	Delfav(engine)
 	Signout(engine)
 	Signup(engine)
-	Config(engine)
+	ConfigUser(engine)
+	ConfigName(engine)
+	ConfigDelUser(engine)
+	ConfigValidChk_name(engine)
+	ConfigValidChk_pass(engine)
+	ConfigValidChk_deluser(engine)
 }
 
 // GETリクエストのパラメータを全取得して返す。
