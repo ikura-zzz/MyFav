@@ -1,24 +1,32 @@
 package main
 
 import (
-	"myfav/identifychk"
-	"myfav/sessionmanager"
+	"html/template"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func Config(engine *gin.Engine) {
-	engine.POST("/signin", func(c *gin.Context) {
-		username := c.PostForm("username")
-		password := c.PostForm("password")
-		if err := identifychk.Invalidchk(username, password); err != nil {
-			c.HTML(http.StatusOK, "index.html", gin.H{
-				"errmsg": err.Error(),
+	engine.POST("/config-username", func(c *gin.Context) {
+		transPage(c, func(c *gin.Context) {
+			c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
+				"action": template.HTML("chgnameform"),
 			})
-		} else {
-			sessionmanager.CreateNewSession(c, username)
-			redirectHome(c)
-		}
+		})
+	})
+	engine.POST("/config-password", func(c *gin.Context) {
+		transPage(c, func(c *gin.Context) {
+			c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
+				"action": template.HTML("chgpassform"),
+			})
+		})
+	})
+	engine.POST("/config-userdelete", func(c *gin.Context) {
+		transPage(c, func(c *gin.Context) {
+			c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
+				"action": template.HTML("userdeleteform"),
+			})
+		})
 	})
 }

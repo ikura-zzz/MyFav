@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"myfav/favmanager"
 	"myfav/identifychk"
+	"myfav/logmanager"
 	"myfav/sessionmanager"
 	"myfav/utils"
 	"net/http"
@@ -17,7 +17,7 @@ func Crtfav(engine *gin.Engine) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
 			if err := favmanager.Favadd(c, fav); err != nil {
-				fmt.Println(err.Error())
+				logmanager.Outlog(err.Error())
 			}
 			redirectHome(c)
 		})
@@ -29,7 +29,7 @@ func Modfav(engine *gin.Engine) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
 			if err := favmanager.Favmod(c, fav); err != nil {
-				fmt.Println(err.Error())
+				logmanager.Outlog(err.Error())
 			}
 			redirectHome(c)
 		})
@@ -40,9 +40,9 @@ func Delfav(engine *gin.Engine) {
 	engine.POST("/delfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
-			fmt.Println("favid:" + fav.Favid)
+			logmanager.Outlog("favid:" + fav.Favid)
 			if err := favmanager.Favdel(c, fav); err != nil {
-				fmt.Println((err.Error()))
+				logmanager.Outlog((err.Error()))
 			}
 			redirectHome(c)
 		})
@@ -73,7 +73,7 @@ func Fav(engine *gin.Engine) {
 		}
 		favs, err := favmanager.Selectfavs(userid, utils.SelectFavsByUserid)
 		if err != nil {
-			fmt.Println(err.Error())
+			logmanager.Outlog(err.Error())
 			transPage(c, func(c *gin.Context) {
 				c.HTML(http.StatusOK, "fav.html", gin.H{})
 			})
