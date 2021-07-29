@@ -1,6 +1,7 @@
 package main
 
 import (
+	"myfav/logmanager"
 	"myfav/sessionmanager"
 	"strings"
 
@@ -8,6 +9,7 @@ import (
 )
 
 func main() {
+	logmanager.Outlog("myfav started!!")
 	engine := gin.Default()
 	sessionmanager.CreateNewSessionStore(engine)
 

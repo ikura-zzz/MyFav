@@ -39,13 +39,17 @@ func ConfigDelUser(engine *gin.Engine) {
 	})
 }
 func ConfigValidChk_name(engine *gin.Engine) {
-	engine.POST("chgnameform", func(c *gin.Context) {
+	engine.POST("/chgnameform", func(c *gin.Context) {
+		logmanager.Outlog("chgnameform in")
 		username, ok := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
+		logmanager.Outlog("username:" + username)
 		if !ok {
 			logmanager.Outlog("Config:can't get username:in configuser")
 		}
 		inputpass := c.PostForm("password")
+		logmanager.Outlog("inputpass:" + inputpass)
 		if err := identifychk.Invalidchk(username, inputpass); err != nil {
+			logmanager.Outlog("cinfigValidChk_name:" + err.Error())
 			transPage(c, func(c *gin.Context) {
 				c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
 					"action": template.HTML("/chgnameform"),
@@ -54,11 +58,14 @@ func ConfigValidChk_name(engine *gin.Engine) {
 			})
 			return
 		}
-		transPage(c, switchlist)
+		logmanager.Outlog("no err")
+		transPage(c, func(c *gin.Context) {
+			c.HTML(http.StatusOK, "changeName.html", gin.H{})
+		})
 	})
 }
 func ConfigValidChk_pass(engine *gin.Engine) {
-	engine.POST("chgpassform", func(c *gin.Context) {
+	engine.POST("/chgpassform", func(c *gin.Context) {
 		username, ok := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
 		if !ok {
 			logmanager.Outlog("Config:can't get username:in configpass")
@@ -73,11 +80,13 @@ func ConfigValidChk_pass(engine *gin.Engine) {
 			})
 			return
 		}
-		transPage(c, switchlist)
+		transPage(c, func(c *gin.Context) {
+			c.HTML(http.StatusOK, "changePassword.html", gin.H{})
+		})
 	})
 }
 func ConfigValidChk_deluser(engine *gin.Engine) {
-	engine.POST("userdeleteform", func(c *gin.Context) {
+	engine.POST("/userdeleteform", func(c *gin.Context) {
 		username, ok := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
 		if !ok {
 			logmanager.Outlog("Config:can't get username:in configuserdel")
@@ -92,6 +101,25 @@ func ConfigValidChk_deluser(engine *gin.Engine) {
 			})
 			return
 		}
-		transPage(c, switchlist)
+		transPage(c, func(c *gin.Context) {
+			c.HTML(http.StatusOK, "delUser.html", gin.H{})
+		})
+	})
+}
+
+func ChangeName(engine *gin.Engine) {
+	engine.POST("/chgname", func(c *gin.Context) {
+
+	})
+}
+
+func ChangePassword(engine *gin.Engine) {
+	engine.POST("/chgpass", func(c *gin.Context) {
+
+	})
+}
+func DeleteUser(engine *gin.Engine) {
+	engine.POST("/deluser", func(c *gin.Context) {
+
 	})
 }

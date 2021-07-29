@@ -5,7 +5,7 @@ import (
 
 	"crypto/sha256"
 	"database/sql"
-	"encoding/hex"
+	"fmt"
 	"myfav/utils"
 	"time"
 
@@ -27,7 +27,7 @@ func registUser(username string, password string) error {
 	}
 	defer stmtInsert.Close()
 
-	_, err = stmtInsert.Exec(username, hex.EncodeToString(hashpass[:]), GetTimeString())
+	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), GetTimeString())
 	return err
 }
 
