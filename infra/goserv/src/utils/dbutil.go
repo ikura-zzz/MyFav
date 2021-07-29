@@ -24,7 +24,7 @@ const FavInsertSQL string = "INSERT INTO favs (userid, title, category, publishe
 // ImageInsertSQL iconを追加するときのSQL
 const ImageInsertSQL string = "INSERT INTO images (favid,image) value(?,?)"
 
-// FavUpdateSQL Favを追加するときのSQL
+// FavUpdateSQL Favを更新するときのSQL
 const FavUpdateSQL string = "UPDATE favs SET title=?, category=?, publisher=?, overview=?, impression=?, timing=?, stars=?, openclose=?, upddate=? WHERE userid=? AND favid=?"
 
 // ImageUpdateSQL iconを追加するときのSQL
