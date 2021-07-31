@@ -1,4 +1,4 @@
-package favmanager
+package types
 
 type Fav struct {
 	Userid    int

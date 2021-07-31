@@ -29,6 +29,9 @@
         <div class="flex text-red-700 items-center justify-between">
             ※ユーザー削除を実行すると、アカウントは復旧できません。
         </div>
+        <div>
+            {{.errmsg}}
+        </div>
         <div class="flex items-center justify-between">
             <input type="submit" id="deluser" class="bg-black hover:bg-black text-white py-2 px-4" value="ユーザー削除">
             <a href="/config"><input type="button" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="キャンセル" id="cancel"></a>

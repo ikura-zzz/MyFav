@@ -3,9 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
-	"myfav/favmanager"
+	"myfav/dbaccessor"
 	"myfav/identifychk"
 	"myfav/logmanager"
+	"myfav/types"
 	"myfav/utils"
 	"strconv"
 
@@ -24,14 +25,14 @@ func genlistbody_foreign(sql string, username string) (string, error) {
 		return "", errors.New("genlistbody_foreign:" + err.Error())
 	}
 	logmanager.Outlog("3")
-	favs, err := favmanager.Selectfavs(userid, sql)
+	favs, err := dbaccessor.Selectfavs(userid, sql)
 	if err != nil {
 		return "", errors.New("genlistbody_foreign_selectfav:" + err.Error())
 	}
 	return genhtml_foreign(favs, username)
 }
 
-func genhtml_foreign(favs []favmanager.Fav, username string) (string, error) {
+func genhtml_foreign(favs []types.Fav, username string) (string, error) {
 	html := ""
 	for i := 0; i < len(favs); i++ {
 		fav := favs[i]

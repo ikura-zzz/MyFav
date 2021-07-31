@@ -1,15 +1,17 @@
 package usermanager
 
 import (
-	"database/sql"
 	"errors"
 	"fmt"
+
+	"myfav/dbaccessor"
 	"myfav/logmanager"
+	"myfav/myfavtime"
 	"myfav/utils"
 )
 
 func AppUsersMod(userid int, newname string) error {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
 		return err
 	}
@@ -21,7 +23,7 @@ func AppUsersMod(userid int, newname string) error {
 	}
 	defer stmtUpdate.Close()
 
-	rs, err := stmtUpdate.Exec(newname, GetTimeString(), userid)
+	rs, err := stmtUpdate.Exec(newname, myfavtime.GetTimeString(), userid)
 	if err != nil {
 		return errors.New("AppUsersMod:" + err.Error())
 	}
@@ -32,9 +34,8 @@ func AppUsersMod(userid int, newname string) error {
 }
 
 func AppUserspassMod(userid int, newhashpass [32]byte) error {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
-		logmanager.Outlog("AppUserspassmod:sqlOpen:" + err.Error())
 		return err
 	}
 	defer db.Close()
@@ -46,7 +47,7 @@ func AppUserspassMod(userid int, newhashpass [32]byte) error {
 	}
 	defer stmtUpdate.Close()
 
-	rs, err := stmtUpdate.Exec(fmt.Sprintf("%s", newhashpass), GetTimeString(), userid)
+	rs, err := stmtUpdate.Exec(fmt.Sprintf("%s", newhashpass), myfavtime.GetTimeString(), userid)
 	if err != nil {
 		logmanager.Outlog("AppUserspassmod:stmtExec:" + err.Error())
 		return errors.New("AppUserspassMod:" + err.Error())

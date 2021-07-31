@@ -3,6 +3,7 @@ package usermanager
 import (
 	"crypto/sha256"
 	"errors"
+
 	"myfav/identifychk"
 	"myfav/logmanager"
 	"myfav/utils"
@@ -28,10 +29,11 @@ func Usernamemod(userid int, currentusername string, newusername string) error {
 	return nil
 }
 
+// Userpassmod ユーザーパスワード変更
 func Userpassmod(userid int, username string, newpass string, retypepass string) error {
 	if err := passwordValid(newpass, retypepass); err != nil {
 		logmanager.Outlog("Userpassmod" + err.Error())
-		return errors.New(utils.CmnErrmsg)
+		return err
 	}
 	hashpass, err := identifychk.GetUserpass(username)
 	var currenthashpass [32]byte

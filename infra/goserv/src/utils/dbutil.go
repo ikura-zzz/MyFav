@@ -34,12 +34,12 @@ const ImageUpdateSQL string = "UPDATE images SET image=? WHERE favid=?"
 const UserNameUpdateSQL string = "UPDATE appusers SET username=?, upddate=? WHERE userid=?"
 
 // UserPasswordUpdateSQL ユーザーのパスワードを変更するときのSQL
-const UserPasswordUpdateSQL string = "UPDATE appusers set passhash=?, upddate=? WHERE usreid=?"
+const UserPasswordUpdateSQL string = "UPDATE appusers set passhash=?, upddate=? WHERE userid=?"
 
-// FavDeleteSQL Favを追加するときのSQL
+// FavDeleteSQL Favを削除するときのSQL
 const FavDeleteSQL string = "DELETE FROM favs WHERE userid=? AND favid=?"
 
-// ImageDeleteSQL iconを追加するときのSQL
+// ImageDeleteSQL iconを削除するときのSQL
 const ImageDeleteSQL string = "DELETE FROM images WHERE favid=?"
 
 // UserDeleteSQL ユーザーを削除するときのSQL

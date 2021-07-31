@@ -2,10 +2,12 @@ package main
 
 import (
 	"html/template"
+	"myfav/dbaccessor"
 	"myfav/favmanager"
 	"myfav/identifychk"
 	"myfav/logmanager"
 	"myfav/sessionmanager"
+	"myfav/types"
 	"myfav/utils"
 	"net/http"
 
@@ -78,7 +80,7 @@ func Fav(engine *gin.Engine) {
 				return
 			}
 		}
-		favs, err := favmanager.Selectfavs(userid, utils.SelectFavsByUserid)
+		favs, err := dbaccessor.Selectfavs(userid, utils.SelectFavsByUserid)
 		if err != nil {
 			logmanager.Outlog(err.Error())
 			transPage(c, func(c *gin.Context) {
@@ -100,7 +102,7 @@ func Fav(engine *gin.Engine) {
 		}
 	})
 }
-func favforeigner(c *gin.Context, favs []favmanager.Fav, favid string, username string) {
+func favforeigner(c *gin.Context, favs []types.Fav, favid string, username string) {
 
 	for _, f := range favs {
 		if f.Favid == favid {
@@ -120,7 +122,7 @@ func favforeigner(c *gin.Context, favs []favmanager.Fav, favid string, username 
 		}
 	}
 }
-func myfavsend(c *gin.Context, favs []favmanager.Fav, favid string) {
+func myfavsend(c *gin.Context, favs []types.Fav, favid string) {
 
 	for _, f := range favs {
 		if f.Favid == favid {
@@ -143,8 +145,8 @@ func myfavsend(c *gin.Context, favs []favmanager.Fav, favid string) {
 	}
 }
 
-func getPostElem(c *gin.Context) favmanager.Fav {
-	var fav favmanager.Fav
+func getPostElem(c *gin.Context) types.Fav {
+	var fav types.Fav
 	fav.Favid = c.PostForm("favid")
 	fav.Icon = c.PostForm("icon")
 	fav.Title = c.PostForm("title")

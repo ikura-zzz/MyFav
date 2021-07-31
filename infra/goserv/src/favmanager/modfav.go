@@ -3,15 +3,18 @@ package favmanager
 import (
 	"database/sql"
 	"errors"
-	"myfav/crtuser"
+
+	"myfav/dbaccessor"
+	"myfav/myfavtime"
 	"myfav/sessionmanager"
+	"myfav/types"
 	"myfav/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 // Favmod Favの編集
-func Favmod(c *gin.Context, fav Fav) error {
+func Favmod(c *gin.Context, fav types.Fav) error {
 	var err error
 	fav.Userid, err = sessionmanager.GetUserId(c)
 	if err != nil {
@@ -32,10 +35,10 @@ func Favmod(c *gin.Context, fav Fav) error {
 	return nil
 }
 
-func updateFav(fav Fav) error {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+func updateFav(fav types.Fav) error {
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
-		return errors.New("updatefav:sqlopen:" + err.Error())
+		return err
 	}
 	defer db.Close()
 
@@ -50,7 +53,7 @@ func updateFav(fav Fav) error {
 	}
 }
 
-func updateFav_fav(db *sql.DB, fav Fav) (sql.Result, error) {
+func updateFav_fav(db *sql.DB, fav types.Fav) (sql.Result, error) {
 	stmtUpdate, err := db.Prepare(utils.FavUpdateSQL)
 	if err != nil {
 		return nil, errors.New("updateFav_fav:" + err.Error())
@@ -59,11 +62,11 @@ func updateFav_fav(db *sql.DB, fav Fav) (sql.Result, error) {
 
 	var rs sql.Result
 	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview,
-		fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtuser.GetTimeString(), fav.Userid, fav.Favid)
+		fav.Impre, fav.Timing, fav.Stars, fav.Openclose, myfavtime.GetTimeString(), fav.Userid, fav.Favid)
 	return rs, err
 }
 
-func updateFav_image(db *sql.DB, fav Fav) error {
+func updateFav_image(db *sql.DB, fav types.Fav) error {
 	stmtUpdate, err := db.Prepare(utils.ImageUpdateSQL)
 	if err != nil {
 		return errors.New("updateFav_image:" + err.Error())

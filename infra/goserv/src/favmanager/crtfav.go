@@ -3,15 +3,17 @@ package favmanager
 import (
 	"database/sql"
 	"errors"
-	"myfav/crtuser"
+	"myfav/dbaccessor"
+	"myfav/myfavtime"
 	"myfav/sessionmanager"
+	"myfav/types"
 	"myfav/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 // Favadd Favの新規登録
-func Favadd(c *gin.Context, fav Fav) error {
+func Favadd(c *gin.Context, fav types.Fav) error {
 	var err error
 	fav.Userid, err = sessionmanager.GetUserId(c)
 	if err != nil {
@@ -75,10 +77,10 @@ func opclconv(opcl string) string {
 	return "0"
 }
 
-func resistFav(fav Fav) error {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+func resistFav(fav types.Fav) error {
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
-		return errors.New("resistfav:sqlopen " + err.Error())
+		return err
 	}
 	defer db.Close()
 
@@ -89,7 +91,7 @@ func resistFav(fav Fav) error {
 	}
 }
 
-func resistFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
+func resistFavs_favs(db *sql.DB, fav types.Fav) (sql.Result, error) {
 	stmtInsert, err := db.Prepare(utils.FavInsertSQL)
 	if err != nil {
 		return nil, errors.New("resistFavs_favs " + err.Error())
@@ -97,11 +99,11 @@ func resistFavs_favs(db *sql.DB, fav Fav) (sql.Result, error) {
 	defer stmtInsert.Close()
 
 	var rs sql.Result
-	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, crtuser.GetTimeString())
+	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, myfavtime.GetTimeString())
 	return rs, err
 }
 
-func resistFavs_image(db *sql.DB, fav Fav, rs sql.Result) error {
+func resistFavs_image(db *sql.DB, fav types.Fav, rs sql.Result) error {
 	stmtInsert, err := db.Prepare(utils.ImageInsertSQL)
 	if err != nil {
 		return errors.New("resistFavs_image " + err.Error())

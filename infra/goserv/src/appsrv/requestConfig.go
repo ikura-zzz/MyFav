@@ -2,10 +2,10 @@ package main
 
 import (
 	"html/template"
-	"myfav/crtuser"
 	"myfav/identifychk"
 	"myfav/logmanager"
 	"myfav/sessionmanager"
+	"myfav/usermanager"
 	"myfav/utils"
 	"net/http"
 
@@ -62,14 +62,11 @@ func ConfigDelUser(engine *gin.Engine) {
 }
 func ConfigValidChk_name(engine *gin.Engine) {
 	engine.POST("/chgnameform", func(c *gin.Context) {
-		logmanager.Outlog("chgnameform in")
 		username, ok := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
-		logmanager.Outlog("username:" + username)
 		if !ok {
 			logmanager.Outlog("Config:can't get username:in configuser")
 		}
 		inputpass := c.PostForm("password")
-		logmanager.Outlog("inputpass:" + inputpass)
 		if err := identifychk.Invalidchk(username, inputpass); err != nil {
 			logmanager.Outlog("cinfigValidChk_name:" + err.Error())
 			transPage(c, func(c *gin.Context) {
@@ -80,7 +77,6 @@ func ConfigValidChk_name(engine *gin.Engine) {
 			})
 			return
 		}
-		logmanager.Outlog("no err")
 		transPage(c, func(c *gin.Context) {
 			c.HTML(http.StatusOK, "changeName.html", gin.H{})
 		})
@@ -131,23 +127,32 @@ func ConfigValidChk_deluser(engine *gin.Engine) {
 
 func ChangeName(engine *gin.Engine) {
 	engine.POST("/chgname", func(c *gin.Context) {
-		newusername := c.PostForm("username")
-		userid, err := sessionmanager.GetUserId(c)
-		errtrans := func() {
+		errtrans := func(errmsg string) {
 			transPage(c, func(c *gin.Context) {
 				c.HTML(http.StatusOK, "changeName.html", gin.H{
-					"errmsg": utils.CmnErrmsg,
+					"errmsg": errmsg,
 				})
 			})
 		}
-		if err != nil {
-			logmanager.Outlog("changename:can't get username from session")
-			errtrans()
+		currentusername, ok := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
+		if !ok {
+			errtrans(utils.CmnErrmsg)
 			return
 		}
-		if err := crtuser.AppUsersMod(userid, newusername); err != nil {
+		newusername := c.PostForm("username")
+		if newusername == "" {
+			errtrans("ユーザー名を入力してください")
+		}
+
+		userid, err := sessionmanager.GetUserId(c)
+		if err != nil {
+			logmanager.Outlog("changename:can't get username from session")
+			errtrans(utils.CmnErrmsg)
+			return
+		}
+		if err := usermanager.Usernamemod(userid, currentusername, newusername); err != nil {
 			logmanager.Outlog(("changeName:usernamemod:") + err.Error())
-			errtrans()
+			errtrans(err.Error())
 			return
 		}
 
@@ -161,11 +166,57 @@ func ChangeName(engine *gin.Engine) {
 
 func ChangePassword(engine *gin.Engine) {
 	engine.POST("/chgpass", func(c *gin.Context) {
+		errtrans := func(errmsg string) {
+			transPage(c, func(c *gin.Context) {
+				c.HTML(http.StatusOK, "changePassword.html", gin.H{
+					"errmsg": errmsg,
+				})
+			})
+		}
+		username, ok := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
+		if !ok {
+			errtrans(utils.CmnErrmsg)
+		}
+		newpass := c.PostForm("password")
+		retypepass := c.PostForm("retypepassword")
+		if newpass == "" || retypepass == "" {
+			errtrans("パスワードが未入力です。")
+			return
+		}
 
+		userid, err := sessionmanager.GetUserId(c)
+		if err != nil {
+			logmanager.Outlog("ChangePassword:GetUserid:" + err.Error())
+			errtrans(utils.CmnErrmsg)
+		}
+		if err := usermanager.Userpassmod(userid, username, newpass, retypepass); err != nil {
+			errtrans(err.Error())
+		}
+		transPage(c, func(c *gin.Context) {
+			c.Redirect(303, "/config")
+		})
 	})
 }
 func DeleteUser(engine *gin.Engine) {
 	engine.POST("/deluser", func(c *gin.Context) {
-
+		userid, err := sessionmanager.GetUserId(c)
+		if err != nil {
+			logmanager.Outlog("delUser:" + err.Error())
+			transPage(c, func(c *gin.Context) {
+				c.HTML(http.StatusOK, "delUser.html", gin.H{
+					"errmsg": "ユーザー情報が取得できません。",
+				})
+			})
+		}
+		if err := usermanager.Userdel(userid); err != nil {
+			logmanager.Outlog("DeleteUser:" + err.Error())
+			transPage(c, func(c *gin.Context) {
+				c.HTML(http.StatusOK, "delUser.html", gin.H{
+					"errmsg": "ユーザー削除に失敗しました。",
+				})
+			})
+		}
+		sessionmanager.RemoveSession(c)
+		redirectTop(c)
 	})
 }

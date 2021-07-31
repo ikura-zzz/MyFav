@@ -2,8 +2,9 @@ package identifychk
 
 import (
 	"crypto/sha256"
-	"database/sql"
 	"errors"
+
+	"myfav/dbaccessor"
 	"myfav/utils"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -11,32 +12,10 @@ import (
 
 func Invalidchk(username string, password string) error {
 	hashpass := sha256.Sum256([]byte(password))
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	dbpasshash, err := GetUserpass(username)
 	if err != nil {
-		return errors.New(utils.CmnErrmsg)
+		return err
 	}
-	defer db.Close()
-
-	stmtInsert, err := db.Prepare(utils.SelectUserPass)
-	if err != nil {
-		return errors.New(utils.CmnErrmsg)
-	}
-	defer stmtInsert.Close()
-
-	rows, err := stmtInsert.Query(username)
-	if err != nil {
-		return errors.New(utils.CmnErrmsg)
-	}
-	defer rows.Close()
-
-	rows.Next()
-	var dbpasshashstr string
-	err = rows.Scan(&dbpasshashstr)
-	if err != nil {
-		return errors.New(utils.CmnErrmsg)
-	}
-	dbpasshash := []byte(dbpasshashstr)
-
 	for i := 0; i < len(dbpasshash); i++ {
 		if hashpass[i] != dbpasshash[i] {
 			return errors.New("ユーザーIDかパスワードが一致しません。")
@@ -44,9 +23,37 @@ func Invalidchk(username string, password string) error {
 	}
 	return nil
 }
+func GetUserpass(username string) ([]byte, error) {
+	db, err := dbaccessor.DBOpen()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+
+	stmtSelect, err := db.Prepare(utils.SelectUserPass)
+	if err != nil {
+		return nil, errors.New(utils.CmnErrmsg)
+	}
+	defer stmtSelect.Close()
+
+	rows, err := stmtSelect.Query(username)
+	if err != nil {
+		return nil, errors.New(utils.CmnErrmsg)
+	}
+	defer rows.Close()
+
+	rows.Next()
+	var dbpasshashstr string
+	err = rows.Scan(&dbpasshashstr)
+	if err != nil {
+		return nil, errors.New("このユーザーは存在しません。")
+	}
+	passhash := []byte(dbpasshashstr)
+	return passhash, nil
+}
 
 func GetUserCnt(username string) (int, error) {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
 		return 0, err
 	}
@@ -74,23 +81,20 @@ func GetUserCnt(username string) (int, error) {
 }
 
 func GetUserId(username string) (int, error) {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
-		//return 0, err
-		return 0, errors.New("sql.open " + err.Error())
+		return 0, err
 	}
 	defer db.Close()
 
 	stmtInsert, err := db.Prepare(utils.SelectUserID)
 	if err != nil {
-		//return 0, err
 		return 0, errors.New("db.Prepare " + err.Error())
 	}
 	defer stmtInsert.Close()
 
 	rows, err := stmtInsert.Query(username)
 	if err != nil {
-		//return 0, err
 		return 0, errors.New("stmt.Query " + err.Error())
 	}
 	defer rows.Close()

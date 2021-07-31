@@ -4,10 +4,11 @@ import (
 	// mysql driver
 
 	"crypto/sha256"
-	"database/sql"
 	"fmt"
+
+	"myfav/dbaccessor"
+	"myfav/myfavtime"
 	"myfav/utils"
-	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -15,7 +16,7 @@ import (
 // registUser useradd to db
 func registUser(username string, password string) error {
 	hashpass := sha256.Sum256([]byte(password))
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+	db, err := dbaccessor.DBOpen()
 	if err != nil {
 		return err
 	}
@@ -27,12 +28,6 @@ func registUser(username string, password string) error {
 	}
 	defer stmtInsert.Close()
 
-	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), GetTimeString())
+	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), myfavtime.GetTimeString())
 	return err
-}
-
-func GetTimeString() string {
-	layout := "2006-01-02 15:04:05"
-	now := time.Now()
-	return now.Format(layout)
 }
