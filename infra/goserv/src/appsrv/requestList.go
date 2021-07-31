@@ -10,6 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func setList(engine *gin.Engine) {
+	List(engine)
+}
+
 func List(engine *gin.Engine) {
 	engine.GET("/list", func(c *gin.Context) {
 		username := c.Query("name")

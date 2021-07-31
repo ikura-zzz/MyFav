@@ -12,6 +12,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func setFav(engine *gin.Engine) {
+	Fav(engine)
+	Crtfav(engine)
+	Modfav(engine)
+	Delfav(engine)
+}
+
 func Crtfav(engine *gin.Engine) {
 	engine.POST("/crtfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {

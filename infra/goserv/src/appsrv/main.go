@@ -22,20 +22,10 @@ func main() {
 
 // 各リクエストのハンドラを一斉起動
 func setPages(engine *gin.Engine) {
-	Signin(engine)
-	Fav(engine)
-	List(engine)
-	Crtfav(engine)
-	Modfav(engine)
-	Delfav(engine)
-	Signout(engine)
-	Signup(engine)
-	ConfigUser(engine)
-	ConfigName(engine)
-	ConfigDelUser(engine)
-	ConfigValidChk_name(engine)
-	ConfigValidChk_pass(engine)
-	ConfigValidChk_deluser(engine)
+	setAuth(engine)
+	setFav(engine)
+	setList(engine)
+	setConfig(engine)
 }
 
 // GETリクエストのパラメータを全取得して返す。

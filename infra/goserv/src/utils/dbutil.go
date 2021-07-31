@@ -31,10 +31,10 @@ const FavUpdateSQL string = "UPDATE favs SET title=?, category=?, publisher=?, o
 const ImageUpdateSQL string = "UPDATE images SET image=? WHERE favid=?"
 
 // UserNameUpdateSQL ユーザー名を変更するときのSQL
-const UserNameUpdateSQL string = "UPDATE appusers SET username=?, upddate=now() WHERE userid=?"
+const UserNameUpdateSQL string = "UPDATE appusers SET username=?, upddate=? WHERE userid=?"
 
 // UserPasswordUpdateSQL ユーザーのパスワードを変更するときのSQL
-const UserPasswordUpdateSQL string = "UPDATE appusers set passhash=?, upddate=now() WHERE usreid=?"
+const UserPasswordUpdateSQL string = "UPDATE appusers set passhash=?, upddate=? WHERE usreid=?"
 
 // FavDeleteSQL Favを追加するときのSQL
 const FavDeleteSQL string = "DELETE FROM favs WHERE userid=? AND favid=?"

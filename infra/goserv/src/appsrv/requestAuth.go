@@ -9,6 +9,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func setAuth(engine *gin.Engine) {
+	Signin(engine)
+	Signout(engine)
+	Signup(engine)
+}
+
 func Signin(engine *gin.Engine) {
 	engine.POST("/signin", func(c *gin.Context) {
 		username := c.PostForm("username")

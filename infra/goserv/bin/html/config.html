@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" type="image/png" href="https://www.s-myfav.com/icons/apple-touch-icon-180x180.png">
     <link rel="icon" type="image/png" href="https://www.s-myfav.com/icons/icon-192x192.png">
     <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.6.3/css/all.css integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/ crossorigin="anonymous">
-    <title>パスワード変更-Myfav</title>
+    <title>SignUp-Myfav</title>
 </head>
 
 <body>
@@ -20,20 +20,24 @@
         </a>
         <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
             <a href="/signout"><button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
-                    サインアウト
-                </button></a>
+                サインアウト
+            </button></a>
         </ul>
     </nav>
-    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/deluser">
-
-        <div class="flex text-red-700 items-center justify-between">
-            ※ユーザー削除を実行すると、アカウントは復旧できません。
+    <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold">
+        設定</div>
+    <div class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
+        {{.msg}}
+        <div class="flex items-center justify-between mb-4">
+            <a href="/configuser"><input type="button" class="bg-black hover:bg-black text-white py-2 px-4" value="ユーザー名変更"></a>
         </div>
-        <div class="flex items-center justify-between">
-            <input type="submit" id="deluser" class="bg-black hover:bg-black text-white py-2 px-4" value="ユーザー削除">
-            <a href="/config"><input type="button" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="キャンセル" id="cancel"></a>
+        <div class="flex items-center justify-between mb-4">
+            <a href="/configpass"><input type="button" class="bg-black hover:bg-black text-white py-2 px-4" value="パスワード変更"></a>
         </div>
-    </form>
+        <div class="flex items-center justify-between mb-4">
+            <a href="/configuserdel"><input type="button" class="bg-black hover:bg-black text-white py-2 px-4" value="ユーザー削除"></a>
+        </div>
+    </div>
 </body>
 
 </html>
