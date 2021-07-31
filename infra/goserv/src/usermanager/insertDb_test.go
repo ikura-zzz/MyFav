@@ -1,4 +1,4 @@
-package crtuser
+package usermanager
 
 import (
 	"testing"
