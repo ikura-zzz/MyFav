@@ -1,8 +1,9 @@
-package crtuser
+package usermanager
 
 import (
 	"errors"
-	selectdb "myfav/identifychk"
+	"myfav/identifychk"
+	"myfav/logmanager"
 	"myfav/utils"
 )
 
@@ -11,12 +12,15 @@ func Useradd(username string, pass1 string, pass2 string) error {
 	if err := passwordValid(pass1, pass2); err != nil {
 		return err
 	}
-	if cnt, err := selectdb.GetUserCnt(username); err != nil {
+	if cnt, err := identifychk.GetUserCnt(username); err != nil {
+		logmanager.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	} else if cnt != 0 {
+		logmanager.Outlog("same username already used.")
 		return errors.New("このユーザー名は既に使用されています。")
 	}
 	if err := registUser(username, pass1); err != nil {
+		logmanager.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	}
 	return nil

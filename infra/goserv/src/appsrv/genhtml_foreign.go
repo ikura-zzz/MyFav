@@ -3,8 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
-	"myfav/favmanager"
+	"myfav/dbaccessor"
 	"myfav/identifychk"
+	"myfav/logmanager"
+	"myfav/types"
 	"myfav/utils"
 	"strconv"
 
@@ -12,25 +14,25 @@ import (
 )
 
 func genlist_foreign(c *gin.Context, username string) (string, error) {
-	fmt.Println("1")
+	logmanager.Outlog("1")
 	return genlistbody_foreign(utils.SelectFavsByUseridAndOpen, username)
 }
 
 func genlistbody_foreign(sql string, username string) (string, error) {
-	fmt.Println("2")
+	logmanager.Outlog("2")
 	userid, err := identifychk.GetUserId(username)
 	if err != nil {
 		return "", errors.New("genlistbody_foreign:" + err.Error())
 	}
-	fmt.Println("3")
-	favs, err := favmanager.Selectfavs(userid, sql)
+	logmanager.Outlog("3")
+	favs, err := dbaccessor.Selectfavs(userid, sql)
 	if err != nil {
 		return "", errors.New("genlistbody_foreign_selectfav:" + err.Error())
 	}
 	return genhtml_foreign(favs, username)
 }
 
-func genhtml_foreign(favs []favmanager.Fav, username string) (string, error) {
+func genhtml_foreign(favs []types.Fav, username string) (string, error) {
 	html := ""
 	for i := 0; i < len(favs); i++ {
 		fav := favs[i]
@@ -53,7 +55,7 @@ func genhtml_foreign(favs []favmanager.Fav, username string) (string, error) {
 			"</div>" +
 			"</div></li></a>\n"
 	}
-	fmt.Println("html" + html)
+	logmanager.Outlog("html" + html)
 	return html, nil
 }
 

@@ -1,15 +1,15 @@
-package favmanager
+package dbaccessor
 
 import (
-	"database/sql"
 	"errors"
-	"myfav/utils"
+	"myfav/types"
 )
 
-func Selectfavs(userid int, selectSql string) ([]Fav, error) {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+// Selectfavs FavをDBから取得する。
+func Selectfavs(userid int, selectSql string) ([]types.Fav, error) {
+	db, err := DBOpen()
 	if err != nil {
-		return nil, errors.New("sql.open " + err.Error())
+		return nil, err
 	}
 	defer db.Close()
 
@@ -25,10 +25,10 @@ func Selectfavs(userid int, selectSql string) ([]Fav, error) {
 	}
 	defer rows.Close()
 
-	var favs []Fav
+	var favs []types.Fav
 
 	for i := 0; rows.Next(); i++ {
-		fav := Fav{}
+		fav := types.Fav{}
 		err := rows.Scan(&fav.Favid, &fav.Title, &fav.Category, &fav.Publisher, &fav.Overview,
 			&fav.Impre, &fav.Timing, &fav.Stars, &fav.Openclose, &fav.Icon)
 		if err != nil {

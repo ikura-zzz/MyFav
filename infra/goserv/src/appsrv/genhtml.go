@@ -3,8 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
-	"myfav/favmanager"
+	"myfav/dbaccessor"
 	"myfav/sessionmanager"
+	"myfav/types"
 	"myfav/utils"
 	"strconv"
 
@@ -14,22 +15,18 @@ import (
 const checked string = "checked"
 
 func genlist(c *gin.Context) (string, error) {
-	return genlistbody(c, utils.SelectFavsByUserid)
-}
-
-func genlistbody(c *gin.Context, sql string) (string, error) {
 	userid, err := sessionmanager.GetUserId(c)
 	if err != nil {
 		return "", errors.New("genlistbody:" + err.Error())
 	}
-	favs, err := favmanager.Selectfavs(userid, sql)
+	favs, err := dbaccessor.Selectfavs(userid, utils.SelectFavsByUserid)
 	if err != nil {
 		return "", errors.New("genlistbody_selectfav:" + err.Error())
 	}
 	return genhtml(favs)
 }
 
-func genhtml(favs []favmanager.Fav) (string, error) {
+func genhtml(favs []types.Fav) (string, error) {
 	html := ""
 	for i := 0; i < len(favs); i++ {
 		fav := favs[i]

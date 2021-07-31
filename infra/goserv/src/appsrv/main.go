@@ -1,6 +1,7 @@
 package main
 
 import (
+	"myfav/logmanager"
 	"myfav/sessionmanager"
 	"strings"
 
@@ -8,6 +9,7 @@ import (
 )
 
 func main() {
+	logmanager.Outlog("myfav started!!")
 	engine := gin.Default()
 	sessionmanager.CreateNewSessionStore(engine)
 
@@ -20,14 +22,10 @@ func main() {
 
 // 各リクエストのハンドラを一斉起動
 func setPages(engine *gin.Engine) {
-	Signin(engine)
-	Fav(engine)
-	List(engine)
-	Crtfav(engine)
-	Modfav(engine)
-	Delfav(engine)
-	Signout(engine)
-	Signup(engine)
+	setAuth(engine)
+	setFav(engine)
+	setList(engine)
+	setConfig(engine)
 }
 
 // GETリクエストのパラメータを全取得して返す。

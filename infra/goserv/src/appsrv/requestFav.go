@@ -1,23 +1,32 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
+	"myfav/dbaccessor"
 	"myfav/favmanager"
 	"myfav/identifychk"
+	"myfav/logmanager"
 	"myfav/sessionmanager"
+	"myfav/types"
 	"myfav/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
+func setFav(engine *gin.Engine) {
+	Fav(engine)
+	Crtfav(engine)
+	Modfav(engine)
+	Delfav(engine)
+}
+
 func Crtfav(engine *gin.Engine) {
 	engine.POST("/crtfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
 			if err := favmanager.Favadd(c, fav); err != nil {
-				fmt.Println(err.Error())
+				logmanager.Outlog(err.Error())
 			}
 			redirectHome(c)
 		})
@@ -29,7 +38,7 @@ func Modfav(engine *gin.Engine) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
 			if err := favmanager.Favmod(c, fav); err != nil {
-				fmt.Println(err.Error())
+				logmanager.Outlog(err.Error())
 			}
 			redirectHome(c)
 		})
@@ -40,9 +49,9 @@ func Delfav(engine *gin.Engine) {
 	engine.POST("/delfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			fav := getPostElem(c)
-			fmt.Println("favid:" + fav.Favid)
+			logmanager.Outlog("favid:" + fav.Favid)
 			if err := favmanager.Favdel(c, fav); err != nil {
-				fmt.Println((err.Error()))
+				logmanager.Outlog((err.Error()))
 			}
 			redirectHome(c)
 		})
@@ -71,9 +80,9 @@ func Fav(engine *gin.Engine) {
 				return
 			}
 		}
-		favs, err := favmanager.Selectfavs(userid, utils.SelectFavsByUserid)
+		favs, err := dbaccessor.Selectfavs(userid, utils.SelectFavsByUserid)
 		if err != nil {
-			fmt.Println(err.Error())
+			logmanager.Outlog(err.Error())
 			transPage(c, func(c *gin.Context) {
 				c.HTML(http.StatusOK, "fav.html", gin.H{})
 			})
@@ -93,7 +102,7 @@ func Fav(engine *gin.Engine) {
 		}
 	})
 }
-func favforeigner(c *gin.Context, favs []favmanager.Fav, favid string, username string) {
+func favforeigner(c *gin.Context, favs []types.Fav, favid string, username string) {
 
 	for _, f := range favs {
 		if f.Favid == favid {
@@ -113,7 +122,7 @@ func favforeigner(c *gin.Context, favs []favmanager.Fav, favid string, username 
 		}
 	}
 }
-func myfavsend(c *gin.Context, favs []favmanager.Fav, favid string) {
+func myfavsend(c *gin.Context, favs []types.Fav, favid string) {
 
 	for _, f := range favs {
 		if f.Favid == favid {
@@ -136,8 +145,8 @@ func myfavsend(c *gin.Context, favs []favmanager.Fav, favid string) {
 	}
 }
 
-func getPostElem(c *gin.Context) favmanager.Fav {
-	var fav favmanager.Fav
+func getPostElem(c *gin.Context) types.Fav {
+	var fav types.Fav
 	fav.Favid = c.PostForm("favid")
 	fav.Icon = c.PostForm("icon")
 	fav.Title = c.PostForm("title")

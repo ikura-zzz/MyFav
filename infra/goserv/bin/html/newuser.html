@@ -25,25 +25,25 @@
     </nav>
     <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" method="POST" action="/signup">
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="username" id="username" type="text" placeholder="Username">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="username" id="username" type="text" placeholder="ユーザー名" required>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="username">
-                Username
+                ユーザー名
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="password" id="password" type="password" placeholder="Password">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="password" id="password" type="password" placeholder="パスワード" required>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="password">
-                Password
+                パスワード
             </label>
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="retypepassword" id="retypepassword" type="password" placeholder="Retype Password">
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="retypepassword" id="retypepassword" type="password" placeholder="パスワード再入力" required>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="retypepassword">
-                Retype Password
+                パスワード再入力
             </label>
         </div>
         <div class="flex items-center justify-between">
-            ※Usernameは公開されますので、メールアドレス等を使用しないことをおすすめします。
+            ※Usernameは公開されますので、メールアドレスや個人情報を使用しないことをおすすめします。
         </div>
         <div class="flex items-center justify-between">
             {{.errmsg}}
