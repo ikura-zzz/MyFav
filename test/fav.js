@@ -19,58 +19,7 @@ script.addEventListener('load', function() {
                 blob = null;
                 return;
             }
-
-            // 画像をリサイズする
-            var image = new Image();
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                image.onload = function() {
-
-                    // 縮小後のサイズを計算する
-                    var width, height, drawwidth, drawheight;
-                    if (image.width > image.height) {
-                        //var ratio = image.height / image.width;
-                        width = THUMBNAIL_MAX_WIDTH;
-                        height = THUMBNAIL_MAX_WIDTH;
-                        drawwidth = image.height;
-                        drawheight = image.height;
-                        //height = THUMBNAIL_MAX_WIDTH * ratio;
-                    } else {
-                        //var ratio = image.width / image.height;
-                        //width = THUMBNAIL_MAX_HEIGHT * ratio;
-                        width = THUMBNAIL_MAX_HEIGHT;
-                        height = THUMBNAIL_MAX_HEIGHT;
-                        drawwidth = image.width;
-                        drawheight = image.width;
-                    }
-
-                    // 縮小画像を描画するcanvasのサイズを上で算出した値に変更する
-                    var canvas = $('#canvas')
-                        .attr('width', width)
-                        .attr('height', height);
-
-                    var ctx = canvas[0].getContext('2d');
-
-                    // canvasに既に描画されている画像があればそれを消す
-                    ctx.clearRect(0, 0, width, height);
-
-                    ctx.beginPath();
-                    ctx.arc(150, 150, 150, 0, Math.PI * 2, false);
-                    ctx.clip();
-
-                    document.getElementById("iconimg").style.display = "none";
-                    // canvasに縮小画像を描画する
-                    //ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height);
-                    ctx.drawImage(image, 0, 0, drawwidth, drawheight, 0, 0, width, height);
-
-                    // canvasから画像をbase64として取得してhidden属性に添付する
-                    var base64 = canvas.get(0).toDataURL('image/jpeg');
-                    document.getElementById("iconimg").src = "";
-                    document.getElementById("icon").value = base64;
-                }
-                image.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
+            popupOpen();
         });
         // submitが押されたらfile属性は空にしておく。
         $('#create').click(function() {
@@ -78,4 +27,81 @@ script.addEventListener('load', function() {
         });
     });
 })
+
+function imageresize() {
+    // 画像をリサイズする
+    var image = new Image();
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        image.onload = function() {
+
+            // 縮小後のサイズを計算する
+            var width, height, drawwidth, drawheight;
+            if (image.width > image.height) {
+                width = THUMBNAIL_MAX_WIDTH;
+                height = THUMBNAIL_MAX_WIDTH;
+                drawwidth = image.height;
+                drawheight = image.height;
+            } else {
+                width = THUMBNAIL_MAX_HEIGHT;
+                height = THUMBNAIL_MAX_HEIGHT;
+                drawwidth = image.width;
+                drawheight = image.width;
+            }
+
+            // 縮小画像を描画するcanvasのサイズを上で算出した値に変更する
+            var canvas = $('#canvas')
+                .attr('width', width)
+                .attr('height', height);
+
+            var ctx = canvas[0].getContext('2d');
+
+            // canvasに既に描画されている画像があればそれを消す
+            ctx.clearRect(0, 0, width, height);
+
+            ctx.beginPath();
+            ctx.arc(150, 150, 150, 0, Math.PI * 2, false);
+            ctx.clip();
+
+            document.getElementById("iconimg").style.display = "none";
+            // canvasに縮小画像を描画する
+            ctx.drawImage(image, 0, 0, drawwidth, drawheight, 0, 0, width, height);
+
+            // canvasから画像をbase64として取得してhidden属性に添付する
+            var base64 = canvas.get(0).toDataURL('image/jpeg');
+            document.getElementById("iconimg").src = "";
+            document.getElementById("icon").value = base64;
+        }
+        image.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+}
+
+function popupImage() {
+    var popup = document.getElementById('js-popup');
+    if (!popup) return;
+
+    var blackBg = document.getElementById('js-black-bg');
+    var closeBtn = document.getElementById('js-close-btn');
+    var showBtn = document.getElementById('js-show-popup');
+
+    closePopUp(blackBg);
+    closePopUp(closeBtn);
+    closePopUp(showBtn);
+
+    function closePopUp(elem) {
+        if (!elem) return;
+        elem.addEventListener('click', function() {
+            popup.classList.toggle('is-show');
+        });
+    }
+}
+popupImage();
+
+function popupOpen() {
+    var popup = document.getElementById('js-popup');
+    if (!popup) return;
+
+    popup.classList.toggle('is-show');
+}
 document.head.appendChild(script)
