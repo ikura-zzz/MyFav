@@ -3,8 +3,8 @@ const cvs = document.getElementById('cvs')
 let cw = cvs.width;
 let ch = cvs.height;
 let out = document.getElementById('canvas')
-const oh = 350
-const ow = 350
+const oh = 300
+const ow = 300
 
 let ix = 0 // 中心座標
 let iy = 0

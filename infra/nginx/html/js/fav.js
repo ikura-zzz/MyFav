@@ -3,20 +3,13 @@ const cvs = document.getElementById('cvs')
 let cw = cvs.width;
 let ch = cvs.height;
 let out = document.getElementById('canvas')
-const oh = 350
-const ow = 350
+const oh = 300
+const ow = 300
 
 let ix = 0 // 中心座標
 let iy = 0
 let v = 1.0 // 拡大縮小率
 const img = new Image()
-    /*img.onload = function(_ev) { // 画像が読み込まれた
-        ix = img.width / 2
-        iy = img.height / 2
-        let scl = parseInt(cw / img.width * 100)
-        document.getElementById('scal').value = scl
-        scaling(scl)
-    }*/
 
 function load_img(imgsrc) { // 画像の読み込み
     img.src = imgsrc;
@@ -25,16 +18,19 @@ function load_img(imgsrc) { // 画像の読み込み
     let scl = parseInt(cw / img.width * 100);
     document.getElementById('scal').value = scl;
     scaling(scl);
+    console.log("a")
 }
 
 function scaling(_v) { // スライダーが変った
     v = parseInt(_v) * 0.01
     draw_canvas(ix, iy) // 画像更新
+    console.log("b")
 }
 
 function draw_canvas(_x, _y) { // 画像更新
     const ctx = cvs.getContext('2d')
         //ctx.clearRect(0, 0, ctx.width, ctx.height);
+    console.log("c");
     ctx.fillStyle = 'rgb(255, 255, 255)'
     ctx.fillRect(0, 0, cw, ch) // 背景を塗る
     ctx.drawImage(img,
