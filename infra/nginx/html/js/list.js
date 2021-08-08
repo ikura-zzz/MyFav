@@ -1,40 +1,40 @@
 function allfav() {
-    for (var i = 0; true; i++) {
-        var elem = document.getElementById("fav" + i);
+    for (let i = 0; true; i++) {
+        let elem = document.getElementById("fav" + i);
         if (!elem) {
             return;
         }
 
-        var children = elem.children;
+        let children = elem.children;
         elem.style = "";
-        for (var h = 0; h < children.length; h++) {
+        for (let h = 0; h < children.length; h++) {
             children.item(h).style = "";
         }
     }
 }
 
 function now() {
-    for (var i = 0; true; i++) {
-        var timing = document.getElementById("timing" + i);
+    for (let i = 0; true; i++) {
+        let timing = document.getElementById("timing" + i);
         if (!timing) {
             return;
         }
 
-        var elem = document.getElementById("fav" + i);
-        var children = elem.children
+        let elem = document.getElementById("fav" + i);
+        let children = elem.children
         if (timing.value == "1") {
             elem.style.display = "none";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style.display = "none";
             }
         } else if (timing.value == "2") {
             elem.style = "";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style = "";
             }
         } else if (timing.value == "3") {
             elem.style.display = "none";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style.display = "none";
             }
         }
@@ -42,27 +42,27 @@ function now() {
 }
 
 function already() {
-    for (var i = 0; true; i++) {
-        var timing = document.getElementById("timing" + i);
+    for (let i = 0; true; i++) {
+        let timing = document.getElementById("timing" + i);
         if (!timing) {
             return;
         }
 
-        var elem = document.getElementById("fav" + i);
-        var children = elem.children
+        let elem = document.getElementById("fav" + i);
+        let children = elem.children
         if (timing.value == "1") {
             elem.style = "";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style = "";
             }
         } else if (timing.value == "2") {
             elem.style.display = "none";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style.display = "none";
             }
         } else if (timing.value == "3") {
             elem.style.display = "none";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style.display = "none";
             }
         }
@@ -70,30 +70,63 @@ function already() {
 }
 
 function wish() {
-    for (var i = 0; true; i++) {
-        var timing = document.getElementById("timing" + i);
+    for (let i = 0; true; i++) {
+        let timing = document.getElementById("timing" + i);
         if (!timing) {
             return;
         }
 
-        var elem = document.getElementById("fav" + i);
-        var children = elem.children;
+        let elem = document.getElementById("fav" + i);
+        let children = elem.children;
         elem.style = "";
         if (timing.value == "1") {
             elem.style.display = "none";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style.display = "none";
             }
         } else if (timing.value == "2") {
             elem.style.display = "none";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style.display = "none";
             }
         } else if (timing.value == "3") {
             elem.style = "";
-            for (var h = 0; h < children.length; h++) {
+            for (let h = 0; h < children.length; h++) {
                 children.item(h).style = "";
             }
         }
     }
 }
+
+function firstload() {
+    let radioelem = [document.getElementById("all"), document.getElementById("already"), document.getElementById("now"), document.getElementById("wish")];
+    let tabid = 0;
+    for (let i = 0; i < radioelem.length; i++) {
+        if (radioelem[i].checked) {
+            tabid = i;
+            break;
+        }
+    }
+    switch (tabid) {
+        case 0:
+            allfav();
+            break;
+        case 1:
+            already();
+            break;
+        case 2:
+            now();
+            break;
+        case 3:
+            wish();
+            break;
+    }
+}
+
+function copy() {
+    let copyTag = document.querySelector("#copy");
+    let uri = encodeURI(copyTag.value);
+    navigator.clipboard.writeText(uri);
+    alert("コピーしました。")
+}
+document.querySelector("#copy").addEventListener("click", copy);

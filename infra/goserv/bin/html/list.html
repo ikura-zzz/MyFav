@@ -14,7 +14,7 @@
     <title>list-MyFav</title>
 </head>
 
-<body onload="now()">
+<body onload="firstload()">
     <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
         <a href="/list" class="block text-left">
             <img src="https://www.s-myfav.com/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
@@ -26,12 +26,13 @@
                 </button></a>
         </ul>
     </nav>
-    <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold">
+    <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold container">
         お気に入りリスト</div>
     <section class="bg-white py-4 font-sans">
-        <div class="relative rounded mb-4 appearance-none container m-auto">
+        <div class="relative flex rounded mb-4 appearance-none container m-auto">
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="わたしのお気に入りリスト" data-url="https://www.s-myfav.com/list?name={{.username}}" data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <button class="ml-4 bg-black text-white px-2 fa-xs" id="copy" value="https://www.s-myfav.com/list?name={{.username}}">リンクをコピー</button>
         </div>
         <div class="tabs container m-auto max-w-xl flex items-baseline justify-start border-gray-300 mb-10">
             <input id="all" onclick="allfav()" type="radio" name="tab_item">
@@ -50,7 +51,7 @@
     <div class="crtfav rounded-full h-10 w-10 bg-black m-auto">
         <a href="/fav" class="rounded-full"><img src="https://www.s-myfav.com/img/plus.png" class="rounded-full m-auto"></a>
     </div>
-    <script src="https://www.s-myfav.com/js/list.js"></script>
+    <script src="http://localhost/js/list.js"></script>
 </body>
 
 </html>　
