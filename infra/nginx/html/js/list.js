@@ -124,8 +124,9 @@ function firstload() {
 }
 
 function copy() {
-    let copyText = document.querySelector("#copy");
-    navigator.clipboard.writeText(copyText.value);
+    let copyTag = document.querySelector("#copy");
+    let uri = encodeURI(copyTag.value);
+    navigator.clipboard.writeText(uri);
     alert("コピーしました。")
 }
 document.querySelector("#copy").addEventListener("click", copy);

@@ -2,21 +2,14 @@
 const cvs = document.getElementById('cvs')
 let cw = cvs.width;
 let ch = cvs.height;
-const out = document.getElementById('canvas')
-const oh = 400
-const ow = 400
+let out = document.getElementById('canvas')
+const oh = 350
+const ow = 350
 
 let ix = 0 // 中心座標
 let iy = 0
 let v = 1.0 // 拡大縮小率
 const img = new Image()
-    /*img.onload = function(_ev) { // 画像が読み込まれた
-        ix = img.width / 2
-        iy = img.height / 2
-        let scl = parseInt(cw / img.width * 100)
-        document.getElementById('scal').value = scl
-        scaling(scl)
-    }*/
 
 function load_img(imgsrc) { // 画像の読み込み
     img.src = imgsrc;
@@ -25,16 +18,19 @@ function load_img(imgsrc) { // 画像の読み込み
     let scl = parseInt(cw / img.width * 100);
     document.getElementById('scal').value = scl;
     scaling(scl);
+    console.log("a")
 }
 
 function scaling(_v) { // スライダーが変った
     v = parseInt(_v) * 0.01
     draw_canvas(ix, iy) // 画像更新
+    console.log("b")
 }
 
 function draw_canvas(_x, _y) { // 画像更新
     const ctx = cvs.getContext('2d')
         //ctx.clearRect(0, 0, ctx.width, ctx.height);
+    console.log("c");
     ctx.fillStyle = 'rgb(255, 255, 255)'
     ctx.fillRect(0, 0, cw, ch) // 背景を塗る
     ctx.drawImage(img,
@@ -46,13 +42,19 @@ function draw_canvas(_x, _y) { // 画像更新
 }
 
 function crop_img() { // 画像切り取り
-    const ctx = out.getContext('2d')
+    out = $('#canvas')
+        .attr('width', ow)
+        .attr('height', oh);
+    const ctx = out[0].getContext('2d')
     ctx.fillStyle = 'rgb(255, 255, 255)'
     ctx.fillRect(0, 0, cw, ch) // 背景を塗る
     ctx.drawImage(img,
         0, 0, img.width, img.height,
         (ow / 2) - ix * v, (oh / 2) - iy * v, img.width * v, img.height * v,
     )
+    base64 = out.get(0).toDataURL('image/jpeg');
+    document.getElementById("iconimg").src = "";
+    document.getElementById("icon").value = base64;
 }
 
 let mouse_down = false // canvas ドラッグ中フラグ
@@ -93,10 +95,12 @@ function popupImage() {
     if (!popup) return;
 
     var blackBg = document.getElementById('js-black-bg');
+    var cropBtn = document.getElementById('crop');
     var closeBtn = document.getElementById('js-close-btn');
     var showBtn = document.getElementById('js-show-popup');
 
     closePopUp(blackBg);
+    closePopUp(cropBtn);
     closePopUp(closeBtn);
     closePopUp(showBtn);
 
@@ -167,12 +171,7 @@ script.addEventListener('load', function() {
                     // canvasに既に描画されている画像があればそれを消す
                     ctx.clearRect(0, 0, width, height);
 
-                    /*ctx.beginPath();
-                    ctx.arc(150, 150, 150, 0, Math.PI * 2, false);
-                    ctx.clip();*/
-                    //document.getElementById("iconimg").style.display = "none";
                     // canvasに縮小画像を描画する
-                    //ctx.drawImage(image, 0, 0, drawwidth, drawheight, 0, 0, width, height);
                     ctx.drawImage(image,
                         0, 0, image.width, image.height,
                         0, 0, width, height
@@ -180,10 +179,8 @@ script.addEventListener('load', function() {
 
                     // canvasから画像をbase64として取得してhidden属性に添付する
                     base64 = canvas.get(0).toDataURL('image/jpeg');
+                    //ctx.clearRect(0, 0, width, height);
                     load_img(base64);
-                    document.getElementById("iconimg").src = "";
-                    document.getElementById("icon").value = base64;
-                    ctx.clearRect(0, 0, width, height);
                 }
                 image.src = e.target.result;
             }

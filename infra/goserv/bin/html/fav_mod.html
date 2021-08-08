@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" type="image/png" href="https://www.s-myfav.com/icons/apple-touch-icon-180x180.png">
     <link rel="icon" type="image/png" href="https://www.s-myfav.com/icons/icon-192x192.png">
     <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.6.3/css/all.css integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/ crossorigin="anonymous">
-    <link rel="stylesheet" href=https://www.s-myfav.com/css/main.css>
+    <link rel="stylesheet" href=http://192.168.10.113/css/main.css>
     <title>MyFav</title>
 </head>
 
@@ -29,7 +29,7 @@
         お気に入りを編集</div>
     <form id="modfav" name="modfav" class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8" enctype="multipart/form-data" action="/modfav" method="POST">
         <div class="relative border shadow rounded mb-4 appearance-none">
-            アイコン <input type="file" name="file" id="file" accept='image/*'>
+            アイコン <input type="file" name="file" id="file" accept="image/*">
             <p>
                 <canvas id="canvas" width="0" height="0"></canvas>
             </p>
@@ -37,7 +37,7 @@
             <input type="hidden" id="icon" name="icon" value="{{.icon}}">
         </div>
         <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value={{.title}} required>
+            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value={{.title}}>
             <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
                 タイトル
             </label>
@@ -82,7 +82,18 @@
             <input type="button" class="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700" value="削除" id="delete" onclick="delfav()">
         </div>
     </form>
-    <script src="https://www.s-myfav.com/js/fav.js"></script>
+
+    <div class="popup" id="js-popup">
+        <div class="popup-inner">
+            <div class="close-btn" id="js-close-btn"><i class="fas fa-times"></i></div>
+            <input id="scal" type="range" value="" min="10" max="400" oninput="scaling(value)" style="width: 400px;"><br>
+            <canvas id="cvs" width="500" height="500"></canvas>
+            <button class="bg-black hover:bg-black text-white py-2 px-4" id="crop" onclick="crop_img()">切り抜き</button>
+        </div>
+        <div class="black-background" id="js-black-bg"></div>
+    </div>
+
+    <script src="http://192.168.10.113/js/fav.js"></script>
     <script>
         function delfav() {
             let check = window.confirm('削除しますか？');
