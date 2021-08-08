@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" type="image/png" href="https://www.s-myfav.com/icons/apple-touch-icon-180x180.png">
     <link rel="icon" type="image/png" href="https://www.s-myfav.com/icons/icon-192x192.png">
     <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.6.3/css/all.css integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/ crossorigin="anonymous">
-    <link rel="stylesheet" href=http://192.168.10.113/css/main.css>
+    <link rel="stylesheet" href=https://www.s-myfav.com/css/main.css>
     <title>MyFav</title>
 </head>
 
@@ -86,25 +86,14 @@
     <div class="popup" id="js-popup">
         <div class="popup-inner">
             <div class="close-btn" id="js-close-btn"><i class="fas fa-times"></i></div>
-            <input id="scal" type="range" value="" min="10" max="400" oninput="scaling(value)" style="width: 400px;"><br>
-            <canvas id="cvs" width="500" height="500"></canvas>
+            <input id="scal" class="canvas" type="range" value="" min="10" max="400" oninput="scaling(value)" style="width: 400px;"><br>
+            <canvas id="cvs" class="canvas" width="500" height="500"></canvas>
             <button class="bg-black hover:bg-black text-white py-2 px-4" id="crop" onclick="crop_img()">切り抜き</button>
         </div>
         <div class="black-background" id="js-black-bg"></div>
     </div>
 
-    <script src="http://192.168.10.113/js/fav.js"></script>
-    <script>
-        function delfav() {
-            let check = window.confirm('削除しますか？');
-            if (!check) {
-                return;
-            }
-            document.modfav.action = "/delfav";
-            document.modfav.method = "POST";
-            document.modfav.submit();
-        };
-    </script>
+    <script src="https://www.s-myfav.com/js/fav.js"></script>
 </body>
 
 </html>

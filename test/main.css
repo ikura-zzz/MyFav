@@ -107,3 +107,7 @@ input[type="radio"] {
     z-index: 1;
     cursor: pointer;
 }
+
+.canvas {
+    max-width: 90%;
+}
