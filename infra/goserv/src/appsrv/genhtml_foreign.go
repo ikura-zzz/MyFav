@@ -33,6 +33,9 @@ func genhtml_foreign(favs []types.Fav, username string) (string, error) {
 	for i := 0; i < len(favs); i++ {
 		fav := favs[i]
 		link := "/fav?favid=" + favs[i].Favid + "&name=" + username
+		if fav.Icon == "" {
+			fav.Icon = "https://www.s-myfav.com/icons/apple-touch-icon.png"
+		}
 
 		fav.Stars = starsconv(fav.Stars)
 
