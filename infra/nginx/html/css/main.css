@@ -70,9 +70,9 @@ input[type="radio"] {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 90%;
     max-width: 600px;
-    padding: 50px;
+    padding: 20px;
     background-color: #fff;
     z-index: 2;
 }
@@ -109,5 +109,9 @@ input[type="radio"] {
 }
 
 .canvas {
-    max-width: 90%;
+    max-width: 100%;
+}
+
+.rangebar {
+    max-width: 90%
 }

@@ -3,8 +3,10 @@ const cvs = document.getElementById('cvs')
 let cw = cvs.width;
 let ch = cvs.height;
 let out = document.getElementById('canvas')
-const oh = 300
-const ow = 300
+const tw = 400;
+const th = tw;
+const oh = tw;
+const ow = oh;
 
 let ix = 0 // 中心座標
 let iy = 0
@@ -14,7 +16,7 @@ const image = new Image()
 function load_img() { // 画像の読み込み
     ix = image.width / 2;
     iy = image.height / 2;
-    let scl = parseInt(cw / image.width * 100);
+    let scl = parseInt(ch / image.width * 100);
     document.getElementById('scal').value = scl;
     scaling(scl);
 }
@@ -33,8 +35,10 @@ function draw_canvas(_x, _y) { // 画像更新
         0, 0, image.width, image.height,
         (cw / 2) - _x * v, (ch / 2) - _y * v, image.width * v, image.height * v,
     )
-    ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)'
-    ctx.strokeRect((cw - ow) / 2, (ch - oh) / 2, ow, oh) // 赤い枠
+    ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)';
+    ctx.arc(cw / 2, ch / 2, tw / 2, 0, 2 * Math.PI, false);
+    ctx.lineWidth = 3;
+    ctx.stroke(); // 赤い枠
 }
 
 function crop_img() { // 画像切り取り
@@ -46,7 +50,7 @@ function crop_img() { // 画像切り取り
     ctx.fillRect(0, 0, cw, ch) // 背景を塗る
     ctx.drawImage(image,
         0, 0, image.width, image.height,
-        (ow / 2) - ix * v, (oh / 2) - iy * v, image.width * v, image.height * v,
+        (tw / 2) - ix * v, (th / 2) - iy * v, image.width * v, image.height * v,
     )
     base64 = out.get(0).toDataURL('image/jpeg');
     document.getElementById("iconimg").src = "";
@@ -95,9 +99,9 @@ cvs.onmousemove = function(_ev) { // canvas ドラッグ中
     return false // イベントを伝搬しない
 }
 cvs.onwheel = function(_ev) { // canvas ホイールで拡大縮小
-    let scl = parseInt(parseInt(document.getElementById('scal').value) + _ev.deltaY * 0.05)
-    if (scl < 10) scl = 10
-    if (scl > 400) scl = 400
+    let scl = parseInt(parseInt(document.getElementById('scal').value) + _ev.deltaY * 0.01)
+    if (scl < 1) scl = 1
+    if (scl > 100) scl = 100
     document.getElementById('scal').value = scl
     scaling(scl)
     return false // イベントを伝搬しない
@@ -133,24 +137,22 @@ function popupOpen() {
 }
 
 function drawimage_popup(image) {
-    const THUMBNAIL_MAX_HEIGHT = 500;
-    const THUMBNAIL_MAX_WIDTH = 500;
     // 縮小後のサイズを計算する
     var width, height;
     if (image.width > image.height) {
         var ratio = image.height / image.width;
-        width = THUMBNAIL_MAX_WIDTH;
-        height = THUMBNAIL_MAX_WIDTH * ratio;
+        width = cw;
+        height = cw * ratio;
     } else {
         var ratio = image.width / image.height;
-        width = THUMBNAIL_MAX_HEIGHT * ratio;
-        height = THUMBNAIL_MAX_HEIGHT;
+        width = ch * ratio;
+        height = ch;
     }
 
     // 縮小画像を描画するcanvasのサイズを上で算出した値に変更する
     var canvas = $('#cvs')
-        .attr('width', THUMBNAIL_MAX_WIDTH)
-        .attr('height', THUMBNAIL_MAX_HEIGHT);
+        .attr('width', cw)
+        .attr('height', ch);
 
     var ctx = canvas[0].getContext('2d');
 
