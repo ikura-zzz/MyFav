@@ -1,9 +1,6 @@
-infra/goserv/bin/appsrv
 infra/goserv/bin/myfav
 infra/nginx/html/css/all.css
 infra/nginx/html/css/output.css
 infra/mysql/initsql/world.sql
-.VSCodeCounter/2021-08-09_10-08-49/details.md
-.VSCodeCounter/2021-08-09_10-08-49/results.csv
-.VSCodeCounter/2021-08-09_10-08-49/results.md
-.VSCodeCounter/2021-08-09_10-08-49/results.txt
+.VSCodeCounter/
+.vscode/
