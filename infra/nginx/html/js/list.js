@@ -1,3 +1,8 @@
+function getURL() {
+    url = location.pathname + location.search
+    return url
+}
+
 function allfav() {
     for (let i = 0; true; i++) {
         let elem = document.getElementById("fav" + i);
@@ -10,13 +15,14 @@ function allfav() {
         for (let h = 0; h < children.length; h++) {
             children.item(h).style = "";
         }
+        history.replaceState('', '', getURL() + "#all")
     }
 }
-
 function now() {
     for (let i = 0; true; i++) {
         let timing = document.getElementById("timing" + i);
         if (!timing) {
+            history.replaceState('', '', getURL() + "#now")
             return;
         }
 
@@ -45,6 +51,7 @@ function already() {
     for (let i = 0; true; i++) {
         let timing = document.getElementById("timing" + i);
         if (!timing) {
+            history.replaceState('', '', getURL() + "#already")
             return;
         }
 
@@ -73,6 +80,7 @@ function wish() {
     for (let i = 0; true; i++) {
         let timing = document.getElementById("timing" + i);
         if (!timing) {
+            history.replaceState('', '', getURL() + "#wish")
             return;
         }
 
@@ -99,6 +107,28 @@ function wish() {
 }
 
 function firstload() {
+    let hash = location.hash
+    if (hash != "") {
+        switch (hash) {
+            case "#all":
+                document.getElementById("all").checked = true
+                allfav();
+                break;
+            case "#already":
+                document.getElementById("already").checked = true
+                already();
+                break;
+            case "#now":
+                document.getElementById("now").checked = true
+                now();
+                break;
+            case "#wish":
+                document.getElementById("wish").checked = true
+                wish();
+                break;
+        }
+        return
+    }
     let radioelem = [document.getElementById("all"), document.getElementById("already"), document.getElementById("now"), document.getElementById("wish")];
     let tabid = 0;
     for (let i = 0; i < radioelem.length; i++) {
