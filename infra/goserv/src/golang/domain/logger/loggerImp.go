@@ -1,4 +1,4 @@
-package logmanager
+package logger
 
 import (
 	"fmt"
@@ -9,7 +9,9 @@ import (
 
 const logfile string = "/var/log/myfav/myfav.log"
 
-func Outlog(msg string) {
+type Logimp struct{}
+
+func (l *Logimp) Outlog(msg string) {
 	file, err := os.OpenFile(logfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		fmt.Println(err.Error())

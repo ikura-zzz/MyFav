@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"myfav/dbaccessor"
-	"myfav/logmanager"
+	"myfav/domain/logger"
 	"myfav/myfavtime"
 	"myfav/utils"
 )
@@ -34,6 +34,7 @@ func AppUsersMod(userid int, newname string) error {
 }
 
 func AppUserspassMod(userid int, newhashpass [32]byte) error {
+	var l logger.Logger = new(logger.Logimp)
 	db, err := dbaccessor.DBOpen()
 	if err != nil {
 		return err
@@ -42,18 +43,18 @@ func AppUserspassMod(userid int, newhashpass [32]byte) error {
 
 	stmtUpdate, err := db.Prepare(utils.UserPasswordUpdateSQL)
 	if err != nil {
-		logmanager.Outlog("AppUserspassmod:stmtPrepare:" + err.Error())
+		l.Outlog("AppUserspassmod:stmtPrepare:" + err.Error())
 		return err
 	}
 	defer stmtUpdate.Close()
 
 	rs, err := stmtUpdate.Exec(fmt.Sprintf("%s", newhashpass), myfavtime.GetTimeString(), userid)
 	if err != nil {
-		logmanager.Outlog("AppUserspassmod:stmtExec:" + err.Error())
+		l.Outlog("AppUserspassmod:stmtExec:" + err.Error())
 		return errors.New("AppUserspassMod:" + err.Error())
 	}
 	if cnt, _ := rs.RowsAffected(); cnt != 1 {
-		logmanager.Outlog("AppUserspassMod:updated is:" + fmt.Sprintf("%d", cnt))
+		l.Outlog("AppUserspassMod:updated is:" + fmt.Sprintf("%d", cnt))
 		return errors.New("更新件数障害 更新件数：" + fmt.Sprintf("%d", cnt))
 	}
 	return nil

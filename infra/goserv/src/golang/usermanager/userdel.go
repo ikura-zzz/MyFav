@@ -4,17 +4,18 @@ import (
 	"database/sql"
 	"fmt"
 	"myfav/dbaccessor"
-	"myfav/logmanager"
+	"myfav/domain/logger"
 	"myfav/types"
 	"myfav/utils"
 )
 
 // Userdel ユーザー削除
 func Userdel(userid int) error {
-	logmanager.Outlog("userdel:userid:" + fmt.Sprintf("%d", userid))
+	var l logger.Logger = new(logger.Logimp)
+	l.Outlog("userdel:userid:" + fmt.Sprintf("%d", userid))
 	favs, err := dbaccessor.Selectfavs(userid, utils.SelectFavsByUserid)
 	if err != nil {
-		logmanager.Outlog("Userdel:selectfavs" + err.Error())
+		l.Outlog("Userdel:selectfavs" + err.Error())
 		return err
 	}
 
@@ -24,7 +25,7 @@ func Userdel(userid int) error {
 	}
 	defer db.Close()
 
-	logmanager.Outlog("fav cnt:" + fmt.Sprintf("%d", len(favs)))
+	l.Outlog("fav cnt:" + fmt.Sprintf("%d", len(favs)))
 	if len(favs) > 0 {
 		if err := delfavs(db, userid, favs); err != nil {
 			return err

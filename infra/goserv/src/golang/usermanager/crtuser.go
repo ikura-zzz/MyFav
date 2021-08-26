@@ -2,25 +2,26 @@ package usermanager
 
 import (
 	"errors"
+	"myfav/domain/logger"
 	"myfav/identifychk"
-	"myfav/logmanager"
 	"myfav/utils"
 )
 
 // Useradd ユーザー新規追加
 func Useradd(username string, pass1 string, pass2 string) error {
+	var l logger.Logger = new(logger.Logimp)
 	if err := passwordValid(pass1, pass2); err != nil {
 		return err
 	}
 	if cnt, err := identifychk.GetUserCnt(username); err != nil {
-		logmanager.Outlog(err.Error())
+		l.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	} else if cnt != 0 {
-		logmanager.Outlog("same username already used.")
+		l.Outlog("same username already used.")
 		return errors.New("このユーザー名は既に使用されています。")
 	}
 	if err := registUser(username, pass1); err != nil {
-		logmanager.Outlog(err.Error())
+		l.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	}
 	return nil

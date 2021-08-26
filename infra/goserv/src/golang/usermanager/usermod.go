@@ -4,26 +4,27 @@ import (
 	"crypto/sha256"
 	"errors"
 
+	"myfav/domain/logger"
 	"myfav/identifychk"
-	"myfav/logmanager"
 	"myfav/utils"
 )
 
 // Usernamemod ユーザー名変更
 func Usernamemod(userid int, currentusername string, newusername string) error {
+	var l logger.Logger = new(logger.Logimp)
 	if currentusername == newusername {
-		logmanager.Outlog("this username is using now.")
+		l.Outlog("this username is using now.")
 		return errors.New("現在と同じユーザー名です。")
 	}
 	if cnt, err := identifychk.GetUserCnt(newusername); err != nil {
-		logmanager.Outlog(err.Error())
+		l.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	} else if cnt != 0 {
-		logmanager.Outlog("same username already used.")
+		l.Outlog("same username already used.")
 		return errors.New("このユーザー名は既に使用されています。")
 	}
 	if err := AppUsersMod(userid, newusername); err != nil {
-		logmanager.Outlog(("usernamemod:") + err.Error())
+		l.Outlog(("usernamemod:") + err.Error())
 		return errors.New(utils.CmnErrmsg)
 	}
 	return nil
@@ -31,8 +32,9 @@ func Usernamemod(userid int, currentusername string, newusername string) error {
 
 // Userpassmod ユーザーパスワード変更
 func Userpassmod(userid int, username string, newpass string, retypepass string) error {
+	var l logger.Logger = new(logger.Logimp)
 	if err := passwordValid(newpass, retypepass); err != nil {
-		logmanager.Outlog("Userpassmod" + err.Error())
+		l.Outlog("Userpassmod" + err.Error())
 		return err
 	}
 	hashpass, err := identifychk.GetUserpass(username)
@@ -42,11 +44,11 @@ func Userpassmod(userid int, username string, newpass string, retypepass string)
 	}
 	newhashpass := sha256.Sum256([]byte(newpass))
 	if err != nil {
-		logmanager.Outlog("Userpassmod:" + err.Error())
+		l.Outlog("Userpassmod:" + err.Error())
 		return errors.New(utils.CmnErrmsg)
 	}
 	if currenthashpass == newhashpass {
-		logmanager.Outlog("this password is using now.")
+		l.Outlog("this password is using now.")
 		return errors.New("このパスワードは現在使用中のものです。")
 	}
 	if err := AppUserspassMod(userid, newhashpass); err != nil {

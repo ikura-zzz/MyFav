@@ -2,7 +2,7 @@ package main
 
 import (
 	"html/template"
-	"myfav/logmanager"
+	"myfav/domain/logger"
 	"myfav/sessionmanager"
 	"myfav/utils"
 	"net/http"
@@ -27,9 +27,10 @@ func List(engine *gin.Engine) {
 
 // 自分のリストへアクセスする場合
 func switchlist(c *gin.Context) {
+	var l logger.Logger = new(logger.Logimp)
 	favs, err := genlist(c)
 	if err != nil {
-		logmanager.Outlog(err.Error())
+		l.Outlog(err.Error())
 	}
 	username, _ := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
 	c.HTML(http.StatusOK, "list.html", gin.H{
@@ -40,9 +41,10 @@ func switchlist(c *gin.Context) {
 
 // 他人のリストへアクセスする場合
 func switchlist_foreign(c *gin.Context, username string) {
+	var l logger.Logger = new(logger.Logimp)
 	favs, err := genlist_foreign(c, username)
 	if err != nil {
-		logmanager.Outlog(err.Error())
+		l.Outlog(err.Error())
 	}
 	c.HTML(http.StatusOK, "list_foreign.html", gin.H{
 		"username": template.HTML(username),
