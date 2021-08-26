@@ -3,5 +3,5 @@ $ENV:GOOS="linux"
 $ENV:GOARCH="amd64"
 Set-Location src\golang\appsrv
 go build -o myfav
-Set-Location ..\..\
+Set-Location ..\..\..\
 Move-Item -Force src\golang\appsrv\myfav bin\.
