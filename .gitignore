@@ -1,4 +1,5 @@
 infra/goserv/bin/myfav
+infra/goserv/src/golang/dbaccessor/dbaccess.go   
 infra/nginx/html/css/all.css
 infra/nginx/html/css/output.css
 infra/mysql/initsql/world.sql
