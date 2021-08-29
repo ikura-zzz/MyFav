@@ -1,6 +1,6 @@
 package fav
 
-func Timingconv(timing string) string {
+func timingconv(timing string) string {
 	if timing == "already" {
 		return "1"
 	}
@@ -14,7 +14,7 @@ func Timingconv(timing string) string {
 	return "2"
 }
 
-func Starsconv(stars string) string {
+func starsconv(stars string) string {
 	if stars == "1" {
 		return "1"
 	}
@@ -33,7 +33,7 @@ func Starsconv(stars string) string {
 
 	return "3"
 }
-func Opclconv(opcl string) string {
+func opclconv(opcl string) string {
 	if opcl == "open" {
 		return "1"
 	}

@@ -1,4 +1,4 @@
-package favmanager
+package fav
 
 import (
 	"errors"

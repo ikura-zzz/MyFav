@@ -1,9 +1,8 @@
-package favmanager
+package fav
 
 import (
 	"errors"
 	"myfav/dbaccessor"
-	"myfav/domain/fav"
 	"myfav/sessionmanager"
 	"myfav/types"
 
@@ -18,9 +17,9 @@ func Favadd(c *gin.Context, f types.Fav) error {
 		return errors.New("favadd getuserid:" + err.Error())
 	}
 
-	f.Timing = fav.Timingconv(f.Timing)
-	f.Stars = fav.Starsconv(f.Stars)
-	f.Openclose = fav.Opclconv(f.Openclose)
+	f.Timing = timingconv(f.Timing)
+	f.Stars = starsconv(f.Stars)
+	f.Openclose = opclconv(f.Openclose)
 
 	if f.Title == "" {
 		return errors.New("favadd:title is empty")
