@@ -3,7 +3,6 @@ package main
 import (
 	"myfav/domain/logger"
 	"myfav/domain/session"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,24 +26,4 @@ func setPages(engine *gin.Engine) {
 	setFav(engine)
 	setList(engine)
 	setConfig(engine)
-}
-
-// GETリクエストのパラメータを全取得して返す。
-func GetInputGET(c *gin.Context) []string {
-	keys := strings.Split(c.Query("names"), ",")
-	var inputs []string
-	for i := 0; i < len(keys); i++ {
-		inputs = append(inputs, c.Query(keys[i]))
-	}
-	return inputs
-}
-
-// POSTリクエストのパラメータを全取得して返す。
-func GetInputPOST(c *gin.Context) []string {
-	keys := strings.Split(c.PostForm("names"), ",")
-	var inputs []string
-	for i := 0; i < len(keys); i++ {
-		inputs = append(inputs, c.PostForm(keys[i]))
-	}
-	return inputs
 }
