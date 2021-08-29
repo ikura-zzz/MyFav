@@ -43,7 +43,7 @@ func Userpassmod(userid int, username string, newpass string, retypepass string)
 	for i := 0; i < len(currenthashpass); i++ {
 		currenthashpass[i] = hashpass[i]
 	}
-	newhashpass := sha256.Sum256([]byte(newpass))
+	newhashpass := (types.Hashpass)(sha256.Sum256([]byte(newpass)))
 	if err != nil {
 		l.Outlog("Userpassmod:" + err.Error())
 		return errors.New(utils.CmnErrmsg)

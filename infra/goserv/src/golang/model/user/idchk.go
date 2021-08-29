@@ -5,12 +5,14 @@ import (
 	"errors"
 
 	"myfav/dbaccessor"
+	"myfav/types"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// Invalidchk 入力されたユーザー名とパスワードの一致を確認する。
 func Invalidchk(username string, password string) error {
-	hashpass := sha256.Sum256([]byte(password))
+	hashpass := (types.Hashpass)(sha256.Sum256([]byte(password)))
 	dbpasshash, err := dbaccessor.GetUserpass(username)
 	if err != nil {
 		return err
