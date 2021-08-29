@@ -3,7 +3,7 @@ package user
 import (
 	"errors"
 	"myfav/dbaccessor"
-	"myfav/domain/logger"
+	"myfav/model/logger"
 	"myfav/utils"
 )
 

@@ -2,9 +2,9 @@ package main
 
 import (
 	"html/template"
-	"myfav/domain/logger"
-	"myfav/domain/session"
-	"myfav/domain/user"
+	"myfav/model/logger"
+	"myfav/model/session"
+	"myfav/model/user"
 	"myfav/utils"
 	"net/http"
 

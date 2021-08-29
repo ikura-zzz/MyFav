@@ -1,8 +1,8 @@
 package main
 
 import (
-	"myfav/domain/session"
-	"myfav/domain/user"
+	"myfav/model/session"
+	"myfav/model/user"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

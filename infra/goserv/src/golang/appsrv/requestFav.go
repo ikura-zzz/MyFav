@@ -3,9 +3,9 @@ package main
 import (
 	"html/template"
 	"myfav/dbaccessor"
-	"myfav/domain/fav"
-	"myfav/domain/logger"
-	"myfav/domain/session"
+	"myfav/model/fav"
+	"myfav/model/logger"
+	"myfav/model/session"
 	"myfav/types"
 	"myfav/utils"
 	"net/http"

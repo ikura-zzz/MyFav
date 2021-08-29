@@ -1,8 +1,8 @@
 package main
 
 import (
-	"myfav/domain/logger"
-	"myfav/domain/session"
+	"myfav/model/logger"
+	"myfav/model/session"
 
 	"github.com/gin-gonic/gin"
 )

@@ -3,7 +3,7 @@ package dbaccessor
 import (
 	"database/sql"
 	"errors"
-	"myfav/domain/logger"
+	"myfav/model/logger"
 )
 
 func dbOpen() (*sql.DB, error) {

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"myfav/dbaccessor"
-	"myfav/domain/session"
+	"myfav/model/session"
 	"myfav/types"
 	"myfav/utils"
 	"strconv"

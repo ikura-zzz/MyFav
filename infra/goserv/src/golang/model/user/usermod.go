@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"myfav/dbaccessor"
-	"myfav/domain/logger"
+	"myfav/model/logger"
 	"myfav/types"
 	"myfav/utils"
 )

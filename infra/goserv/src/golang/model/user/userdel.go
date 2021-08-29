@@ -3,7 +3,7 @@ package user
 import (
 	"fmt"
 	"myfav/dbaccessor"
-	"myfav/domain/logger"
+	"myfav/model/logger"
 	"myfav/utils"
 )
 

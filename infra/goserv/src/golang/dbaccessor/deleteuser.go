@@ -2,7 +2,7 @@ package dbaccessor
 
 import (
 	"errors"
-	"myfav/domain/logger"
+	"myfav/model/logger"
 	"myfav/utils"
 )
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"myfav/domain/session"
+	"myfav/model/session"
 	"myfav/utils"
 
 	"github.com/gin-gonic/gin"
