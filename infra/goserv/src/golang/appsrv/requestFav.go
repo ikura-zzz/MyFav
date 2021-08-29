@@ -5,7 +5,6 @@ import (
 	"myfav/dbaccessor"
 	"myfav/domain/logger"
 	"myfav/favmanager"
-	"myfav/identifychk"
 	"myfav/sessionmanager"
 	"myfav/types"
 	"myfav/utils"
@@ -68,7 +67,7 @@ func Fav(engine *gin.Engine) {
 		var userid int
 		var err error
 		if username != "" {
-			userid, err = identifychk.GetUserId(username)
+			userid, err = dbaccessor.GetUserId(username)
 			if err != nil {
 				transPage(c, func(c *gin.Context) {
 					c.HTML(http.StatusOK, "fav.html", gin.H{})

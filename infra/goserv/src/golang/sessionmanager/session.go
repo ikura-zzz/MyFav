@@ -3,7 +3,7 @@ package sessionmanager
 import (
 	"errors"
 
-	"myfav/identifychk"
+	"myfav/dbaccessor"
 	"myfav/utils"
 
 	"github.com/gin-contrib/sessions"
@@ -36,7 +36,7 @@ func InqSessionValid(c *gin.Context, key string) bool {
 	if !ok {
 		return false
 	}
-	if cnt, err := identifychk.GetUserCnt(value); err != nil {
+	if cnt, err := dbaccessor.GetUserCnt(value); err != nil {
 		return false
 	} else {
 		return cnt > 0
@@ -48,13 +48,14 @@ func RemoveSession(c *gin.Context) {
 	session.Clear()
 	session.Save()
 }
+
 func GetUserId(c *gin.Context) (int, error) {
 
 	username, ok := GetSessionValue(c, "username")
 	if !ok {
 		return 0, errors.New("DBアクセス不可")
 	}
-	id, err := identifychk.GetUserId(username)
+	id, err := dbaccessor.GetUserId(username)
 	if err != nil {
 		return 0, err
 	}

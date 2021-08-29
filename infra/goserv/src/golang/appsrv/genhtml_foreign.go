@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"myfav/dbaccessor"
-	"myfav/identifychk"
 	"myfav/types"
 	"myfav/utils"
 	"strconv"
@@ -17,7 +16,7 @@ func genlist_foreign(c *gin.Context, username string) (string, error) {
 }
 
 func genlistbody_foreign(sql string, username string) (string, error) {
-	userid, err := identifychk.GetUserId(username)
+	userid, err := dbaccessor.GetUserId(username)
 	if err != nil {
 		return "", errors.New("genlistbody_foreign:" + err.Error())
 	}

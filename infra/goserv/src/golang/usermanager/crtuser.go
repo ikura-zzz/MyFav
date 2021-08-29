@@ -2,8 +2,8 @@ package usermanager
 
 import (
 	"errors"
+	"myfav/dbaccessor"
 	"myfav/domain/logger"
-	"myfav/identifychk"
 	"myfav/utils"
 )
 
@@ -13,7 +13,7 @@ func Useradd(username string, pass1 string, pass2 string) error {
 	if err := passwordValid(pass1, pass2); err != nil {
 		return err
 	}
-	if cnt, err := identifychk.GetUserCnt(username); err != nil {
+	if cnt, err := dbaccessor.GetUserCnt(username); err != nil {
 		l.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	} else if cnt != 0 {

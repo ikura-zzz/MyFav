@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"errors"
 
+	"myfav/dbaccessor"
 	"myfav/domain/logger"
-	"myfav/identifychk"
 	"myfav/utils"
 )
 
@@ -16,7 +16,7 @@ func Usernamemod(userid int, currentusername string, newusername string) error {
 		l.Outlog("this username is using now.")
 		return errors.New("現在と同じユーザー名です。")
 	}
-	if cnt, err := identifychk.GetUserCnt(newusername); err != nil {
+	if cnt, err := dbaccessor.GetUserCnt(newusername); err != nil {
 		l.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	} else if cnt != 0 {
@@ -37,7 +37,7 @@ func Userpassmod(userid int, username string, newpass string, retypepass string)
 		l.Outlog("Userpassmod" + err.Error())
 		return err
 	}
-	hashpass, err := identifychk.GetUserpass(username)
+	hashpass, err := dbaccessor.GetUserpass(username)
 	var currenthashpass [32]byte
 	for i := 0; i < len(currenthashpass); i++ {
 		currenthashpass[i] = hashpass[i]
