@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"myfav/dbaccessor"
-	"myfav/sessionmanager"
+	"myfav/domain/session"
 	"myfav/types"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +13,7 @@ import (
 // Favmod Favの編集
 func Favmod(c *gin.Context, f types.Fav) error {
 	var err error
-	f.Userid, err = sessionmanager.GetUserId(c)
+	f.Userid, err = session.GetUserId(c)
 	if err != nil {
 		return errors.New("favmod getuserid:" + err.Error())
 	}
