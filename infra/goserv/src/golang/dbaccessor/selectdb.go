@@ -40,6 +40,7 @@ func Selectfavs(userid int, selectSql string) ([]types.Fav, error) {
 	return favs, nil
 }
 
+// GetUserpass ユーザーパスワードをハッシュ値で取得して返す
 func GetUserpass(username string) ([]byte, error) {
 	db, err := dbOpen()
 	if err != nil {

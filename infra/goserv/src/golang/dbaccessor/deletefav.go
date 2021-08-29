@@ -7,6 +7,7 @@ import (
 	"myfav/utils"
 )
 
+// DeleteFav お気に入りを1件削除する。
 func DeleteFav(fav types.Fav) error {
 	db, err := dbOpen()
 	if err != nil {

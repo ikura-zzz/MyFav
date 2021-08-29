@@ -7,6 +7,7 @@ import (
 	"myfav/utils"
 )
 
+// ResistFav 新規お気に入りを登録する。
 func ResistFav(fav types.Fav) error {
 	db, err := dbOpen()
 	if err != nil {

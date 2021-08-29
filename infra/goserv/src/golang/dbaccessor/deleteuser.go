@@ -6,6 +6,7 @@ import (
 	"myfav/utils"
 )
 
+// DeleteUser ユーザーを1件削除する。
 func DeleteUser(userid int) error {
 	db, err := dbOpen()
 	if err != nil {
