@@ -1,9 +1,8 @@
 package main
 
 import (
-	"myfav/identifychk"
-	"myfav/sessionmanager"
-	"myfav/usermanager"
+	"myfav/domain/session"
+	"myfav/domain/user"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -28,18 +27,18 @@ func Signin(engine *gin.Engine) {
 			errtrans("ユーザー名またはパスワードが未入力です。")
 			return
 		}
-		if err := identifychk.Invalidchk(username, password); err != nil {
+		if err := user.Invalidchk(username, password); err != nil {
 			errtrans(err.Error())
 			return
 		} else {
-			sessionmanager.CreateNewSession(c, username)
+			session.CreateNewSession(c, username)
 			redirectHome(c)
 		}
 	})
 }
 func Signout(engine *gin.Engine) {
 	engine.GET("/signout", func(c *gin.Context) {
-		sessionmanager.RemoveSession(c)
+		session.RemoveSession(c)
 		redirectTop(c)
 	})
 }
@@ -57,7 +56,7 @@ func Signup(engine *gin.Engine) {
 			errtrans("ユーザー名またはパスワードが未入力です。")
 			return
 		}
-		if err := usermanager.Useradd(username, password, retype); err != nil {
+		if err := user.Useradd(username, password, retype); err != nil {
 			errtrans(err.Error())
 			return
 		} else {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"myfav/domain/logger"
-	"myfav/sessionmanager"
+	"myfav/domain/session"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +12,7 @@ func main() {
 	var l logger.Logger = new(logger.Logimp)
 	l.Outlog("myfav started!!")
 	engine := gin.Default()
-	sessionmanager.CreateNewSessionStore(engine)
+	session.CreateNewSessionStore(engine)
 
 	engine.Static("/static", "./static")
 	engine.LoadHTMLGlob("/var/goserv/bin/html/*.html")

@@ -1,4 +1,4 @@
-package identifychk
+package user
 
 import (
 	"crypto/sha256"

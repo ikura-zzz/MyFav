@@ -1,4 +1,4 @@
-package usermanager
+package user
 
 import (
 	"errors"
@@ -6,7 +6,6 @@ import (
 
 	"myfav/dbaccessor"
 	"myfav/domain/logger"
-	"myfav/myfavtime"
 	"myfav/utils"
 )
 
@@ -23,7 +22,7 @@ func AppUsersMod(userid int, newname string) error {
 	}
 	defer stmtUpdate.Close()
 
-	rs, err := stmtUpdate.Exec(newname, myfavtime.GetTimeString(), userid)
+	rs, err := stmtUpdate.Exec(newname, utils.GetTimeString(), userid)
 	if err != nil {
 		return errors.New("AppUsersMod:" + err.Error())
 	}
@@ -48,7 +47,7 @@ func AppUserspassMod(userid int, newhashpass [32]byte) error {
 	}
 	defer stmtUpdate.Close()
 
-	rs, err := stmtUpdate.Exec(fmt.Sprintf("%s", newhashpass), myfavtime.GetTimeString(), userid)
+	rs, err := stmtUpdate.Exec(fmt.Sprintf("%s", newhashpass), utils.GetTimeString(), userid)
 	if err != nil {
 		l.Outlog("AppUserspassmod:stmtExec:" + err.Error())
 		return errors.New("AppUserspassMod:" + err.Error())

@@ -1,4 +1,4 @@
-package usermanager
+package user
 
 import (
 	// mysql driver
@@ -7,7 +7,6 @@ import (
 	"fmt"
 
 	"myfav/dbaccessor"
-	"myfav/myfavtime"
 	"myfav/utils"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -28,6 +27,6 @@ func registUser(username string, password string) error {
 	}
 	defer stmtInsert.Close()
 
-	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), myfavtime.GetTimeString())
+	_, err = stmtInsert.Exec(username, fmt.Sprintf("%s", hashpass), utils.GetTimeString())
 	return err
 }

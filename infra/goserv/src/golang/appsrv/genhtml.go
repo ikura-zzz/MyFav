@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"myfav/dbaccessor"
-	"myfav/sessionmanager"
+	"myfav/domain/session"
 	"myfav/types"
 	"myfav/utils"
 	"strconv"
@@ -15,7 +15,7 @@ import (
 const checked string = "checked"
 
 func genlist(c *gin.Context) (string, error) {
-	userid, err := sessionmanager.GetUserId(c)
+	userid, err := session.GetUserId(c)
 	if err != nil {
 		return "", errors.New("genlistbody:" + err.Error())
 	}

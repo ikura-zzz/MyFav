@@ -3,7 +3,7 @@ package main
 import (
 	"html/template"
 	"myfav/domain/logger"
-	"myfav/sessionmanager"
+	"myfav/domain/session"
 	"myfav/utils"
 	"net/http"
 
@@ -32,7 +32,7 @@ func switchlist(c *gin.Context) {
 	if err != nil {
 		l.Outlog(err.Error())
 	}
-	username, _ := sessionmanager.GetSessionValue(c, utils.SessionKeyUser)
+	username, _ := session.GetSessionValue(c, utils.SessionKeyUser)
 	c.HTML(http.StatusOK, "list.html", gin.H{
 		"username": template.HTML(username),
 		"list":     template.HTML(favs),

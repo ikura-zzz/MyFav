@@ -1,4 +1,4 @@
-package usermanager
+package user
 
 import (
 	"database/sql"
