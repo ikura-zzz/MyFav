@@ -3,7 +3,6 @@ package dbaccessor
 import (
 	"database/sql"
 	"errors"
-	"myfav/myfavtime"
 	"myfav/types"
 	"myfav/utils"
 )
@@ -16,7 +15,7 @@ func resistFavs_favs(db *sql.DB, fav types.Fav) (sql.Result, error) {
 	defer stmtInsert.Close()
 
 	var rs sql.Result
-	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, myfavtime.GetTimeString())
+	rs, err = stmtInsert.Exec(fav.Userid, fav.Title, fav.Category, fav.Publisher, fav.Overview, fav.Impre, fav.Timing, fav.Stars, fav.Openclose, utils.GetTimeString())
 	return rs, err
 }
 

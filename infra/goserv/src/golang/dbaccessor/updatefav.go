@@ -3,7 +3,6 @@ package dbaccessor
 import (
 	"database/sql"
 	"errors"
-	"myfav/myfavtime"
 	"myfav/types"
 	"myfav/utils"
 )
@@ -35,7 +34,7 @@ func updateFav_fav(db *sql.DB, fav types.Fav) (sql.Result, error) {
 
 	var rs sql.Result
 	rs, err = stmtUpdate.Exec(fav.Title, fav.Category, fav.Publisher, fav.Overview,
-		fav.Impre, fav.Timing, fav.Stars, fav.Openclose, myfavtime.GetTimeString(), fav.Userid, fav.Favid)
+		fav.Impre, fav.Timing, fav.Stars, fav.Openclose, utils.GetTimeString(), fav.Userid, fav.Favid)
 	return rs, err
 }
 
