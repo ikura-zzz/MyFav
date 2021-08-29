@@ -1,16 +1,16 @@
-package user
+package dbaccessor
 
 import (
 	"errors"
 	"fmt"
 
-	"myfav/dbaccessor"
 	"myfav/domain/logger"
+	"myfav/types"
 	"myfav/utils"
 )
 
 func AppUsersMod(userid int, newname string) error {
-	db, err := dbaccessor.DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return err
 	}
@@ -32,9 +32,9 @@ func AppUsersMod(userid int, newname string) error {
 	return nil
 }
 
-func AppUserspassMod(userid int, newhashpass [32]byte) error {
+func AppUserspassMod(userid int, newhashpass types.Hashpass) error {
 	var l logger.Logger = new(logger.Logimp)
-	db, err := dbaccessor.DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return err
 	}

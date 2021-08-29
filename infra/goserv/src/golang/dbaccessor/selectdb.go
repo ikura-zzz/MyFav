@@ -8,7 +8,7 @@ import (
 
 // Selectfavs FavをDBから取得する。
 func Selectfavs(userid int, selectSql string) ([]types.Fav, error) {
-	db, err := DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func Selectfavs(userid int, selectSql string) ([]types.Fav, error) {
 }
 
 func GetUserpass(username string) ([]byte, error) {
-	db, err := DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func GetUserpass(username string) ([]byte, error) {
 }
 
 func GetUserCnt(username string) (int, error) {
-	db, err := DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return 0, err
 	}
@@ -98,7 +98,7 @@ func GetUserCnt(username string) (int, error) {
 }
 
 func GetUserId(username string) (int, error) {
-	db, err := DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return 0, err
 	}

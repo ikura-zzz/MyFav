@@ -1,11 +1,9 @@
 package user
 
 import (
-	"database/sql"
 	"fmt"
 	"myfav/dbaccessor"
 	"myfav/domain/logger"
-	"myfav/types"
 	"myfav/utils"
 )
 
@@ -19,28 +17,11 @@ func Userdel(userid int) error {
 		return err
 	}
 
-	db, err := dbaccessor.DBOpen()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
 	l.Outlog("fav cnt:" + fmt.Sprintf("%d", len(favs)))
 	if len(favs) > 0 {
-		if err := delfavs(db, userid, favs); err != nil {
+		if err := dbaccessor.Delfavs(userid, favs); err != nil {
 			return err
 		}
 	}
-	return dbaccessor.DeleteUser(db, userid)
-}
-
-func delfavs(db *sql.DB, userid int, favs []types.Fav) error {
-
-	for _, f := range favs {
-		f.Userid = userid
-		if err := dbaccessor.ExecDeleteFav(db, f); err != nil {
-			return err
-		}
-	}
-	return nil
+	return dbaccessor.DeleteUser(userid)
 }

@@ -20,7 +20,7 @@ func Useradd(username string, pass1 string, pass2 string) error {
 		l.Outlog("same username already used.")
 		return errors.New("このユーザー名は既に使用されています。")
 	}
-	if err := registUser(username, pass1); err != nil {
+	if err := dbaccessor.RegistUser(username, pass1); err != nil {
 		l.Outlog(err.Error())
 		return errors.New(utils.CmnErrmsg)
 	}

@@ -6,6 +6,7 @@ import (
 
 	"myfav/dbaccessor"
 	"myfav/domain/logger"
+	"myfav/types"
 	"myfav/utils"
 )
 
@@ -23,7 +24,7 @@ func Usernamemod(userid int, currentusername string, newusername string) error {
 		l.Outlog("same username already used.")
 		return errors.New("このユーザー名は既に使用されています。")
 	}
-	if err := AppUsersMod(userid, newusername); err != nil {
+	if err := dbaccessor.AppUsersMod(userid, newusername); err != nil {
 		l.Outlog(("usernamemod:") + err.Error())
 		return errors.New(utils.CmnErrmsg)
 	}
@@ -38,7 +39,7 @@ func Userpassmod(userid int, username string, newpass string, retypepass string)
 		return err
 	}
 	hashpass, err := dbaccessor.GetUserpass(username)
-	var currenthashpass [32]byte
+	var currenthashpass types.Hashpass
 	for i := 0; i < len(currenthashpass); i++ {
 		currenthashpass[i] = hashpass[i]
 	}
@@ -51,7 +52,7 @@ func Userpassmod(userid int, username string, newpass string, retypepass string)
 		l.Outlog("this password is using now.")
 		return errors.New("このパスワードは現在使用中のものです。")
 	}
-	if err := AppUserspassMod(userid, newhashpass); err != nil {
+	if err := dbaccessor.AppUserspassMod(userid, newhashpass); err != nil {
 		return errors.New(utils.CmnErrmsg)
 	}
 	return nil

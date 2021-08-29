@@ -8,7 +8,7 @@ import (
 )
 
 func UpdateFav(fav types.Fav) error {
-	db, err := DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return err
 	}

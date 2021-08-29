@@ -4,11 +4,10 @@ import (
 	"database/sql"
 	"errors"
 	"myfav/domain/logger"
-	"myfav/utils"
 )
 
-func DBOpen() (*sql.DB, error) {
-	db, err := sql.Open(utils.DBName, utils.ConnectStringDB)
+func dbOpen() (*sql.DB, error) {
+	db, err := sql.Open(dbName, connectStringDB)
 	if err != nil {
 		var l logger.Logger = new(logger.Logimp)
 		l.Outlog("sqlopen failed")

@@ -1,21 +1,15 @@
-package user
+package dbaccessor
 
 import (
-	// mysql driver
-
 	"crypto/sha256"
 	"fmt"
-
-	"myfav/dbaccessor"
 	"myfav/utils"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
-// registUser useradd to db
-func registUser(username string, password string) error {
+// RegistUser useradd to db
+func RegistUser(username string, password string) error {
 	hashpass := sha256.Sum256([]byte(password))
-	db, err := dbaccessor.DBOpen()
+	db, err := dbOpen()
 	if err != nil {
 		return err
 	}

@@ -7,6 +7,20 @@ import (
 	"myfav/utils"
 )
 
+func ResistFav(fav types.Fav) error {
+	db, err := dbOpen()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	if rs, err := resistFavs_favs(db, fav); err != nil {
+		return err
+	} else {
+		return resistFavs_image(db, fav, rs)
+	}
+}
+
 func resistFavs_favs(db *sql.DB, fav types.Fav) (sql.Result, error) {
 	stmtInsert, err := db.Prepare(utils.FavInsertSQL)
 	if err != nil {
@@ -29,18 +43,4 @@ func resistFavs_image(db *sql.DB, fav types.Fav, rs sql.Result) error {
 	favid, _ := rs.LastInsertId()
 	_, err = stmtInsert.Exec(favid, fav.Icon)
 	return err
-}
-
-func ResistFav(fav types.Fav) error {
-	db, err := DBOpen()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	if rs, err := resistFavs_favs(db, fav); err != nil {
-		return err
-	} else {
-		return resistFavs_image(db, fav, rs)
-	}
 }

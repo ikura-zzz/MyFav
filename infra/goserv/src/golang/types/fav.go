@@ -14,3 +14,4 @@ type Fav struct {
 	Openclose string
 	Datetime  string
 }
+type Hashpass [32]byte

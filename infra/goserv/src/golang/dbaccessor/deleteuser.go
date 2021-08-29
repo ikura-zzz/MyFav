@@ -1,13 +1,17 @@
 package dbaccessor
 
 import (
-	"database/sql"
 	"errors"
 	"myfav/domain/logger"
 	"myfav/utils"
 )
 
-func DeleteUser(db *sql.DB, userid int) error {
+func DeleteUser(userid int) error {
+	db, err := dbOpen()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
 	stmtDelete, err := db.Prepare(utils.UserDeleteSQL)
 	var l logger.Logger = new(logger.Logimp)
 	if err != nil {
