@@ -1,5 +1,7 @@
 package fav
 
+import "strconv"
+
 func timingconv(timing string) string {
 	if timing == "already" {
 		return "1"
@@ -15,23 +17,14 @@ func timingconv(timing string) string {
 }
 
 func starsconv(stars string) string {
-	if stars == "1" {
-		return "1"
-	}
-	if stars == "2" {
-		return "2"
-	}
-	if stars == "3" {
+	num, err := strconv.Atoi(stars)
+	if err != nil {
 		return "3"
 	}
-	if stars == "4" {
-		return "4"
+	if num < 1 || 5 < num {
+		return "3"
 	}
-	if stars == "5" {
-		return "5"
-	}
-
-	return "3"
+	return stars
 }
 func opclconv(opcl string) string {
 	if opcl == "open" {
