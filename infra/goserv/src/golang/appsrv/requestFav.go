@@ -14,13 +14,13 @@ import (
 )
 
 func setFav(engine *gin.Engine) {
-	Fav(engine)
-	Crtfav(engine)
-	Modfav(engine)
-	Delfav(engine)
+	favPage(engine)
+	crtfav(engine)
+	modfav(engine)
+	delfav(engine)
 }
 
-func Crtfav(engine *gin.Engine) {
+func crtfav(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/crtfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
@@ -33,7 +33,7 @@ func Crtfav(engine *gin.Engine) {
 	})
 }
 
-func Modfav(engine *gin.Engine) {
+func modfav(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/modfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
@@ -46,7 +46,7 @@ func Modfav(engine *gin.Engine) {
 	})
 }
 
-func Delfav(engine *gin.Engine) {
+func delfav(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/delfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
@@ -59,7 +59,7 @@ func Delfav(engine *gin.Engine) {
 		})
 	})
 }
-func Fav(engine *gin.Engine) {
+func favPage(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.GET("/fav", func(c *gin.Context) {
 		favid := c.Query("favid")

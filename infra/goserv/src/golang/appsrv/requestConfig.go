@@ -12,19 +12,19 @@ import (
 )
 
 func setConfig(engine *gin.Engine) {
-	Configmenu(engine)
-	ConfigUser(engine)
-	ConfigName(engine)
-	ConfigDelUser(engine)
-	ConfigValidChk_name(engine)
-	ConfigValidChk_pass(engine)
-	ConfigValidChk_deluser(engine)
-	ChangeName(engine)
-	ChangePassword(engine)
-	DeleteUser(engine)
+	configmenu(engine)
+	configUser(engine)
+	configName(engine)
+	configDelUser(engine)
+	configValidChk_name(engine)
+	configValidChk_pass(engine)
+	configValidChk_deluser(engine)
+	changeName(engine)
+	changePassword(engine)
+	deleteUser(engine)
 }
 
-func Configmenu(engine *gin.Engine) {
+func configmenu(engine *gin.Engine) {
 	engine.GET("/config", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			c.HTML(http.StatusOK, "config.html", gin.H{})
@@ -32,7 +32,7 @@ func Configmenu(engine *gin.Engine) {
 	})
 }
 
-func ConfigUser(engine *gin.Engine) {
+func configUser(engine *gin.Engine) {
 	engine.GET("/configuser", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
@@ -41,7 +41,7 @@ func ConfigUser(engine *gin.Engine) {
 		})
 	})
 }
-func ConfigName(engine *gin.Engine) {
+func configName(engine *gin.Engine) {
 	engine.GET("/configpass", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
@@ -50,7 +50,7 @@ func ConfigName(engine *gin.Engine) {
 		})
 	})
 }
-func ConfigDelUser(engine *gin.Engine) {
+func configDelUser(engine *gin.Engine) {
 	engine.GET("/configuserdel", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			c.HTML(http.StatusOK, "reconfPassword.html", gin.H{
@@ -59,7 +59,7 @@ func ConfigDelUser(engine *gin.Engine) {
 		})
 	})
 }
-func ConfigValidChk_name(engine *gin.Engine) {
+func configValidChk_name(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/chgnameform", func(c *gin.Context) {
 		username, ok := session.GetSessionValue(c, utils.SessionKeyUser)
@@ -82,7 +82,7 @@ func ConfigValidChk_name(engine *gin.Engine) {
 		})
 	})
 }
-func ConfigValidChk_pass(engine *gin.Engine) {
+func configValidChk_pass(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/chgpassform", func(c *gin.Context) {
 		username, ok := session.GetSessionValue(c, utils.SessionKeyUser)
@@ -104,7 +104,7 @@ func ConfigValidChk_pass(engine *gin.Engine) {
 		})
 	})
 }
-func ConfigValidChk_deluser(engine *gin.Engine) {
+func configValidChk_deluser(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/userdeleteform", func(c *gin.Context) {
 		username, ok := session.GetSessionValue(c, utils.SessionKeyUser)
@@ -127,7 +127,7 @@ func ConfigValidChk_deluser(engine *gin.Engine) {
 	})
 }
 
-func ChangeName(engine *gin.Engine) {
+func changeName(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/chgname", func(c *gin.Context) {
 		errtrans := func(errmsg string) {
@@ -167,7 +167,7 @@ func ChangeName(engine *gin.Engine) {
 	})
 }
 
-func ChangePassword(engine *gin.Engine) {
+func changePassword(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/chgpass", func(c *gin.Context) {
 		errtrans := func(errmsg string) {
@@ -201,7 +201,7 @@ func ChangePassword(engine *gin.Engine) {
 		})
 	})
 }
-func DeleteUser(engine *gin.Engine) {
+func deleteUser(engine *gin.Engine) {
 	var l logger.Logger = new(logger.Logimp)
 	engine.POST("/deluser", func(c *gin.Context) {
 		userid, err := session.GetUserId(c)

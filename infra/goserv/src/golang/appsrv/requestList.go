@@ -11,10 +11,10 @@ import (
 )
 
 func setList(engine *gin.Engine) {
-	List(engine)
+	list(engine)
 }
 
-func List(engine *gin.Engine) {
+func list(engine *gin.Engine) {
 	engine.GET("/list", func(c *gin.Context) {
 		username := c.Query("name")
 		if username == "" {

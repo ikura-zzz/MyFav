@@ -9,12 +9,12 @@ import (
 )
 
 func setAuth(engine *gin.Engine) {
-	Signin(engine)
-	Signout(engine)
-	Signup(engine)
+	signin(engine)
+	signout(engine)
+	signup(engine)
 }
 
-func Signin(engine *gin.Engine) {
+func signin(engine *gin.Engine) {
 	engine.POST("/signin", func(c *gin.Context) {
 		errtrans := func(msg string) {
 			c.HTML(http.StatusOK, "index.html", gin.H{
@@ -36,13 +36,13 @@ func Signin(engine *gin.Engine) {
 		}
 	})
 }
-func Signout(engine *gin.Engine) {
+func signout(engine *gin.Engine) {
 	engine.GET("/signout", func(c *gin.Context) {
 		session.RemoveSession(c)
 		redirectTop(c)
 	})
 }
-func Signup(engine *gin.Engine) {
+func signup(engine *gin.Engine) {
 	engine.POST("/signup", func(c *gin.Context) {
 		errtrans := func(msg string) {
 			c.HTML(http.StatusOK, "newuser.html", gin.H{
