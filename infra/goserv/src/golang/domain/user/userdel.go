@@ -19,8 +19,11 @@ func Userdel(userid int) error {
 
 	l.Outlog("fav cnt:" + fmt.Sprintf("%d", len(favs)))
 	if len(favs) > 0 {
-		if err := dbaccessor.Delfavs(userid, favs); err != nil {
-			return err
+		for _, f := range favs {
+			f.Userid = userid
+			if err := dbaccessor.DeleteFav(f); err != nil {
+				return err
+			}
 		}
 	}
 	return dbaccessor.DeleteUser(userid)

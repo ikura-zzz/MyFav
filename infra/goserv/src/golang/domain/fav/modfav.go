@@ -4,19 +4,11 @@ import (
 	"errors"
 
 	"myfav/dbaccessor"
-	"myfav/domain/session"
 	"myfav/types"
-
-	"github.com/gin-gonic/gin"
 )
 
 // Favmod Favの編集
-func Favmod(c *gin.Context, f types.Fav) error {
-	var err error
-	f.Userid, err = session.GetUserId(c)
-	if err != nil {
-		return errors.New("favmod getuserid:" + err.Error())
-	}
+func Favmod(f types.Fav) error {
 
 	f.Timing = timingconv(f.Timing)
 	f.Stars = starsconv(f.Stars)

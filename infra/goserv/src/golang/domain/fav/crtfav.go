@@ -3,20 +3,11 @@ package fav
 import (
 	"errors"
 	"myfav/dbaccessor"
-	"myfav/domain/session"
 	"myfav/types"
-
-	"github.com/gin-gonic/gin"
 )
 
 // Favadd Favの新規登録
-func Favadd(c *gin.Context, f types.Fav) error {
-	var err error
-	f.Userid, err = session.GetUserId(c)
-	if err != nil {
-		return errors.New("favadd getuserid:" + err.Error())
-	}
-
+func Favadd(f types.Fav) error {
 	f.Timing = timingconv(f.Timing)
 	f.Stars = starsconv(f.Stars)
 	f.Openclose = opclconv(f.Openclose)

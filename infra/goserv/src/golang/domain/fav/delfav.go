@@ -2,20 +2,21 @@ package fav
 
 import (
 	"errors"
-
 	"myfav/dbaccessor"
-	"myfav/domain/session"
 	"myfav/types"
-
-	"github.com/gin-gonic/gin"
+	"myfav/utils"
 )
 
 // Favdel Favの削除
-func Favdel(c *gin.Context, fav types.Fav) error {
-	var err error
-	fav.Userid, err = session.GetUserId(c)
+func Favdel(fav types.Fav) error {
+	favs, err := dbaccessor.Selectfavs(fav.Userid, utils.SelectFavsByUserid)
 	if err != nil {
-		return errors.New("favdel getuserid:" + err.Error())
+		return errors.New("deleteFav:selectFavs:" + err.Error())
 	}
-	return dbaccessor.DeleteFav(fav)
+	for _, f := range favs {
+		if f.Favid == fav.Favid {
+			return dbaccessor.DeleteFav(fav)
+		}
+	}
+	return errors.New("deleteFav:削除対象レコードが0件です。")
 }

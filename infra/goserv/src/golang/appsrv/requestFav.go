@@ -25,7 +25,12 @@ func crtfav(engine *gin.Engine) {
 	engine.POST("/crtfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			f := getPostElem(c)
-			if err := fav.Favadd(c, f); err != nil {
+			var err error
+			f.Userid, err = session.GetUserId(c)
+			if err != nil {
+				l.Outlog("favadd getuserid:" + err.Error())
+			}
+			if err := fav.Favadd(f); err != nil {
 				l.Outlog(err.Error())
 			}
 			redirectHome(c)
@@ -38,7 +43,12 @@ func modfav(engine *gin.Engine) {
 	engine.POST("/modfav", func(c *gin.Context) {
 		transPage(c, func(c *gin.Context) {
 			f := getPostElem(c)
-			if err := fav.Favmod(c, f); err != nil {
+			var err error
+			f.Userid, err = session.GetUserId(c)
+			if err != nil {
+				l.Outlog("favmod getuserid:" + err.Error())
+			}
+			if err := fav.Favmod(f); err != nil {
 				l.Outlog(err.Error())
 			}
 			redirectHome(c)
@@ -52,7 +62,12 @@ func delfav(engine *gin.Engine) {
 		transPage(c, func(c *gin.Context) {
 			f := getPostElem(c)
 			l.Outlog("favid:" + f.Favid)
-			if err := fav.Favdel(c, f); err != nil {
+			var err error
+			f.Userid, err = session.GetUserId(c)
+			if err != nil {
+				l.Outlog("favdel getuserid:" + err.Error())
+			}
+			if err := fav.Favdel(f); err != nil {
 				l.Outlog((err.Error()))
 			}
 			redirectHome(c)

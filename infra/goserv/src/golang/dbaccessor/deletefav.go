@@ -7,31 +7,7 @@ import (
 	"myfav/utils"
 )
 
-func Delfavs(userid int, favs []types.Fav) error {
-	for _, f := range favs {
-		f.Userid = userid
-		if err := execDeleteFav(f); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 func DeleteFav(fav types.Fav) error {
-
-	favs, err := Selectfavs(fav.Userid, utils.SelectFavsByUserid)
-	if err != nil {
-		return errors.New("deleteFav:selectFavs:" + err.Error())
-	}
-	for _, f := range favs {
-		if f.Favid == fav.Favid {
-			return execDeleteFav(fav)
-		}
-	}
-	return errors.New("deleteFav:削除対象レコードが0件です。")
-}
-
-func execDeleteFav(fav types.Fav) error {
 	db, err := dbOpen()
 	if err != nil {
 		return err
