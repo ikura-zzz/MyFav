@@ -2,7 +2,6 @@ package main
 
 import (
 	"myfav/model/session"
-	"myfav/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +15,7 @@ func redirectHome(c *gin.Context) {
 }
 
 func transPage(c *gin.Context, fn func(*gin.Context)) {
-	if !session.InqSessionValid(c, utils.SessionKeyUser) {
+	if !session.InqSessionValid(c) {
 		redirectTop(c)
 		c.Abort()
 	} else {
