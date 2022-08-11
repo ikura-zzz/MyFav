@@ -9,4 +9,4 @@ echo "stop container:$goserv"
 docker rm -f $goserv
 echo "stop container:$mysql"
 docker stop $mysql
-#docker rm -f $(docker ps -q -a)
+docker rm -f $(docker ps -q -a)

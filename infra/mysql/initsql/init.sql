@@ -1,4 +1,5 @@
 SET @old_autocommit = @@autocommit;
+
 CREATE DATABASE `myfav` DEFAULT CHARACTER SET utf8mb4;
 CREATE USER 'myfav'@'172.18.0.2' identified by 'wYemyWoRcXti';
 GRANT all ON myfav.* TO 'myfav'@'172.18.0.2';

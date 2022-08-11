@@ -32,7 +32,7 @@ func genhtml(favs []types.Fav) (string, error) {
 		fav := favs[i]
 		link := "/fav?favid=" + favs[i].Favid
 		if fav.Icon == "" {
-			fav.Icon = "https://www.s-myfav.com/icons/apple-touch-icon.png"
+			fav.Icon = "http://localhost/icons/apple-touch-icon.png"
 		}
 
 		fav.Stars = starsconv(fav.Stars)
