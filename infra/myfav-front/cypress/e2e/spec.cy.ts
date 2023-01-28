@@ -7,7 +7,7 @@ describe("ログイン関連", () => {
     cy.get("[data-testid='username'").type("testuser", { force: true });
     cy.get("[data-testid='userpasswd'").type("testpassword", { force: true });
     cy.get("[data-testid='signinbutton'").click();
-    cy.get("[data-testid='signinerror']").should(
+    cy.get("[data-testid='errormsg']").should(
       "contain.text",
       "このユーザーは存在しません。"
     );
@@ -20,7 +20,7 @@ describe("ログイン関連", () => {
       force: true,
     });
     cy.get("[data-testid='signupbutton']").click();
-    cy.get("[data-testid='signuperror']").should(
+    cy.get("[data-testid='errormsg']").should(
       "contain.text",
       "パスワードが一致しません。"
     );
@@ -33,7 +33,7 @@ describe("ログイン関連", () => {
       force: true,
     });
     cy.get("[data-testid='signupbutton']").click();
-    cy.get("[data-testid='signuperror']").should("not.exist");
+    cy.get("[data-testid='errormsg']").should("not.exist");
   });
   it("サインイン成功", () => {
     cy.get("[data-testid='username'").type("testuser", { force: true });
