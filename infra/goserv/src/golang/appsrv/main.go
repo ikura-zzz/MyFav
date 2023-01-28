@@ -14,7 +14,7 @@ func main() {
 	session.CreateNewSessionStore(engine)
 
 	engine.Static("/static", "./static")
-	engine.LoadHTMLGlob("/var/goserv/bin/html/*.html")
+	engine.LoadHTMLGlob("/usr/local/bin/html/*.html")
 	setPages(engine)
 
 	engine.Run(":8080")

@@ -1,14 +1,14 @@
-FROM centos:centos8.3.2011
+FROM golang:1.18
 LABEL maintainer="ikura-zzz <chukicamata_kbmc@yahoo.co.jp"
 
-ENV TZ='Asia/Tokyo'
+WORKDIR /usr/src/app
 
-RUN mkdir /var/goserv /var/goserv/bin /var/goserv/bin/html /var/goserv/bin/static 
-#RUN touch /var/log/myfav/myfav.log
-#RUN chmod 666 /var/log/myfav/myfav.log
-COPY bin/myfav /var/goserv/bin/
-COPY src/html/* /var/goserv/bin/html/
-COPY conf/myfav.service /etc/systemd/system/
+RUN mkdir /usr/local/bin/html /var/log/myfav/
+ADD src/golang/ ./
+ADD src/html/ /usr/local/bin/html/
+RUN go mod download && go mod verify
 
-RUN chmod 755 /var/goserv/bin/myfav
-RUN systemctl enable myfav.service
+WORKDIR /usr/src/app/appsrv
+RUN go build -v -o /usr/local/bin/app ./
+
+CMD ["app"]
