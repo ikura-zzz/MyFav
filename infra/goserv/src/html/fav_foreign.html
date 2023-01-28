@@ -1,78 +1,190 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href=https://stitches.hyperyolo.com/output.css rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" type="image/png" href="http://localhost/icons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="http://localhost/icons/icon-192x192.png">
-    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.6.3/css/all.css integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/ crossorigin="anonymous">
-    <link rel="stylesheet" href=http://localhost/css/main.css>
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      href="http://localhost/icons/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="http://localhost/icons/icon-192x192.png"
+    />
+    <link rel="stylesheet"
+    href=https://use.fontawesome.com/releases/v5.6.3/css/all.css
+    integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/
+    crossorigin="anonymous"> <link rel="stylesheet"
+    href=http://localhost/css/main.css>
     <title>MyFav</title>
-</head>
+  </head>
 
-<body>
-    <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
-        <a href="/list?name={{.username}}" class="block text-left">
-            <img src="http://localhost/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
-        </a>
-        <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
-            <a href="/"><button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
-                    サインイン
-                </button></a>
-        </ul>
+  <body>
+    <nav
+      class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden"
+    >
+      <a href="/list?name={{.username}}" class="block text-left">
+        <img
+          src="http://localhost/img/icon.png"
+          class="h-10 sm:h-10 rounded-full"
+          alt="logo"
+        />
+      </a>
+      <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
+        <a href="/"
+          ><button
+            class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3"
+            data-testid="signinbutton"
+          >
+            サインイン
+          </button></a
+        >
+      </ul>
     </nav>
-    <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
-        {{.username}}のお気に入り</div>
-    <form class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
-        <div class="relative border shadow rounded mb-4 appearance-none">
-            アイコン
-            <img id="iconimg" name="iconimg" src="{{.icon}}">
-        </div>
-        <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="title" id="title" type="text" placeholder="タイトル" value="{{.title}}" readonly>
-            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="title">
-                タイトル
-            </label>
-        </div>
-        <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="category" id="category" type="text" placeholder="カテゴリ" value="{{.category}}" readonly>
-            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="category">
-                カテゴリ
-            </label>
-        </div>
-        <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="publisher" id="publisher" type="text" placeholder="著者・製作者・提供者など" value="{{.publisher}}" readonly>
-            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="publisher">
-                著者・製作者・提供者など
-            </label>
-        </div>
-        <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <input class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="overview" id="overview" type="text" placeholder="概要" value="{{.overview}}" readonly>
-            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="overview">
-                概要
-            </label>
-        </div>
-        <div class="relative border rounded mb-4 shadow appearance-none label-floating">
-            <textarea class="w-full py-2 px-3 text-gray-700 leading-normal rounded" name="impre" id="impre" placeholder="フリーコメント" readonly>{{.impression}}</textarea>
-            <label class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal" for="impre"></label>
-        </div>
-        <div class="favradio border shadow flex items-center mb-4 justify-between">
-            いつから
-            <div> {{.timing}}</div>
-        </div>
-        <div class="favradio border shadow flex items-center mb-4 justify-between">
-            好きレベル
-            <div> {{.stars}}</div>
-        </div>
-        <input type="hidden" id="favid" name="favid" value={{.favid}}>
-        <div class="flex items-center justify-between">
-            <a href="/list?name={{.username}}"><input type="button" class="bg-black hover:bg-black text-white py-2 px-4" value="戻る"></a>
-        </div>
+    <div
+      class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold"
+      data-testid="usertitle"
+    >
+      {{.username}}のお気に入り
+    </div>
+    <form
+      class="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8"
+    >
+      <div class="relative border shadow rounded mb-4 appearance-none">
+        アイコン
+        <img id="iconimg" name="iconimg" src="{{.icon}}" datatestid="icon" />
+      </div>
+      <div
+        class="relative border rounded mb-4 shadow appearance-none label-floating"
+      >
+        <input
+          class="w-full py-2 px-3 text-gray-700 leading-normal rounded"
+          name="title"
+          id="title"
+          type="text"
+          placeholder="タイトル"
+          value="{{.title}}"
+          readonly
+          data-testid="favtitle"
+        />
+        <label
+          class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+          for="title"
+        >
+          タイトル
+        </label>
+      </div>
+      <div
+        class="relative border rounded mb-4 shadow appearance-none label-floating"
+      >
+        <input
+          class="w-full py-2 px-3 text-gray-700 leading-normal rounded"
+          name="category"
+          id="category"
+          type="text"
+          placeholder="カテゴリ"
+          value="{{.category}}"
+          readonly
+          data-testid="favcategory"
+        />
+        <label
+          class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+          for="category"
+        >
+          カテゴリ
+        </label>
+      </div>
+      <div
+        class="relative border rounded mb-4 shadow appearance-none label-floating"
+      >
+        <input
+          class="w-full py-2 px-3 text-gray-700 leading-normal rounded"
+          name="publisher"
+          id="publisher"
+          type="text"
+          placeholder="著者・製作者・提供者など"
+          value="{{.publisher}}"
+          readonly
+          data-testid="favauthor"
+        />
+        <label
+          class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+          for="publisher"
+        >
+          著者・製作者・提供者など
+        </label>
+      </div>
+      <div
+        class="relative border rounded mb-4 shadow appearance-none label-floating"
+      >
+        <input
+          class="w-full py-2 px-3 text-gray-700 leading-normal rounded"
+          name="overview"
+          id="overview"
+          type="text"
+          placeholder="概要"
+          value="{{.overview}}"
+          readonly
+          data-testid="favoverview"
+        />
+        <label
+          class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+          for="overview"
+        >
+          概要
+        </label>
+      </div>
+      <div
+        class="relative border rounded mb-4 shadow appearance-none label-floating"
+      >
+        <textarea
+          class="w-full py-2 px-3 text-gray-700 leading-normal rounded"
+          name="impre"
+          id="impre"
+          placeholder="フリーコメント"
+          readonly
+          data-testid="favfreecomment"
+        >
+{{.impression}}</textarea
+        >
+        <label
+          class="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+          for="impre"
+        ></label>
+      </div>
+      <div
+        class="favradio border shadow flex items-center mb-4 justify-between"
+      >
+        いつから
+        <div data-testid="favtiming">{{.timing}}</div>
+      </div>
+      <div
+        class="favradio border shadow flex items-center mb-4 justify-between"
+      >
+        好きレベル
+        <div data-testid="favstars">{{.stars}}</div>
+      </div>
+      <input
+        type="hidden"
+        id="favid"
+        name="favid"
+        value="{{.favid}}"
+        data-testid="favid"
+      />
+      <div class="flex items-center justify-between">
+        <a href="/list?name={{.username}}"
+          ><input
+            type="button"
+            class="bg-black hover:bg-black text-white py-2 px-4"
+            value="戻る"
+            data-testid="backbutton"
+        /></a>
+      </div>
     </form>
-</body>
-
+  </body>
 </html>

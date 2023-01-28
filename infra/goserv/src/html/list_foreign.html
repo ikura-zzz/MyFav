@@ -1,48 +1,117 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href=https://stitches.hyperyolo.com/output.css rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" type="image/png" href="http://localhost/icons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="http://localhost/icons/icon-192x192.png">
-    <link rel="stylesheet" href=https://use.fontawesome.com/releases/v5.6.3/css/all.css integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/ crossorigin="anonymous">
-    <link rel="stylesheet" href=http://localhost/css/main.css>
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      href="http://localhost/icons/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="http://localhost/icons/icon-192x192.png"
+    />
+    <link rel="stylesheet"
+    href=https://use.fontawesome.com/releases/v5.6.3/css/all.css
+    integrity=sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/
+    crossorigin="anonymous"> <link rel="stylesheet"
+    href=http://localhost/css/main.css>
     <title>list-MyFav</title>
-</head>
+  </head>
 
-<body onload="firstload()">
-    <nav class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden">
-        <a href="/list?name={{.username}}" class="block text-left">
-            <img src="http://localhost/img/icon.png" class="h-10 sm:h-10 rounded-full" alt="logo">
-        </a>
-        <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
-            <a href="/"><button class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3">
-                    サインイン
-                </button></a>
-        </ul>
+  <body onload="firstload()">
+    <nav
+      class="font-sans bg-white text-center flex justify-between my-4 mx-auto container overflow-hidden"
+    >
+      <a href="/list?name={{.username}}" class="block text-left">
+        <img
+          src="http://localhost/img/icon.png"
+          class="h-10 sm:h-10 rounded-full"
+          alt="logo"
+        />
+      </a>
+      <ul class="text-sm text-gray-700 list-none p-0 flex items-center">
+        <a href="/"
+          ><button
+            class="bg-black hover:bg-text-gray-800 text-white ml-4 py-2 px-3"
+          >
+            サインイン
+          </button></a
+        >
+      </ul>
     </nav>
-    <div class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold">
-        {{.username}}のお気に入りリスト</div>
+    <div
+      class="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none label-floating font-bold"
+      data-testid="usertitle"
+    >
+      {{.username}}のお気に入りリスト
+    </div>
     <section class="bg-white py-4 font-sans">
-        <div class="tabs container m-auto max-w-xl flex items-baseline justify-start border-gray-300 mb-10">
-            <input id="all" onclick="allfav()" type="radio" name="tab_item">
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="all">すべて</label>
-            <input id="already" onclick="already()" type="radio" name="tab_item">
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="already">前から</label>
-            <input id="now" onclick="now()" type="radio" name="tab_item" checked>
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="now">今好き</label>
-            <input id="wish" onclick="wish()" type="radio" name="tab_item">
-            <label class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3" for="wish">興味ある</label>
-        </div>
-        <ul class="font-sans list-none p-0 container m-auto text-gray-900">
-            {{.list}}
-        </ul>
+      <div
+        class="tabs container m-auto max-w-xl flex items-baseline justify-start border-gray-300 mb-10"
+      >
+        <input
+          id="all"
+          onclick="allfav()"
+          type="radio"
+          name="tab_item"
+          data-testid="alllist"
+        />
+        <label
+          class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3"
+          for="all"
+          >すべて</label
+        >
+        <input
+          id="already"
+          onclick="already()"
+          type="radio"
+          name="tab_item"
+          data-testid="alreadylist"
+        />
+        <label
+          class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3"
+          for="already"
+          >前から</label
+        >
+        <input
+          id="now"
+          onclick="now()"
+          type="radio"
+          name="tab_item"
+          checked
+          data-testid="nowlist"
+        />
+        <label
+          class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3"
+          for="now"
+          >今好き</label
+        >
+        <input
+          id="wish"
+          onclick="wish()"
+          type="radio"
+          name="tab_item"
+          data-testid="wishlist"
+        />
+        <label
+          class="tab_item text-gray-700 text-base font-bold tracking-wide py-4 px-3"
+          for="wish"
+          >興味ある</label
+        >
+      </div>
+      <ul
+        class="font-sans list-none p-0 container m-auto text-gray-900"
+        data-testid="physicallist"
+      >
+        {{.list}}
+      </ul>
     </section>
     <script src="http://localhost/js/list.js"></script>
-</body>
-
-</html>　
+  </body>
+</html>
