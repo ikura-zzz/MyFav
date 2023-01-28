@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cd goserv/
+cd ../goserv/
 gomake.sh
-cd ../
+cd ../ops/
 stopContainers.sh
 removeImages.sh
 buildImages.sh

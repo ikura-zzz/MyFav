@@ -14,9 +14,9 @@ docker rmi $(docker images goserv -q)
 docker rmi $(docker images mynginx -q)
 #docker rmi $(docker images mysql -q)
 
-docker build -t mynginx nginx/
-docker build -t goserv goserv/
-#docker build -t mysql mysql/
+docker build -t mynginx ../nginx/
+docker build -t goserv ../goserv/
+#docker build -t mysql ../mysql/
 
 docker run --privileged --network mysql-network -v "/c/var/log/myfav:/var/log/myfav" -p 8080:8080 -d -it --name goserv goserv /sbin/init
 docker run --network mysql-network -p 80:80 -d -it --name mynginx mynginx
