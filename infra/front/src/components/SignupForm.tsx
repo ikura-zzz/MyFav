@@ -1,11 +1,12 @@
+import axios from "axios";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
-import { AuthRequest } from "../types/AuthRequest";
-import axios from "../axiosWrapper";
+import { SignupRequest } from "../types/SignupRequest";
 import { useHistory } from "react-router-dom";
 
-export const SignInForm = () => {
+export const SignupForm = () => {
   const [userId, setUserId] = useState("");
   const [userPasswd, setUserPasswd] = useState("");
+  const [retypePasswd, setRetypePasswd] = useState("");
   const [errmsg, setErrmsg] = useState("");
   const history = useHistory();
 
@@ -27,31 +28,41 @@ export const SignInForm = () => {
     setUserPasswd(target.value);
   };
 
-  // Enterキー押下時はSignin処理を呼び出す
-  const onKeyDownSignin = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter") {
-      onClickSignin();
+  // 再入力パスワード入力イベント時の処理
+  const onChangeRetypePasswd = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) {
+      return;
     }
+    setRetypePasswd(target.value);
   };
 
   // サーバーへ認証依頼を飛ばす
-  const auth = async (req: AuthRequest) => {
-    // const res = await axios.post("/signin", req);
-    // console.log(res);
-    history.push("/react/list");
+  const signup = async (req: SignupRequest) => {
+    const res = await await axios.post("/signup", req);
+    if (res.status) {
+      history.push("/react");
+    }
   };
-
+  // Enterキー押下時はSignin処理を呼び出す
+  const onKeyDownSignup = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
+      onClickSignup();
+    }
+  };
   // サインインボタンが押された時の処理
-  const onClickSignin = async () => {
-    if (userId === "" || userPasswd === "") {
-      setErrmsg("ユーザーID、パスワードを入力してください。");
+  const onClickSignup = async () => {
+    if (userId === "" || userPasswd === "" || retypePasswd === "") {
+      setErrmsg("ユーザーID、パスワード、再入力パスワードを入力してください。");
       return;
     }
-    await auth({ userId, userPasswd });
+    await signup({ userId, userPasswd, retypePasswd });
     setErrmsg("");
     setUserId("");
     setUserPasswd("");
+    setRetypePasswd("");
   };
+
   return (
     <>
       <form>
@@ -60,9 +71,8 @@ export const SignInForm = () => {
             type="text"
             placeholder="ユーザーID"
             onChange={onChangeUserId}
-            onKeyDown={onKeyDownSignin}
+            onKeyDown={onKeyDownSignup}
             value={userId}
-            required
             data-testid="username"
           />
         </div>
@@ -71,9 +81,18 @@ export const SignInForm = () => {
             type="password"
             placeholder="パスワード"
             onChange={onChangeUserPasswd}
-            onKeyDown={onKeyDownSignin}
+            onKeyDown={onKeyDownSignup}
             value={userPasswd}
-            required
+            data-testid="userpasswd"
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="パスワード再入力"
+            onChange={onChangeRetypePasswd}
+            onKeyDown={onKeyDownSignup}
+            value={retypePasswd}
             data-testid="userpasswd"
           />
         </div>
@@ -81,9 +100,9 @@ export const SignInForm = () => {
         <div>
           <input
             type="button"
-            value="サインイン"
-            onClick={onClickSignin}
-            data-testid="signinbutton"
+            value="サインアップ"
+            onClick={onClickSignup}
+            data-testid="signupbutton"
           />
         </div>
       </form>

@@ -45,6 +45,13 @@ services:
       - goserv
     networks:
       - default
+  back:
+    build:
+      context: back
+    ports:
+      - 3001:3001
+    volumes:
+      - ./back:/app/back
 
 networks:
   shared-network:

@@ -17,7 +17,7 @@ func setAuth(engine *gin.Engine) {
 func signin(engine *gin.Engine) {
 	engine.POST("/signin", func(c *gin.Context) {
 		errtrans := func(msg string) {
-			c.HTML(http.StatusOK, "index.html", gin.H{
+			c.HTML(http.StatusUnauthorized, "index.html", gin.H{
 				"errmsg": msg,
 			})
 		}
