@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 type Fav = {
   userid: number;
@@ -49,8 +49,8 @@ export const FavList = () => {
             <ul className="" data-testid="physicallist" key={fav.favid}>
               <a
                 id="fav"
-                href={"/fav?favid=" + fav.favid}
-                style={{ display: "block" }}
+                href={'/fav?favid=' + fav.favid}
+                style={{ display: 'block' }}
               >
                 <input type="hidden" id="timing" value={fav.timing} />
                 <li className="">
@@ -81,9 +81,9 @@ export const FavList = () => {
         <img
           src="http://localhost/img/plus.png"
           alt="plusbuton"
-          style={{ backgroundColor: "gray" }}
+          style={{ backgroundColor: 'gray' }}
           onClick={() => {
-            history.push("/react/fav");
+            history.push('/react/fav');
           }}
         />
       </div>

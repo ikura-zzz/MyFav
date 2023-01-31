@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
-import { SignupRequest } from "../types/SignupRequest";
-import { useHistory } from "react-router-dom";
+import axios from 'axios';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { signupRequest } from '../types/signupRequest';
 
 export const SignupForm = () => {
-  const [userId, setUserId] = useState("");
-  const [userPasswd, setUserPasswd] = useState("");
-  const [retypePasswd, setRetypePasswd] = useState("");
-  const [errmsg, setErrmsg] = useState("");
+  const [userId, setUserId] = useState('');
+  const [userPasswd, setUserPasswd] = useState('');
+  const [retypePasswd, setRetypePasswd] = useState('');
+  const [errmsg, setErrmsg] = useState('');
   const history = useHistory();
 
   // ユーザーID入力イベント時の処理
@@ -38,29 +38,29 @@ export const SignupForm = () => {
   };
 
   // サーバーへ認証依頼を飛ばす
-  const signup = async (req: SignupRequest) => {
-    const res = await await axios.post("/signup", req);
+  const signup = async (req: signupRequest) => {
+    const res = await await axios.post('/signup', req);
     if (res.status) {
-      history.push("/react");
+      history.push('/react');
     }
   };
   // Enterキー押下時はSignin処理を呼び出す
   const onKeyDownSignup = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onClickSignup();
     }
   };
   // サインインボタンが押された時の処理
   const onClickSignup = async () => {
-    if (userId === "" || userPasswd === "" || retypePasswd === "") {
-      setErrmsg("ユーザーID、パスワード、再入力パスワードを入力してください。");
+    if (userId === '' || userPasswd === '' || retypePasswd === '') {
+      setErrmsg('ユーザーID、パスワード、再入力パスワードを入力してください。');
       return;
     }
     await signup({ userId, userPasswd, retypePasswd });
-    setErrmsg("");
-    setUserId("");
-    setUserPasswd("");
-    setRetypePasswd("");
+    setErrmsg('');
+    setUserId('');
+    setUserPasswd('');
+    setRetypePasswd('');
   };
 
   return (

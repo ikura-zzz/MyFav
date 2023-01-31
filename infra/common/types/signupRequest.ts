@@ -1,5 +1,5 @@
-export class SignupRequest {
-  userId = "";
-  userPasswd = "";
-  retypePasswd = "";
+export class signupRequest {
+  userId = '';
+  userPasswd = '';
+  retypePasswd = '';
 }

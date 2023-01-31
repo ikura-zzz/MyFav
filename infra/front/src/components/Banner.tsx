@@ -1,14 +1,14 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 export const Banner = () => {
   const history = useHistory();
   const onClickSignup = () => {
-    history.push("/react/signup");
+    history.push('/react/signup');
   };
 
   const backHome = () => {
-    history.push("/react");
+    history.push('/react');
   };
   return (
     <>

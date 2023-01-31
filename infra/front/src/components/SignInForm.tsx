@@ -1,13 +1,13 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
-import { AuthRequest } from "../types/AuthRequest";
-import axios from "../axiosWrapper";
-import { useHistory } from "react-router-dom";
-import { HttpStatusCode } from "axios";
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import axios from '../axiosWrapper';
+import { useHistory } from 'react-router-dom';
+import { HttpStatusCode } from 'axios';
+import { authRequest } from '../types/authRequests';
 
 export const SignInForm = () => {
-  const [userId, setUserId] = useState("");
-  const [userPasswd, setUserPasswd] = useState("");
-  const [errmsg, setErrmsg] = useState("");
+  const [userId, setUserId] = useState('');
+  const [userPasswd, setUserPasswd] = useState('');
+  const [errmsg, setErrmsg] = useState('');
   const history = useHistory();
 
   // ユーザーID入力イベント時の処理
@@ -30,7 +30,7 @@ export const SignInForm = () => {
 
   // Enterキー押下時はSignin処理を呼び出す
   const onKeyDownSignin = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onClickSignin();
     }
   };
@@ -41,27 +41,27 @@ export const SignInForm = () => {
   };
 
   // サーバーへ認証依頼を飛ばす
-  const auth = async (req: AuthRequest) => {
-    const res = await axios.post("/auth", req);
+  const auth = async (req: authRequest) => {
+    const res = await axios.post('/auth', req);
     if (res.status === HttpStatusCode.Ok) {
       if (isAuthed(res.data)) {
-        setUserId("");
-        setUserPasswd("");
-        history.push("/react/list");
+        setUserId('');
+        setUserPasswd('');
+        history.push('/react/list');
       } else {
-        if (res.data.msg === "unauthrized") {
-          setErrmsg("ログイン認証に失敗しました。");
+        if (res.data.msg === 'unauthrized') {
+          setErrmsg('ログイン認証に失敗しました。');
         }
       }
     } else {
-      setErrmsg("予期しないエラーが発生しました。");
+      setErrmsg('予期しないエラーが発生しました。');
     }
   };
 
   // サインインボタンが押された時の処理
   const onClickSignin = async () => {
-    if (userId === "" || userPasswd === "") {
-      setErrmsg("ユーザーID、パスワードを入力してください。");
+    if (userId === '' || userPasswd === '') {
+      setErrmsg('ユーザーID、パスワードを入力してください。');
       return;
     }
     await auth({ userId, userPasswd });
