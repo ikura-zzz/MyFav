@@ -4,4 +4,4 @@ WORKDIR /app
 RUN npm i -g @nestjs/cli
 RUN npx nest new back -p npm -l TS
 WORKDIR /app/back
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npm", "run", "start:dev"]

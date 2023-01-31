@@ -2,6 +2,7 @@ import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { AuthRequest } from "../types/AuthRequest";
 import axios from "../axiosWrapper";
 import { useHistory } from "react-router-dom";
+import { HttpStatusCode } from "axios";
 
 export const SignInForm = () => {
   const [userId, setUserId] = useState("");
@@ -34,11 +35,27 @@ export const SignInForm = () => {
     }
   };
 
+  // サーバーからのレスポンスが、認証済みかどうか
+  const isAuthed = (data: any): boolean => {
+    return data.key !== undefined;
+  };
+
   // サーバーへ認証依頼を飛ばす
   const auth = async (req: AuthRequest) => {
-    // const res = await axios.post("/signin", req);
-    // console.log(res);
-    history.push("/react/list");
+    const res = await axios.post("/auth", req);
+    if (res.status === HttpStatusCode.Ok) {
+      if (isAuthed(res.data)) {
+        setUserId("");
+        setUserPasswd("");
+        history.push("/react/list");
+      } else {
+        if (res.data.msg === "unauthrized") {
+          setErrmsg("ログイン認証に失敗しました。");
+        }
+      }
+    } else {
+      setErrmsg("予期しないエラーが発生しました。");
+    }
   };
 
   // サインインボタンが押された時の処理
@@ -48,9 +65,6 @@ export const SignInForm = () => {
       return;
     }
     await auth({ userId, userPasswd });
-    setErrmsg("");
-    setUserId("");
-    setUserPasswd("");
   };
   return (
     <>
