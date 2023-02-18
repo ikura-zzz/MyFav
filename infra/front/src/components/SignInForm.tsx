@@ -1,11 +1,13 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
-import axios from '../axiosWrapper';
 import { useHistory } from 'react-router-dom';
-import { HttpStatusCode } from 'axios';
-import { authRequest } from '../types/authRequests';
+import { AuthRequest } from '../types/AuthRequest';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getFireBaseAuth } from './CommonAuthCheck';
+
+const auth = getFireBaseAuth();
 
 export const SignInForm = () => {
-  const [userId, setUserId] = useState('');
+  const [userid, setUserid] = useState('');
   const [userPasswd, setUserPasswd] = useState('');
   const [errmsg, setErrmsg] = useState('');
   const history = useHistory();
@@ -16,7 +18,7 @@ export const SignInForm = () => {
     if (!(target instanceof HTMLInputElement)) {
       return;
     }
-    setUserId(target.value);
+    setUserid(target.value);
   };
 
   // パスワード入力イベント時の処理
@@ -35,36 +37,25 @@ export const SignInForm = () => {
     }
   };
 
-  // サーバーからのレスポンスが、認証済みかどうか
-  const isAuthed = (data: any): boolean => {
-    return data.key !== undefined;
-  };
-
   // サーバーへ認証依頼を飛ばす
-  const auth = async (req: authRequest) => {
-    const res = await axios.post('/auth', req);
-    if (res.status === HttpStatusCode.Ok) {
-      if (isAuthed(res.data)) {
-        setUserId('');
-        setUserPasswd('');
+  const onClickAuth = async (req: AuthRequest) => {
+    // await signOut(auth);
+    await signInWithEmailAndPassword(auth, userid, userPasswd)
+      .then(async () => {
         history.push('/react/list');
-      } else {
-        if (res.data.msg === 'unauthrized') {
-          setErrmsg('ログイン認証に失敗しました。');
-        }
-      }
-    } else {
-      setErrmsg('予期しないエラーが発生しました。');
-    }
+      })
+      .catch((error) => {
+        setErrmsg(error.code + error.errmsg);
+      });
   };
 
   // サインインボタンが押された時の処理
   const onClickSignin = async () => {
-    if (userId === '' || userPasswd === '') {
+    if (userid === '' || userPasswd === '') {
       setErrmsg('ユーザーID、パスワードを入力してください。');
       return;
     }
-    await auth({ userId, userPasswd });
+    await onClickAuth({ userId: userid, userPasswd });
   };
   return (
     <>
@@ -72,10 +63,11 @@ export const SignInForm = () => {
         <div>
           <input
             type="text"
-            placeholder="ユーザーID"
+            id="userid"
+            placeholder="メールアドレス"
             onChange={onChangeUserId}
             onKeyDown={onKeyDownSignin}
-            value={userId}
+            value={userid}
             required
             data-testid="username"
           />
@@ -83,6 +75,7 @@ export const SignInForm = () => {
         <div>
           <input
             type="password"
+            id="password"
             placeholder="パスワード"
             onChange={onChangeUserPasswd}
             onKeyDown={onKeyDownSignin}

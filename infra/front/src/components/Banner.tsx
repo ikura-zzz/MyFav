@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import './Banner.css';
 
 export const Banner = () => {
   const history = useHistory();
@@ -11,16 +12,23 @@ export const Banner = () => {
     history.push('/react');
   };
   return (
-    <>
-      <img src="http://localhost/img/icon.png" alt="logo" onClick={backHome} />
-      <ul>
-        <li>MyFavの使い方</li>
-        <li>
-          <button data-testid="signup" onClick={onClickSignup}>
-            サインアップ
-          </button>
-        </li>
+    <nav className="nav">
+      <img
+        src="http://localhost/img/icon.png"
+        alt="logo"
+        onClick={backHome}
+        className="logo"
+      />
+      <ul className="bannerList">
+        <li className="howtoLink">MyFavの使い方</li>
+        <button
+          className="signupButton"
+          data-testid="signup"
+          onClick={onClickSignup}
+        >
+          サインアップ
+        </button>
       </ul>
-    </>
+    </nav>
   );
 };

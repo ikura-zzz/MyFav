@@ -1,4 +1,4 @@
-export class authRequest {
+export class AuthRequest {
   userId = '';
   userPasswd = '';
 }

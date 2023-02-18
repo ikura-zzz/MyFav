@@ -1,4 +1,4 @@
-export class signupRequest {
+export class SignupRequest {
   userId = '';
   userPasswd = '';
   retypePasswd = '';

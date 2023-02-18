@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { getFireBaseAuth } from './CommonAuthCheck';
 
+const auth = getFireBaseAuth();
 type Fav = {
   userid: number;
   favid: string;
@@ -19,6 +21,10 @@ type Fav = {
 export const FavList = () => {
   const history = useHistory();
   const [favlist, setFavlist] = useState<Fav[]>([]);
+  if (!auth.currentUser) {
+    history.push('/react');
+  }
+  console.log(auth.currentUser?.uid);
 
   return (
     <>

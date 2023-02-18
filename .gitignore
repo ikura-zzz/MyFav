@@ -5,3 +5,5 @@ infra/nginx/html/css/output.css
 infra/mysql/initsql/world.sql
 .VSCodeCounter/
 .vscode/
+.DS_Store
+infra/mysql/.*

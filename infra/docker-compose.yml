@@ -8,6 +8,7 @@ services:
     volumes: 
       - ./front/src:/app/front/src
       - ./front/public:/app/front/public
+      - ./common:/app/common
     environment:
       - WDS_SOCKET_PORT=0
     networks:
@@ -52,6 +53,7 @@ services:
       - 3001:3001
     volumes:
       - ./back:/app/back
+      - ./common:/app/common
 
 networks:
   shared-network:

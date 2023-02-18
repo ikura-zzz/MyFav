@@ -1,4 +1,4 @@
-export class authResponse {
+export class AuthResponse {
   key?: number;
   message?: string;
 }

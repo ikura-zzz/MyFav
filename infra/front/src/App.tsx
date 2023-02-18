@@ -1,9 +1,10 @@
-import React from "react";
-import { SignInForm } from "./components/SignInForm";
-import { Banner } from "./components/Banner";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { SignupForm } from "./components/SignupForm";
-import { FavList } from "./components/FavList";
+import React from 'react';
+import { SignInForm } from './components/SignInForm';
+import { Banner } from './components/Banner';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { SignupForm } from './components/SignupForm';
+import { FavList } from './components/FavList';
+import { FavForm } from './components/FavForm';
 
 const App = () => {
   return (
@@ -20,6 +21,9 @@ const App = () => {
             </Route>
             <Route exact path="/react/list">
               <FavList />
+            </Route>
+            <Route exact path="/react/fav">
+              <FavForm />
             </Route>
           </Switch>
         </BrowserRouter>

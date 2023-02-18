@@ -1,7 +1,10 @@
-import axios from 'axios';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { signupRequest } from '../types/signupRequest';
+import { SignupRequest } from '../types/SignupRequest';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFireBaseAuth } from './CommonAuthCheck';
+
+const auth = getFireBaseAuth();
 
 export const SignupForm = () => {
   const [userId, setUserId] = useState('');
@@ -38,11 +41,22 @@ export const SignupForm = () => {
   };
 
   // サーバーへ認証依頼を飛ばす
-  const signup = async (req: signupRequest) => {
-    const res = await await axios.post('/signup', req);
-    if (res.status) {
-      history.push('/react');
-    }
+  const signup = async (req: SignupRequest) => {
+    createUserWithEmailAndPassword(auth, req.userId, req.userPasswd).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        console.log('ユーザー作成成功' + user.uid + user.email);
+        setErrmsg('');
+        setUserId('');
+        setUserPasswd('');
+        setRetypePasswd('');
+        history.push('/react');
+      },
+    );
+    // // const res = await await axios.post('/signup', req);
+    // if (res.status) {
+    //   history.push('/react');
+    // }
   };
   // Enterキー押下時はSignin処理を呼び出す
   const onKeyDownSignup = (event: KeyboardEvent<HTMLElement>) => {
@@ -50,17 +64,26 @@ export const SignupForm = () => {
       onClickSignup();
     }
   };
+  const isValidMailAdress = (userId: string): boolean => {
+    const reg =
+      /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+    return reg.test(userId);
+  };
   // サインインボタンが押された時の処理
   const onClickSignup = async () => {
     if (userId === '' || userPasswd === '' || retypePasswd === '') {
       setErrmsg('ユーザーID、パスワード、再入力パスワードを入力してください。');
       return;
     }
+    if (!isValidMailAdress(userId)) {
+      setErrmsg('メールアドレスの形式に合致しません。');
+      return;
+    }
+    if (userPasswd !== retypePasswd) {
+      setErrmsg('パスワードが一致しません');
+      return;
+    }
     await signup({ userId, userPasswd, retypePasswd });
-    setErrmsg('');
-    setUserId('');
-    setUserPasswd('');
-    setRetypePasswd('');
   };
 
   return (
@@ -69,7 +92,8 @@ export const SignupForm = () => {
         <div>
           <input
             type="text"
-            placeholder="ユーザーID"
+            id="new_userid"
+            placeholder="メールアドレス"
             onChange={onChangeUserId}
             onKeyDown={onKeyDownSignup}
             value={userId}
@@ -79,6 +103,7 @@ export const SignupForm = () => {
         <div>
           <input
             type="password"
+            id="new_password"
             placeholder="パスワード"
             onChange={onChangeUserPasswd}
             onKeyDown={onKeyDownSignup}
@@ -89,6 +114,7 @@ export const SignupForm = () => {
         <div>
           <input
             type="password"
+            id="retype_new_password"
             placeholder="パスワード再入力"
             onChange={onChangeRetypePasswd}
             onKeyDown={onKeyDownSignup}
