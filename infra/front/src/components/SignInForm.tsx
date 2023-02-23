@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthRequest } from '../types/AuthRequest';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -11,6 +11,14 @@ export const SignInForm = () => {
   const [userPasswd, setUserPasswd] = useState('');
   const [errmsg, setErrmsg] = useState('');
   const history = useHistory();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        history.push('/react/list');
+      }
+    });
+  });
 
   // ユーザーID入力イベント時の処理
   const onChangeUserId = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +47,6 @@ export const SignInForm = () => {
 
   // サーバーへ認証依頼を飛ばす
   const onClickAuth = async (req: AuthRequest) => {
-    // await signOut(auth);
     await signInWithEmailAndPassword(auth, userid, userPasswd)
       .then(async () => {
         history.push('/react/list');
@@ -59,11 +66,12 @@ export const SignInForm = () => {
   };
   return (
     <>
-      <form>
-        <div>
+      <form className="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
             type="text"
             id="userid"
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             placeholder="メールアドレス"
             onChange={onChangeUserId}
             onKeyDown={onKeyDownSignin}
@@ -71,11 +79,18 @@ export const SignInForm = () => {
             required
             data-testid="username"
           />
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="userid"
+          >
+            メールアドレス
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
             type="password"
             id="password"
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             placeholder="パスワード"
             onChange={onChangeUserPasswd}
             onKeyDown={onKeyDownSignin}
@@ -83,11 +98,23 @@ export const SignInForm = () => {
             required
             data-testid="userpasswd"
           />
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="password"
+          >
+            パスワード
+          </label>
         </div>
-        <div data-testid="errormsg">{errmsg}</div>
+        <div
+          data-testid="errormsg"
+          className="flex items-center justify-between"
+        >
+          {errmsg}
+        </div>
         <div>
           <input
             type="button"
+            className="bg-black hover:bg-black text-white py-2 px-4"
             value="サインイン"
             onClick={onClickSignin}
             data-testid="signinbutton"

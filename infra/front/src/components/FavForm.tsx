@@ -73,9 +73,15 @@ export const FavForm = () => {
 
   return (
     <div>
-      <div>新しいお気に入り</div>
-      <form id="newfav" encType="multipart/form-data">
-        <div>
+      <div className="fa-2x font-sans rounded w-full max-w-md mx-auto px-8 appearance-none font-bold">
+        新しいお気に入り
+      </div>
+      <form
+        className="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8"
+        id="newfav"
+        encType="multipart/form-data"
+      >
+        <div className="relative border shadow rounded mb-4 appearance-none">
           アイコン
           <input
             type="file"
@@ -85,27 +91,39 @@ export const FavForm = () => {
             data-testid="icon"
             onChange={onChangeIcon}
           />
-          <p>
-            <canvas id="canvas" width="0" height="0"></canvas>
+          <p className="canvas">
+            <canvas
+              className="canvas"
+              id="canvas"
+              width="0"
+              height="0"
+            ></canvas>
           </p>
           <img src="" id="iconimg" alt="icon" />
           <input type="hidden" id="icon" name="icon" />
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
             name="title"
             id="title"
             type="text"
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             placeholder="タイトル"
             required
             data-testid="favtitle"
             onChange={onChangeTitle}
             value={title}
           />
-          <label htmlFor="title">タイトル</label>
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="title"
+          >
+            タイトル
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             name="category"
             id="category"
             type="text"
@@ -114,10 +132,16 @@ export const FavForm = () => {
             onChange={onChangeCategory}
             value={category}
           />
-          <label htmlFor="category">カテゴリ</label>
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="category"
+          >
+            カテゴリ
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             name="publisher"
             id="publisher"
             type="text"
@@ -126,10 +150,16 @@ export const FavForm = () => {
             onChange={onChangePublisher}
             value={publisher}
           />
-          <label htmlFor="publisher">著者・製作者・提供者など</label>
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="publisher"
+          >
+            著者・製作者・提供者など
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             name="overview"
             id="overview"
             type="text"
@@ -138,10 +168,16 @@ export const FavForm = () => {
             onChange={onChangeOverview}
             value={overview}
           />
-          <label htmlFor="overview">概要</label>
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="overview"
+          >
+            概要
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <textarea
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             name="impre"
             id="impre"
             placeholder="フリーコメント"
@@ -149,11 +185,14 @@ export const FavForm = () => {
             onChange={onChangeImpression}
             value={impression}
           ></textarea>
-          <label htmlFor="impre"></label>
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="impre"
+          ></label>
         </div>
-        <div>
-          <div>ステータス</div>
-          <div data-testid="favtiming">
+        <div className="favradio border shadow flex items-center mb-4 justify-between">
+          <div className="radio_label">ステータス</div>
+          <div className="radio_body" data-testid="favtiming">
             <input
               type="radio"
               id={common.already}
@@ -162,7 +201,12 @@ export const FavForm = () => {
               checked={timing === common.already}
               onClick={onClickRadioTiming}
             />
-            <label htmlFor="already">前から好き/好きだった</label>
+            <label
+              className="tab_item radio_when text-base tracking-wide px-3"
+              htmlFor="already"
+            >
+              前から好き/好きだった
+            </label>
             <input
               type="radio"
               id={common.now}
@@ -171,7 +215,12 @@ export const FavForm = () => {
               checked={timing === common.now}
               onClick={onClickRadioTiming}
             />
-            <label htmlFor="now">今好き</label>
+            <label
+              className="tab_item radio_when text-base tracking-wide px-3"
+              htmlFor="now"
+            >
+              今好き
+            </label>
             <input
               type="radio"
               id={common.wish}
@@ -180,12 +229,17 @@ export const FavForm = () => {
               checked={timing === common.wish}
               onClick={onClickRadioTiming}
             />
-            <label htmlFor="wish">興味ある</label>
+            <label
+              className="tab_item radio_when text-base tracking-wide px-3"
+              htmlFor="wish"
+            >
+              興味ある
+            </label>
           </div>
         </div>
-        <div>
-          <div>お気に入り度</div>
-          <div data-testid="favstars">
+        <div className="favradio border shadow flex items-center mb-4 justify-between">
+          <div className="radio_label">お気に入り度</div>
+          <div className="radio_body" data-testid="favstars">
             <input
               type="radio"
               id="one"
@@ -194,7 +248,12 @@ export const FavForm = () => {
               checked={stars === common.star1}
               onClick={onClickRadioStars}
             />
-            <label htmlFor="one">1</label>
+            <label
+              className="tab_item radio_star text-base tracking-wide px-5"
+              htmlFor="one"
+            >
+              1
+            </label>
             <input
               type="radio"
               id="two"
@@ -203,7 +262,12 @@ export const FavForm = () => {
               checked={stars === common.star2}
               onClick={onClickRadioStars}
             />
-            <label htmlFor="two">2</label>
+            <label
+              className="tab_item radio_star text-base tracking-wide px-5"
+              htmlFor="two"
+            >
+              2
+            </label>
             <input
               type="radio"
               id="three"
@@ -212,7 +276,12 @@ export const FavForm = () => {
               checked={stars === common.star3}
               onClick={onClickRadioStars}
             />
-            <label htmlFor="three">3</label>
+            <label
+              className="tab_item radio_star text-base tracking-wide px-5"
+              htmlFor="three"
+            >
+              3
+            </label>
             <input
               type="radio"
               id="four"
@@ -221,7 +290,12 @@ export const FavForm = () => {
               checked={stars === common.star4}
               onClick={onClickRadioStars}
             />
-            <label htmlFor="four">4</label>
+            <label
+              className="tab_item radio_star text-base tracking-wide px-5"
+              htmlFor="four"
+            >
+              4
+            </label>
             <input
               type="radio"
               id="five"
@@ -230,12 +304,17 @@ export const FavForm = () => {
               checked={stars === common.star5}
               onClick={onClickRadioStars}
             />
-            <label htmlFor="five">5</label>
+            <label
+              className="tab_item radio_star text-base tracking-wide px-5"
+              htmlFor="five"
+            >
+              5
+            </label>
           </div>
         </div>
-        <div>
-          <div>公開設定</div>
-          <div data-testid="favopenclose">
+        <div className="favradio border shadow flex items-center mb-4 justify-between">
+          <div className="radio_label">公開設定</div>
+          <div className="radio_body" data-testid="favopenclose">
             <input
               type="radio"
               id="open"
@@ -244,7 +323,12 @@ export const FavForm = () => {
               checked={openClose}
               onClick={onClickRadioOpenClose}
             />
-            <label htmlFor="open">公開</label>
+            <label
+              className="tab_item radio_opcl text-base tracking-wide px-10"
+              htmlFor="open"
+            >
+              公開
+            </label>
             <input
               type="radio"
               id="close"
@@ -253,11 +337,17 @@ export const FavForm = () => {
               checked={!openClose}
               onClick={onClickRadioOpenClose}
             />
-            <label htmlFor="close">非公開</label>
+            <label
+              className="tab_item radio_opcl text-base tracking-wide px-10"
+              htmlFor="close"
+            >
+              非公開
+            </label>
           </div>
         </div>
-        <div>
+        <div className="flex items-center justify-between">
           <input
+            className="bg-black hover:bg-black text-white py-2 px-4"
             type="button"
             value="登録"
             id="create"
@@ -265,6 +355,7 @@ export const FavForm = () => {
             onClick={onClickSubmit}
           />
           <input
+            className="bg-white inline-block align-baseline text-gray-500 hover:text-gray-700"
             type="button"
             value="キャンセル"
             id="cancel"
@@ -274,13 +365,14 @@ export const FavForm = () => {
         </div>
       </form>
 
-      <div id="js-popup">
-        <div>
-          <div id="js-close-btn">
-            <i></i>
+      <div className="popup" id="js-popup">
+        <div className="popup-inner">
+          <div className="close-btn" id="js-close-btn">
+            <i className="fas fa-times"></i>
           </div>
           <input
             id="scal"
+            className="rangebar"
             type="range"
             value=""
             min="1"
@@ -288,12 +380,17 @@ export const FavForm = () => {
             data-testid="favscal"
           />
           <br />
-          <canvas id="cvs" width="500" height="500"></canvas>
-          <button id="crop" data-testid="favcropimg">
+          <canvas className="canvas" id="cvs" width="500" height="500"></canvas>
+          <button
+            className="bg-black hover:bg-black text-white py-2 px-4"
+            id="crop"
+            data-testid="favcropimg"
+          >
             切り抜き
           </button>
         </div>
-        <div id="js-black-bg"></div>
+        <div className="black-background" id="js-black-bg"></div>
+        <script src="http://localhost/js/fav.js"></script>
       </div>
     </div>
   );

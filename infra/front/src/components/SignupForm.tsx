@@ -88,44 +88,66 @@ export const SignupForm = () => {
 
   return (
     <>
-      <form>
-        <div>
+      <form className="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
             type="text"
             id="new_userid"
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             placeholder="メールアドレス"
             onChange={onChangeUserId}
             onKeyDown={onKeyDownSignup}
             value={userId}
             data-testid="username"
           />
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="new_userid"
+          >
+            メールアドレス
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
             type="password"
             id="new_password"
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             placeholder="パスワード"
             onChange={onChangeUserPasswd}
             onKeyDown={onKeyDownSignup}
             value={userPasswd}
             data-testid="userpasswd"
           />
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="new_password"
+          >
+            パスワード
+          </label>
         </div>
-        <div>
+        <div className="relative border rounded mb-4 shadow appearance-none label-floating">
           <input
             type="password"
             id="retype_new_password"
+            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
             placeholder="パスワード再入力"
             onChange={onChangeRetypePasswd}
             onKeyDown={onKeyDownSignup}
             value={retypePasswd}
             data-testid="userpasswd"
           />
+          <label
+            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+            htmlFor="retype_new_password"
+          >
+            パスワード再入力
+          </label>
         </div>
         <div data-testid="errormsg">{errmsg}</div>
-        <div>
+        <div className="flex items-center justify-between">
           <input
             type="button"
+            className="bg-black hover:bg-black text-white py-2 px-4"
             value="サインアップ"
             onClick={onClickSignup}
             data-testid="signupbutton"
