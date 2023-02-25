@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { SignupRequest } from '../types/SignupRequest';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFireBaseAuth } from './CommonAuthCheck';
+import { CommonLabel, InputBox } from './InputBox';
+import { CommonButton } from './CommonButton';
 
 const auth = getFireBaseAuth();
 
@@ -53,10 +55,6 @@ export const SignupForm = () => {
         history.push('/react');
       },
     );
-    // // const res = await await axios.post('/signup', req);
-    // if (res.status) {
-    //   history.push('/react');
-    // }
   };
   // Enterキー押下時はSignin処理を呼び出す
   const onKeyDownSignup = (event: KeyboardEvent<HTMLElement>) => {
@@ -90,67 +88,50 @@ export const SignupForm = () => {
     <>
       <form className="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
         <div className="relative border rounded mb-4 shadow appearance-none label-floating">
-          <input
+          <InputBox
             type="text"
             id="new_userid"
-            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
-            placeholder="メールアドレス"
+            placeHolder="メールアドレス"
             onChange={onChangeUserId}
             onKeyDown={onKeyDownSignup}
             value={userId}
-            data-testid="username"
+            testId="username"
           />
-          <label
-            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
-            htmlFor="new_userid"
-          >
-            メールアドレス
-          </label>
+          <CommonLabel htmlFor="new_userid" labelBody="メールアドレス" />
         </div>
         <div className="relative border rounded mb-4 shadow appearance-none label-floating">
-          <input
+          <InputBox
             type="password"
             id="new_password"
-            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
-            placeholder="パスワード"
+            placeHolder="パスワード"
             onChange={onChangeUserPasswd}
             onKeyDown={onKeyDownSignup}
             value={userPasswd}
-            data-testid="userpasswd"
+            testId="userpasswd"
           />
-          <label
-            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
-            htmlFor="new_password"
-          >
-            パスワード
-          </label>
+          <CommonLabel htmlFor="new_password" labelBody="パスワード" />
         </div>
         <div className="relative border rounded mb-4 shadow appearance-none label-floating">
-          <input
+          <InputBox
             type="password"
             id="retype_new_password"
-            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
-            placeholder="パスワード再入力"
+            placeHolder="パスワード再入力"
             onChange={onChangeRetypePasswd}
             onKeyDown={onKeyDownSignup}
             value={retypePasswd}
-            data-testid="userpasswd"
+            testId="retypeuserpasswd"
           />
-          <label
-            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
+          <CommonLabel
             htmlFor="retype_new_password"
-          >
-            パスワード再入力
-          </label>
+            labelBody="パスワード再入力"
+          />
         </div>
         <div data-testid="errormsg">{errmsg}</div>
         <div className="flex items-center justify-between">
-          <input
-            type="button"
-            className="bg-black hover:bg-black text-white py-2 px-4"
-            value="サインアップ"
+          <CommonButton
+            buttonBody="サインアップ"
             onClick={onClickSignup}
-            data-testid="signupbutton"
+            testId="signupbutton"
           />
         </div>
       </form>

@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { AuthRequest } from '../types/AuthRequest';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { getFireBaseAuth } from './CommonAuthCheck';
+import { CommonLabel, InputBox } from './InputBox';
+import { CommonButton } from './CommonButton';
 
 const auth = getFireBaseAuth();
 
@@ -46,14 +48,16 @@ export const SignInForm = () => {
   };
 
   // サーバーへ認証依頼を飛ばす
-  const onClickAuth = async (req: AuthRequest) => {
+  const requestAuth = async (req: AuthRequest): Promise<boolean> => {
     await signInWithEmailAndPassword(auth, userid, userPasswd)
       .then(async () => {
-        history.push('/react/list');
+        return true;
       })
       .catch((error) => {
         setErrmsg(error.code + error.errmsg);
+        return false;
       });
+    return false;
   };
 
   // サインインボタンが押された時の処理
@@ -62,48 +66,37 @@ export const SignInForm = () => {
       setErrmsg('ユーザーID、パスワードを入力してください。');
       return;
     }
-    await onClickAuth({ userId: userid, userPasswd });
+    if (await requestAuth({ userId: userid, userPasswd })) {
+      history.push('/react/list');
+    }
   };
   return (
     <>
       <form className="font-sans text-sm rounded w-full max-w-md mx-auto my-8 px-8 pt-6 pb-8">
         <div className="relative border rounded mb-4 shadow appearance-none label-floating">
-          <input
+          <InputBox
             type="text"
             id="userid"
-            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
-            placeholder="メールアドレス"
+            placeHolder="メールアドレス"
             onChange={onChangeUserId}
             onKeyDown={onKeyDownSignin}
             value={userid}
-            required
-            data-testid="username"
+            testId="username"
           />
-          <label
-            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
-            htmlFor="userid"
-          >
-            メールアドレス
-          </label>
+          <CommonLabel htmlFor="userid" labelBody="メールアドレス" />
         </div>
         <div className="relative border rounded mb-4 shadow appearance-none label-floating">
-          <input
+          <InputBox
             type="password"
             id="password"
-            className="w-full py-2 px-3 text-gray-700 leading-normal rounded"
-            placeholder="パスワード"
+            placeHolder="パスワード"
             onChange={onChangeUserPasswd}
             onKeyDown={onKeyDownSignin}
             value={userPasswd}
-            required
-            data-testid="userpasswd"
+            testId="userpasswd"
           />
-          <label
-            className="absolute block text-gray-700 top-0 left-0 w-full px-3 py-2 leading-normal"
-            htmlFor="password"
-          >
-            パスワード
-          </label>
+
+          <CommonLabel htmlFor="password" labelBody="パスワード" />
         </div>
         <div
           data-testid="errormsg"
@@ -112,12 +105,10 @@ export const SignInForm = () => {
           {errmsg}
         </div>
         <div>
-          <input
-            type="button"
-            className="bg-black hover:bg-black text-white py-2 px-4"
-            value="サインイン"
+          <CommonButton
             onClick={onClickSignin}
-            data-testid="signinbutton"
+            testId="signinbutton"
+            buttonBody="サインイン"
           />
         </div>
       </form>
